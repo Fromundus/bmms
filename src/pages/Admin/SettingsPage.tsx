@@ -266,10 +266,13 @@ const SettingsPage = () => {
                         </div>
                     </div>
 
-                    <ButtonWithLoading type='submit' loading={loading}>
-                        <Save className="h-4 w-4 mr-2" />
-                        Save Alert Thresholds
-                    </ButtonWithLoading>
+                    <div className='w-full flex justify-end'>
+                        <ButtonWithLoading type='submit' loading={loading}>
+                            <Save className="h-4 w-4 mr-2" />
+                            Save Alert Thresholds
+                        </ButtonWithLoading>
+                    </div>
+
                 </form>
                 </CardContent>
             </Card>

@@ -98,10 +98,10 @@ export default function Dashboard() {
                 <DropdownMenuContent align="end" className="w-56">
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => navigate(`/${user.role}/profile`)}>
+                  {/* <DropdownMenuItem onClick={() => navigate(`/${user.role}/profile`)}>
                     <User className="mr-2 h-4 w-4" />
                     Profile
-                  </DropdownMenuItem>
+                  </DropdownMenuItem> */}
                   <DropdownMenuItem onClick={() => navigate(`/${user.role}/settings`)}>
                     <Settings className="mr-2 h-4 w-4" />
                     Settings

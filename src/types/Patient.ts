@@ -20,7 +20,10 @@ type Patient = {
   medical_history: string;
   notes: string;
 
+  status?: string;
+
   created_at?: string;
+  updated_at?: string;
 } | null;
 
 export default Patient;

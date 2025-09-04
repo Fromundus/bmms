@@ -23,6 +23,10 @@ import BHWLayout from "./layouts/BHWLayout";
 import PatientsPage from "./pages/Admin/PatientsPage";
 import SettingsPage from "./pages/Admin/SettingsPage";
 import PatientsAddPage from "./pages/Admin/PatientsAddPage";
+import PatientPage from "./pages/Admin/PatientPage";
+import PatientsEditPage from "./pages/Admin/PatientsEditPage";
+import NutritionalGuidancePage from "./pages/Admin/NutritionalGuidancePage";
+import ReportsPage from "./pages/Admin/ReportsPage";
 
 const queryClient = new QueryClient();
 
@@ -61,6 +65,16 @@ const App = () => {
             <Route element={<PrivateRoute requiredRole="bhw" />}>
               <Route path="/bhw" element={<BHWLayout />}>
                 <Route index element={<DashboardOverview />} />
+                <Route path="patients" element={<PatientsPage />} />
+                <Route path="patients/:id" element={<PatientPage />} />
+                <Route path="patients/add" element={<PatientsAddPage />} />
+                <Route path="patients/edit/:id" element={<PatientsEditPage />} />
+                {/* <Route path="health-workers" element={<AccountsPage />} /> */}
+                <Route path="nutritional-guide" element={<NutritionalGuidancePage />} />
+                <Route path="accounts/:id" element={<AccountPage />} />
+                <Route path="reports" element={<ReportsPage />} />
+                <Route path="profile" element={<ProfilePage />} />
+                <Route path="settings" element={<SettingsPage />} />
               </Route>
             </Route>
 
@@ -68,9 +82,13 @@ const App = () => {
               <Route path="/admin" element={<AdminLayout />}>
                 <Route index element={<DashboardOverview />} />
                 <Route path="patients" element={<PatientsPage />} />
+                <Route path="patients/:id" element={<PatientPage />} />
                 <Route path="patients/add" element={<PatientsAddPage />} />
+                <Route path="patients/edit/:id" element={<PatientsEditPage />} />
                 <Route path="health-workers" element={<AccountsPage />} />
+                <Route path="nutritional-guide" element={<NutritionalGuidancePage />} />
                 <Route path="accounts/:id" element={<AccountPage />} />
+                <Route path="reports" element={<ReportsPage />} />
                 <Route path="profile" element={<ProfilePage />} />
                 <Route path="settings" element={<SettingsPage />} />
               </Route>

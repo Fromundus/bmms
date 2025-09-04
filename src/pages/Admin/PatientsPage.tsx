@@ -11,7 +11,7 @@ import {
   TableBody,
   TableCell,
 } from "@/components/ui/table";
-import { MoreVertical, Plus, PlusCircle, Save, Shield, Trash, User as UserIcon, UserCheck, Search, CarFront } from "lucide-react";
+import { MoreVertical, Plus, PlusCircle, Save, Shield, Trash, User as UserIcon, UserCheck, Search, CarFront, Eye, Pen, PenBoxIcon } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import { Link, useNavigate } from "react-router-dom";
 import User from "@/types/User";
@@ -23,6 +23,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import Modal from "@/components/custom/Modal";
 import ButtonWithLoading from "@/components/custom/ButtonWithLoading";
 import Patient from "@/types/Patient";
+import { format } from "date-fns";
+import PatientStatusBadge from "@/components/custom/PatientStatusBadge";
 
 export default function PatientsPage() {
   const [patients, setPatients] = useState<Patient[]>([]);
@@ -103,7 +105,7 @@ export default function PatientsPage() {
     setLoading(true);
     
     try {
-      await api.delete("/users", { data: { ids: selected } });
+      await api.delete("/patients", { data: { ids: selected } });
 
       toast({
         title: "Deleted Successfully",
@@ -201,6 +203,7 @@ export default function PatientsPage() {
                 <TableHead>Age</TableHead>
                 <TableHead>Sex</TableHead>
                 <TableHead>Address</TableHead>
+                <TableHead>Last Checkup</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead>Actions</TableHead>
               </TableRow>
@@ -208,7 +211,7 @@ export default function PatientsPage() {
             <TableBody>
               {loading ? (
                 <TableRow>
-                  <TableCell colSpan={7} className="text-center">
+                  <TableCell colSpan={9} className="text-center">
                     Loading...
                   </TableCell>
                 </TableRow>
@@ -225,15 +228,27 @@ export default function PatientsPage() {
                     <TableCell>{u.age}</TableCell>
                     <TableCell>{u.sex}</TableCell>
                     <TableCell>{u.address}</TableCell>
-                    <TableCell>{u.birthday}</TableCell>
+                    <TableCell>{format(new Date(u.updated_at), "PP")}</TableCell>
+                    <TableCell><PatientStatusBadge status={u.status} /></TableCell>
                     <TableCell>
-
+                      <div className="flex items-center gap-2">
+                        <Link to={`${u.id}`}>
+                          <Button variant="ghost">
+                            <Eye />
+                          </Button>
+                        </Link>
+                        <Link to={`edit/${u.id}`}>
+                          <Button variant="ghost">
+                            <PenBoxIcon />
+                          </Button>
+                        </Link>
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={7} className="text-center">
+                  <TableCell colSpan={9} className="text-center">
                     No Patients found.
                   </TableCell>
                 </TableRow>

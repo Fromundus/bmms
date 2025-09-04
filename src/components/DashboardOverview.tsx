@@ -17,120 +17,99 @@ import { Badge } from "@/components/ui/badge";
 import AdminPageMain from "./custom/AdminPageMain";
 import { Users, Activity, AlertTriangle, FileText, Heart, Settings } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import api from "@/api/axios";
+import { useAuth } from "@/store/auth";
 
+  // const stats = {
+  //   totalResidents: 1248,
+  //   at_risk: 45,
+  //   moderate: 12,
+  //   severe: 8,
+  //   healthy: 1183,
+  // };
 
-// const stats = [
-//   {
-//     title: "Current Fuel Stock",
-//     value: "1250 L",
-//     change: "+12%",
-//     trending: "up",
-//     icon: Fuel,
-//     description: "Active electric consumers"
-//   },
-//   {
-//     title: "Fuel Issued Today",
-//     value: "320 L",
-//     change: "-8%",
-//     trending: "down", 
-//     icon: CarFront,
-//     description: "Outstanding balance"
-//   },
-//   {
-//     title: "Pending Requests",
-//     value: "3",
-//     change: "+2",
-//     trending: "up",
-//     icon: Clock,
-//     description: "Areas affected"
-//   },
-//   {
-//     title: "Low Stock Alerts",
-//     value: "7",
-//     change: "+1",
-//     trending: "up",
-//     icon: AlertTriangle,
-//     description: "Open procurement"
-//   },
-// ];
-
-const recentActivities = [
-  {
-    type: "fuel",
-    action: "restock",
-    message: "Restock completed",
-    amount: "500L",
-    time: "2 minutes ago"
-  },
-  {
-    type: "request",
-    action: "approved",
-    message: "Request approved",
-    amount: "45L",
-    time: "2 minutes ago"
-  },
-  {
-    type: "request",
-    action: "pending",
-    message: "New request pending",
-    amount: "60L",
-    time: "2 minutes ago"
-  },
-  {
-    type: "fuel",
-    action: "lowstock",
-    message: "Low stock alert",
-    amount: "1L",
-    time: "2 minutes ago"
-  },
-];
-
-const upcomingTasks = [
-  {
-    title: "Monthly billing generation",
-    dueDate: "Tomorrow",
-    priority: "high"
-  },
-  {
-    title: "Equipment maintenance inspection",
-    dueDate: "Dec 15, 2024",
-    priority: "medium"
-  },
-  {
-    title: "Board meeting preparation",
-    dueDate: "Dec 20, 2024",
-    priority: "low"
-  },
-];
-
-  const stats = {
-    totalResidents: 1248,
-    atRisk: 45,
-    moderate: 12,
-    severe: 8,
-    healthy: 1183,
-  };
-
-  const quickActions = [
-    { title: "Register Health Worker", icon: Heart, href: "/health-workers", description: "Add new BHW" },
-    { title: "View Reports", icon: FileText, href: "/reports", description: "Latest statistics" },
-    { title: "Nutritional Guidance", icon: Activity, href: "/guidance", description: "Health tips" },
-    { title: "System Settings", icon: Settings, href: "/settings", description: "Configure system" },
+  const quickActionsBhw = [
+    { title: "View Reports", icon: FileText, href: "reports", description: "Latest statistics" },
+    { title: "Nutritional Guidance", icon: Activity, href: "nutritional-guide", description: "Health tips" },
+    { title: "System Settings", icon: Settings, href: "settings", description: "Configure system" },
   ];
 
+  const quickActions = [
+    { title: "Register Health Worker", icon: Heart, href: "health-workers", description: "Add new BHW" },
+    { title: "View Reports", icon: FileText, href: "reports", description: "Latest statistics" },
+    { title: "Nutritional Guidance", icon: Activity, href: "nutritional-guide", description: "Health tips" },
+    { title: "System Settings", icon: Settings, href: "settings", description: "Configure system" },
+  ];
+
+type Stats = {
+  total_patients: number;
+  severe: {
+    count: number;
+    percent: string;
+  };
+  moderate: {
+    count: number;
+    percent: string;
+  };
+  at_risk: {
+    count: number;
+    percent: string;
+  };
+  healthy: {
+    count: number;
+    percent: string;
+  };
+}
+
 export function DashboardOverview() {
+  const { user } = useAuth();
+  const [stats, setStats] = useState<Stats>({
+      total_patients: 0,
+      severe: {
+        count: 0,
+        percent: "",
+      },
+      moderate: {
+        count: 0,
+        percent: "",
+      },
+      at_risk: {
+        count: 0,
+        percent: "",
+      },
+      healthy: {
+        count: 0,
+        percent: "",
+      },
+  });
+
+  const fetchStats = async () => {
+    try {
+      const res = await api.get(`/getStats`);
+      setStats(res.data);
+      console.log(res);
+    } catch (err){
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchStats();
+  }, []);
+
   return (
-    <AdminPageMain title="Dashboard Overview" description="Monitor your fuel inventory and operations.">
+    <AdminPageMain title="Dashboard Overview" description="Monitor patients">
       {/* Statistics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <Card className="bmms-card border-l-4 border-l-green-500">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Residents Tracked</CardTitle>
+            <CardTitle className="text-sm font-medium">Total Patients</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">{stats.totalResidents.toLocaleString()}</div>
-            <p className="text-xs text-muted-foreground">Active in system</p>
+            <div className="text-2xl font-bold text-green-600">{stats?.total_patients}</div>
+            <p className="text-xs text-muted-foreground">Healthy</p>
           </CardContent>
         </Card>
 
@@ -140,7 +119,7 @@ export function DashboardOverview() {
             <AlertTriangle className="h-4 w-4 text-yellow-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-yellow-600">{stats.atRisk}</div>
+            <div className="text-2xl font-bold text-yellow-600">{stats?.at_risk?.count}</div>
             <p className="text-xs text-muted-foreground">Requires monitoring</p>
           </CardContent>
         </Card>
@@ -151,7 +130,7 @@ export function DashboardOverview() {
             <Activity className="h-4 w-4 text-orange-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-600">{stats.moderate}</div>
+            <div className="text-2xl font-bold text-orange-600">{stats?.moderate?.count}</div>
             <p className="text-xs text-muted-foreground">Needs intervention</p>
           </CardContent>
         </Card>
@@ -162,7 +141,7 @@ export function DashboardOverview() {
             <AlertTriangle className="h-4 w-4 text-red-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-red-600">{stats.severe}</div>
+            <div className="text-2xl font-bold text-red-600">{stats?.severe?.count}</div>
             <p className="text-xs text-muted-foreground">Urgent attention</p>
           </CardContent>
         </Card>
@@ -170,37 +149,37 @@ export function DashboardOverview() {
 
       {/* Malnutrition Overview */}
       <Card className="bmms-card">
-        <CardHeader>
+        {/* <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Activity className="h-5 w-5" />
             Malnutrition Overview
           </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        </CardHeader> */}
+        <CardContent className="pt-6">
+          {/* <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             <div className="text-center p-4 bg-green-50 rounded-lg">
-              <div className="text-2xl font-bold text-green-600">{stats.healthy}</div>
+              <div className="text-2xl font-bold text-green-600">{stats?.healthy}</div>
               <div className="text-sm text-green-700">Healthy</div>
             </div>
             <div className="text-center p-4 bg-yellow-50 rounded-lg">
-              <div className="text-2xl font-bold text-yellow-600">{stats.atRisk}</div>
+              <div className="text-2xl font-bold text-yellow-600">{stats?.at_risk}</div>
               <div className="text-sm text-yellow-700">At Risk</div>
             </div>
             <div className="text-center p-4 bg-orange-50 rounded-lg">
-              <div className="text-2xl font-bold text-orange-600">{stats.moderate}</div>
+              <div className="text-2xl font-bold text-orange-600">{stats?.moderate}</div>
               <div className="text-sm text-orange-700">Moderate</div>
             </div>
             <div className="text-center p-4 bg-red-50 rounded-lg">
-              <div className="text-2xl font-bold text-red-600">{stats.severe}</div>
+              <div className="text-2xl font-bold text-red-600">{stats?.severe}</div>
               <div className="text-sm text-red-700">Severe</div>
             </div>
-          </div>
+          </div> */}
           <div className="flex gap-4">
             <Button asChild>
-              <Link to="/patients">View All Patients</Link>
+              <Link to="patients">View All Patients</Link>
             </Button>
             <Button variant="outline" asChild>
-              <Link to="/patients/add">Add New Patient</Link>
+              <Link to="patients/add">Add New Patient</Link>
             </Button>
           </div>
         </CardContent>
@@ -212,7 +191,7 @@ export function DashboardOverview() {
           <CardTitle>Quick Actions</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {user.role === "admin" && <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {quickActions.map((action) => (
               <Button
                 key={action.title}
@@ -229,7 +208,26 @@ export function DashboardOverview() {
                 </Link>
               </Button>
             ))}
-          </div>
+          </div>}
+
+          {user.role === "bhw" && <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {quickActionsBhw.map((action) => (
+              <Button
+                key={action.title}
+                variant="outline"
+                asChild
+                className="h-24 flex flex-col items-center justify-center gap-2 hover:bg-primary hover:text-primary-foreground transition-colors"
+              >
+                <Link to={action.href}>
+                  <action.icon className="h-6 w-6" />
+                  <div className="text-center">
+                    <div className="font-medium">{action.title}</div>
+                    <div className="text-xs opacity-70">{action.description}</div>
+                  </div>
+                </Link>
+              </Button>
+            ))}
+          </div>}
         </CardContent>
       </Card>
     </AdminPageMain>
