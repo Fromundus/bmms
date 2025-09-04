@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { HeartPulse, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./ThemeToggle";
@@ -18,71 +18,35 @@ const Navigation = () => {
   const [infoOpen, setInfoOpen] = useState(false); // for mobile collapse
   const location = useLocation();
 
-  const mainNavItems = [
-    { name: "Home", path: "/" },
-    { name: "News & Advisories", path: "/news" },
-    { name: "Billing Inquiry", path: "/billing" },
-    { name: "Services", path: "/services" },
-  ];
-  
-  const infoItems = [
-    { name: "Biddings", path: "/biddings" },
-    { name: "Downloads", path: "/downloads" },
-    { name: "About", path: "/about" },
-    { name: "Contact Us", path: "/contact" },
-  ];
-
   const isActive = (path: string) => location.pathname === path;
 
   return (
     <nav className="bg-background shadow-[var(--shadow-card)] sticky top-0 z-50 border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
+        <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-10 h-10 rounded-lg flex items-center justify-center">
-              <img src={logo} alt="FICELCO Logo" />
+              {/* <img src={logo} alt="FICELCO Logo" /> */}
+              <HeartPulse className="size-8" />
             </div>
-            <span className="text-xl font-bold text-foreground">FICELCO</span>
+            <span className="text-xl font-bold text-foreground">Barangay Malnutrition Monitoring System</span>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-1">
-            {mainNavItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.path}
-                className={cn(
-                  "nav-link px-3 py-2 rounded-md text-sm font-medium",
-                  isActive(item.path) && "nav-link-active"
-                )}
-              >
-                {item.name}
-              </Link>
-            ))}
-
-            {/* Information Dropdown */}
-            <DropdownMenu>
-              <DropdownMenuTrigger className="px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary flex items-center gap-1">
-                Information
-                <ChevronDown className="w-4 h-4" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                {infoItems.map((item) => (
-                  <DropdownMenuItem asChild key={item.name}>
-                    <Link to={item.path}>{item.name}</Link>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-
             <div className="ml-4 flex items-center gap-4">
               <ThemeToggle />
-              <Button>
-                <Link to={'/login'}>
+              <Link to={'/'}>
+                <Button>
                   Login
-                </Link>
-              </Button>
+                </Button>
+              </Link>
+              <Link to={'/register'}>
+                <Button variant="outline">
+                  Signup
+                </Button>
+              </Link>
             </div>
 
           </div>
@@ -90,19 +54,24 @@ const Navigation = () => {
           {/* Mobile menu button and theme toggle */}
           <div className="lg:hidden flex items-center space-x-4">
             <ThemeToggle />
-            <Button>
-              <Link to={'/login'}>
+            <Link to={'/'}>
+              <Button>
                 Login
-              </Link>
-            </Button>
-            <Button
+              </Button>
+            </Link>
+            <Link to={'/register'}>
+              <Button variant="outline">
+                Signup
+              </Button>
+            </Link>
+            {/* <Button
               variant="ghost"
               size="sm"
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle navigation menu"
             >
               {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </Button>
+            </Button> */}
           </div>
         </div>
 
@@ -110,51 +79,6 @@ const Navigation = () => {
         {isOpen && (
           <div className="lg:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 bg-background border-t border-border">
-              {mainNavItems.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.path}
-                  className={cn(
-                    "block px-3 py-2 rounded-md text-base font-medium transition-colors",
-                    isActive(item.path)
-                      ? "text-primary bg-secondary"
-                      : "text-foreground hover:text-primary hover:bg-secondary"
-                  )}
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
-
-              {/* Collapsible Info Section */}
-              <div>
-                <button
-                  onClick={() => setInfoOpen(!infoOpen)}
-                  className="w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium text-foreground hover:text-primary hover:bg-secondary"
-                >
-                  Information
-                  <ChevronDown
-                    className={cn(
-                      "w-4 h-4 transition-transform",
-                      infoOpen && "rotate-180"
-                    )}
-                  />
-                </button>
-                {infoOpen && (
-                  <div className="pl-4">
-                    {infoItems.map((item) => (
-                      <Link
-                        key={item.name}
-                        to={item.path}
-                        className="block px-3 py-2 rounded-md text-sm text-foreground hover:text-primary hover:bg-secondary"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {item.name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
             </div>
           </div>
         )}

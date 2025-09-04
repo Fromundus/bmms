@@ -1,14 +1,15 @@
 type User = {
   id: number;
-  username: string;
   name: string;
+  contact_number?: string | null;
+  hw_id?: string | null;
+  area?: string | null;
+  notes?: string | null;
   email: string;
   email_verified_at: string;
   role: string;
   status: string;
   created_at?: string;
-
-  profile_picture: string;
 } | null;
 
 export default User;

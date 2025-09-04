@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 import logo from "../assets/logo.png";
 
 type FormData = {
-    username: string;
+    email: string;
     password: string;
 }
 
@@ -21,7 +21,7 @@ const Login = () => {
     const { login } = useAuth();
     const [loading, setLoading] = React.useState<boolean>(false);
     const [formData, setFormData] = React.useState<FormData>({
-        username: "",
+        email: "",
         password: "",
     });
 
@@ -64,9 +64,9 @@ const Login = () => {
                 <Card className='max-w-md mx-auto w-full'>
                     <CardHeader className='flex items-center'>
                         <CardTitle>
-                            <div className='flex items-center gap-4'>
-                                <img className="w-10" src={logo} alt="" />
-                                Fuel Monitoring System
+                            <div className='flex flex-col gap-4 w-full text-center'>
+                                <span>Login</span>
+                                <span className='text-base font-normal text-muted-foreground'>Access your Barangay Wellness Tracker Account.</span>
                             </div>
                         </CardTitle>
                     </CardHeader>
@@ -79,12 +79,12 @@ const Login = () => {
                             }
                             <div className='space-y-6'>
                                 <InputWithLabel
-                                    id="username"
-                                    name='username'
-                                    type="text"
-                                    label='Username'
-                                    placeholder="Enter your username"
-                                    value={formData.username}
+                                    id="email"
+                                    name='email'
+                                    type="email"
+                                    label='Email'
+                                    placeholder="Enter your Email"
+                                    value={formData.email}
                                     onChange={handleChange}
                                     disabled={loading}
                                 />
@@ -104,13 +104,16 @@ const Login = () => {
                             </div>
                             <ButtonWithLoading
                                 type='submit'
-                                disabled={loading || formData.username === "" || formData.password === ""}
+                                disabled={loading || formData.email === "" || formData.password === ""}
                                 className='w-full'
                                 loading={loading}
                             >
                                 Login
                             </ButtonWithLoading>
                         </form>
+                        <div className='w-full mt-4 text-center'>
+                            <span>Dont have an account? <Link className='font-semibold' to={'/register'}>Signup</Link></span>
+                        </div>
                     </CardContent>
                 </Card>
             </div>

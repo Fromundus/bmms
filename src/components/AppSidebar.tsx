@@ -9,6 +9,7 @@ import {
   Building,
   BarChart3,
   Settings,
+  HeartPulse,
 } from "lucide-react";
 import {
   Sidebar,
@@ -21,7 +22,7 @@ import {
   SidebarMenuItem,
   SidebarHeader,
 } from "@/components/ui/sidebar";
-import { adminNavigations, superadminNavigations } from "@/data/navigations";
+import { adminNavigations, bhwNavigations } from "@/data/navigations";
 import { useAuth } from "@/store/auth";
 import logo from "../assets/logo.png";
 
@@ -41,8 +42,8 @@ export function AppSidebar() {
 
   if(user.role === "admin"){
     navigations = adminNavigations;
-  } else if (user.role === "superadmin"){
-    navigations = superadminNavigations;
+  } else if (user.role === "bhw"){
+    navigations = bhwNavigations;
   }
 
   const groupedItems = navigations.reduce((acc, item) => {
@@ -59,11 +60,12 @@ export function AppSidebar() {
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg flex items-center justify-center">
             {/* <span className="text-primary-foreground font-bold text-sm">F</span> */}
-            <img className="w-8" src={logo} alt="" />
+            {/* <img className="w-8" src={logo} alt="" /> */}
+            <HeartPulse />
           </div>
           <div>
-            <h2 className="font-semibold text-lg">FICELCO</h2>
-            <p className="text-xs text-muted-foreground">Fuel Monitoring System</p>
+            {/* <h2 className="font-semibold text-lg">FICELCO</h2> */}
+            <p className="text-xs text-muted-foreground">Barangay Malnutrition Monitoring System</p>
           </div>
         </div>
       </SidebarHeader>

@@ -12,19 +12,17 @@ import React from "react";
 import PrivateRoute from "./components/PrivateRoute";
 import SuperadminLayout from "./layouts/SuperadminLayout";
 import { DashboardOverview } from "./components/DashboardOverview";
-import UserLayout from "./layouts/UserLayout";
 import Test from "./pages/Test";
 import NotFound from "./pages/NotFound";
 import AdminLayout from "./layouts/AdminLayout";
-import FuelStockPage from "./pages/Admin/FuelStockPage";
-import RequestsPage from "./pages/Admin/RequestsPage";
-import DriversPage from "./pages/Admin/DriversPage";
-import ReportsPage from "./pages/Admin/ReportsPage";
-import ActivityLogsPage from "./pages/Admin/ActivityLogsPage";
-import SettingsPage from "./pages/Admin/SettingsPage";
 import ProfilePage from "./pages/ProfilePage";
 import AccountsPage from "./pages/Superadmin/AccountsPage";
 import AccountPage from "./pages/Superadmin/AccountPage";
+import Register from "./pages/Register";
+import BHWLayout from "./layouts/BHWLayout";
+import PatientsPage from "./pages/Admin/PatientsPage";
+import SettingsPage from "./pages/Admin/SettingsPage";
+import PatientsAddPage from "./pages/Admin/PatientsAddPage";
 
 const queryClient = new QueryClient();
 
@@ -55,35 +53,26 @@ const App = () => {
           <Routes>
             <Route path="/" element={<GuestLayout />}>
               <Route index element={<Login />} />
+              <Route path='/register' element={<Register />} />
 
               {/* <Route path="login" element={<Login />} /> */}
+            </Route>
+
+            <Route element={<PrivateRoute requiredRole="bhw" />}>
+              <Route path="/bhw" element={<BHWLayout />}>
+                <Route index element={<DashboardOverview />} />
+              </Route>
             </Route>
 
             <Route element={<PrivateRoute requiredRole="admin" />}>
               <Route path="/admin" element={<AdminLayout />}>
                 <Route index element={<DashboardOverview />} />
-                <Route path="fuel-stock" element={<FuelStockPage />} />
-                <Route path="requests" element={<RequestsPage />} />
-                <Route path="drivers" element={<DriversPage />} />
-                <Route path="reports" element={<ReportsPage />} />
-                <Route path="activity-logs" element={<ActivityLogsPage />} />
-                <Route path="settings" element={<SettingsPage />} />
-                <Route path="profile" element={<ProfilePage />} />
-              </Route>
-            </Route>
-
-            <Route element={<PrivateRoute requiredRole="superadmin" />}>
-              <Route path="/superadmin" element={<SuperadminLayout />}>
-                <Route index element={<DashboardOverview />} />
-                <Route path="fuel-stock" element={<FuelStockPage />} />
-                <Route path="requests" element={<RequestsPage />} />
-                <Route path="drivers" element={<DriversPage />} />
-                <Route path="reports" element={<ReportsPage />} />
-                <Route path="accounts" element={<AccountsPage />} />
+                <Route path="patients" element={<PatientsPage />} />
+                <Route path="patients/add" element={<PatientsAddPage />} />
+                <Route path="health-workers" element={<AccountsPage />} />
                 <Route path="accounts/:id" element={<AccountPage />} />
-                <Route path="activity-logs" element={<ActivityLogsPage />} />
-                <Route path="settings" element={<SettingsPage />} />
                 <Route path="profile" element={<ProfilePage />} />
+                <Route path="settings" element={<SettingsPage />} />
               </Route>
             </Route>
 

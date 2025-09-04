@@ -1,7 +1,5 @@
 import { 
-  Users, 
   CreditCard, 
-  AlertTriangle, 
   Gavel,
   TrendingUp,
   TrendingDown,
@@ -11,47 +9,50 @@ import {
   Fuel,
   Clock,
   CarFront,
-  ClipboardCheck
+  ClipboardCheck,
 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import AdminPageMain from "./custom/AdminPageMain";
+import { Users, Activity, AlertTriangle, FileText, Heart, Settings } from "lucide-react";
+import { Link } from "react-router-dom";
 
-const stats = [
-  {
-    title: "Current Fuel Stock",
-    value: "1250 L",
-    change: "+12%",
-    trending: "up",
-    icon: Fuel,
-    description: "Active electric consumers"
-  },
-  {
-    title: "Fuel Issued Today",
-    value: "320 L",
-    change: "-8%",
-    trending: "down", 
-    icon: CarFront,
-    description: "Outstanding balance"
-  },
-  {
-    title: "Pending Requests",
-    value: "3",
-    change: "+2",
-    trending: "up",
-    icon: Clock,
-    description: "Areas affected"
-  },
-  {
-    title: "Low Stock Alerts",
-    value: "7",
-    change: "+1",
-    trending: "up",
-    icon: AlertTriangle,
-    description: "Open procurement"
-  },
-];
+
+// const stats = [
+//   {
+//     title: "Current Fuel Stock",
+//     value: "1250 L",
+//     change: "+12%",
+//     trending: "up",
+//     icon: Fuel,
+//     description: "Active electric consumers"
+//   },
+//   {
+//     title: "Fuel Issued Today",
+//     value: "320 L",
+//     change: "-8%",
+//     trending: "down", 
+//     icon: CarFront,
+//     description: "Outstanding balance"
+//   },
+//   {
+//     title: "Pending Requests",
+//     value: "3",
+//     change: "+2",
+//     trending: "up",
+//     icon: Clock,
+//     description: "Areas affected"
+//   },
+//   {
+//     title: "Low Stock Alerts",
+//     value: "7",
+//     change: "+1",
+//     trending: "up",
+//     icon: AlertTriangle,
+//     description: "Open procurement"
+//   },
+// ];
 
 const recentActivities = [
   {
@@ -102,108 +103,135 @@ const upcomingTasks = [
   },
 ];
 
+  const stats = {
+    totalResidents: 1248,
+    atRisk: 45,
+    moderate: 12,
+    severe: 8,
+    healthy: 1183,
+  };
+
+  const quickActions = [
+    { title: "Register Health Worker", icon: Heart, href: "/health-workers", description: "Add new BHW" },
+    { title: "View Reports", icon: FileText, href: "/reports", description: "Latest statistics" },
+    { title: "Nutritional Guidance", icon: Activity, href: "/guidance", description: "Health tips" },
+    { title: "System Settings", icon: Settings, href: "/settings", description: "Configure system" },
+  ];
+
 export function DashboardOverview() {
   return (
     <AdminPageMain title="Dashboard Overview" description="Monitor your fuel inventory and operations.">
+      {/* Statistics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {stats.map((stat, index) => (
-          <Card key={stat.title} className="animate-fade-in shadow-soft hover:shadow-electric transition-all duration-300" style={{ animationDelay: `${index * 100}ms` }}>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
-                {stat.title}
-              </CardTitle>
-              <div className="p-2 electric-gradient rounded-lg">
-                <stat.icon className="h-4 w-4 text-white" />
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-foreground">{stat.value}</div>
-              {/* <div className="flex items-center gap-2 mt-2">
-                <div className={`flex items-center gap-1 text-sm ${
-                  stat.trending === 'up' ? 'text-success' : 'text-accent'
-                }`}>
-                  {stat.trending === 'up' ? (
-                    <TrendingUp className="h-3 w-3" />
-                  ) : (
-                    <TrendingDown className="h-3 w-3" />
-                  )}
-                  {stat.change}
-                </div>
-                <span className="text-xs text-muted-foreground">from last month</span>
-              </div> */}
-              {/* <p className="text-xs text-muted-foreground mt-1">{stat.description}</p> */}
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-
-      {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        {/* Recent Activities */}
-        <Card className="lg:col-span-2 shadow-soft">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Zap className="h-5 w-5 text-primary" />
-              Recent Activities
-            </CardTitle>
-            <CardDescription>Latest updates and system activities</CardDescription>
+        <Card className="bmms-card border-l-4 border-l-green-500">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Total Residents Tracked</CardTitle>
+            <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent className="space-y-4">
-            {recentActivities.map((activity, index) => (
-              <div key={index} className="flex items-start gap-3 p-3 rounded-lg bg-secondary/50 hover:bg-secondary transition-colors">
-                <div className={`p-1.5 rounded-full 
-                  ${activity.type === 'fuel' && activity.action === 'restock' && 'text-green-500'}
-                  ${activity.type === 'fuel' && activity.action === 'restock' && 'text-green-500'}
-                  ${activity.type === 'request' && 'bg-success/20 text-success'}
-                `}
-                >
-                  {activity.type === 'fuel' && <Fuel className="h-3 w-3" />}
-                  {activity.type === 'request' && <ClipboardCheck className="h-3 w-3" />}
-                  {activity.type === 'member' && <Users className="h-3 w-3" />}
-                  {activity.type === 'billing' && <CreditCard className="h-3 w-3" />}
-                </div>
-                <div className="flex-1">
-                  <p className="text-sm font-medium text-foreground">{activity.message}</p>
-                  {activity.amount && (
-                    <p className="text-sm font-semibold text-success">{activity.amount}</p>
-                  )}
-                  <p className="text-xs text-muted-foreground">{activity.time}</p>
-                </div>
-              </div>
-            ))}
-            <Button variant="outline" className="w-full mt-4">
-              View All Activities
-            </Button>
+          <CardContent>
+            <div className="text-2xl font-bold text-green-600">{stats.totalResidents.toLocaleString()}</div>
+            <p className="text-xs text-muted-foreground">Active in system</p>
           </CardContent>
         </Card>
 
-        {/* Upcoming Tasks */}
-        {/* <Card className="shadow-soft">
-          <CardHeader>
-            <CardTitle>Upcoming Tasks</CardTitle>
-            <CardDescription>Important deadlines and reminders</CardDescription>
+        <Card className="bmms-card border-l-4 border-l-yellow-500">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">At Risk</CardTitle>
+            <AlertTriangle className="h-4 w-4 text-yellow-500" />
           </CardHeader>
-          <CardContent className="space-y-3">
-            {upcomingTasks.map((task, index) => (
-              <div key={index} className="p-3 rounded-lg border border-border hover:bg-secondary/50 transition-colors">
-                <div className="flex items-start justify-between gap-2">
-                  <h4 className="text-sm font-medium text-foreground">{task.title}</h4>
-                  <Badge variant={
-                    task.priority === 'high' ? 'destructive' :
-                    task.priority === 'medium' ? 'default' : 'secondary'
-                  } className="text-xs">
-                    {task.priority}
-                  </Badge>
-                </div>
-                <p className="text-xs text-muted-foreground mt-1">{task.dueDate}</p>
-              </div>
-            ))}
-            <Button className="w-full electric-gradient hover:opacity-90 transition-opacity">
-              View All Tasks
-            </Button>
+          <CardContent>
+            <div className="text-2xl font-bold text-yellow-600">{stats.atRisk}</div>
+            <p className="text-xs text-muted-foreground">Requires monitoring</p>
           </CardContent>
-        </Card> */}
+        </Card>
+
+        <Card className="bmms-card border-l-4 border-l-orange-500">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Moderate Cases</CardTitle>
+            <Activity className="h-4 w-4 text-orange-500" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-orange-600">{stats.moderate}</div>
+            <p className="text-xs text-muted-foreground">Needs intervention</p>
+          </CardContent>
+        </Card>
+
+        <Card className="bmms-card border-l-4 border-l-red-500">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Severe Cases</CardTitle>
+            <AlertTriangle className="h-4 w-4 text-red-500" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-red-600">{stats.severe}</div>
+            <p className="text-xs text-muted-foreground">Urgent attention</p>
+          </CardContent>
+        </Card>
       </div>
+
+      {/* Malnutrition Overview */}
+      <Card className="bmms-card">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Activity className="h-5 w-5" />
+            Malnutrition Overview
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            <div className="text-center p-4 bg-green-50 rounded-lg">
+              <div className="text-2xl font-bold text-green-600">{stats.healthy}</div>
+              <div className="text-sm text-green-700">Healthy</div>
+            </div>
+            <div className="text-center p-4 bg-yellow-50 rounded-lg">
+              <div className="text-2xl font-bold text-yellow-600">{stats.atRisk}</div>
+              <div className="text-sm text-yellow-700">At Risk</div>
+            </div>
+            <div className="text-center p-4 bg-orange-50 rounded-lg">
+              <div className="text-2xl font-bold text-orange-600">{stats.moderate}</div>
+              <div className="text-sm text-orange-700">Moderate</div>
+            </div>
+            <div className="text-center p-4 bg-red-50 rounded-lg">
+              <div className="text-2xl font-bold text-red-600">{stats.severe}</div>
+              <div className="text-sm text-red-700">Severe</div>
+            </div>
+          </div>
+          <div className="flex gap-4">
+            <Button asChild>
+              <Link to="/patients">View All Patients</Link>
+            </Button>
+            <Button variant="outline" asChild>
+              <Link to="/patients/add">Add New Patient</Link>
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Quick Actions */}
+      <Card className="bmms-card">
+        <CardHeader>
+          <CardTitle>Quick Actions</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {quickActions.map((action) => (
+              <Button
+                key={action.title}
+                variant="outline"
+                asChild
+                className="h-24 flex flex-col items-center justify-center gap-2 hover:bg-primary hover:text-primary-foreground transition-colors"
+              >
+                <Link to={action.href}>
+                  <action.icon className="h-6 w-6" />
+                  <div className="text-center">
+                    <div className="font-medium">{action.title}</div>
+                    <div className="text-xs opacity-70">{action.description}</div>
+                  </div>
+                </Link>
+              </Button>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
     </AdminPageMain>
   );
 }

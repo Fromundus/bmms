@@ -11,25 +11,21 @@ import {
   TableBody,
   TableCell,
 } from "@/components/ui/table";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { MoreVertical, Plus, PlusCircle, Save, Shield, Trash, User as UserIcon, UserCheck, Search, CarFront } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import { Link, useNavigate } from "react-router-dom";
 import User from "@/types/User";
-import { Badge } from "../ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import InputWithLabel from "./InputWithLabel";
-import { Label } from "../ui/label";
-import ButtonWithLoading from "./ButtonWithLoading";
 // import AddAdmin from "./add-modals/AddAdmin";
 // import AddUser from "./add-modals/AddUser";
-import IconButton from "./IconButton";
-import Modal from "./Modal";
 import api from "@/api/axios";
-import AddUser from "./add-modals/AddUser";
+import AddUser from "@/components/custom/add-modals/AddUser";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import Modal from "@/components/custom/Modal";
+import ButtonWithLoading from "@/components/custom/ButtonWithLoading";
+import Patient from "@/types/Patient";
 
-export default function AccountsTable() {
-  const [users, setUsers] = useState<User[]>([]);
+export default function PatientsPage() {
+  const [patients, setPatients] = useState<Patient[]>([]);
   const [page, setPage] = useState(1);
   const [perPage] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
@@ -55,7 +51,7 @@ export default function AccountsTable() {
     setLoading(true);
 
     try {
-      const res = await api.get(`/users`, {
+      const res = await api.get(`/patients`, {
         params: { 
           page, 
           per_page: perPage, 
@@ -63,9 +59,9 @@ export default function AccountsTable() {
         },
       });
       console.log(res);
-      setUsers(res.data.users.data);
-      setTotalPages(res.data.users.last_page);
-      setFetchTotal(res.data.users.total);
+      setPatients(res.data.patients.data);
+      setTotalPages(res.data.patients.last_page);
+      setFetchTotal(res.data.patients.total);
       setCounts(res.data.counts);
       setLoading(false);
     } catch (err) {
@@ -95,10 +91,10 @@ export default function AccountsTable() {
   };
 
   const selectAll = () => {
-    if (selected.length === users.length) {
+    if (selected.length === patients.length) {
       setSelected([]);
     } else {
-      setSelected(users.map((u) => u.id));
+      setSelected(patients.map((u) => u.id));
     }
   };
 
@@ -135,19 +131,15 @@ export default function AccountsTable() {
       {/* Search + Bulk Actions */}
       <div className="flex gap-6 flex-col lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <h2 className="text-2xl font-bold">Health Worker Management</h2>
-          <p className="text-muted-foreground">Manage account information and records</p>
+          <h2 className="text-2xl font-bold">Patient Management</h2>
+          <p className="text-muted-foreground">Manage patients</p>
         </div>
         <div className="space-x-4">
-          {/* <Button>
-            <Link className="flex items-center gap-2" to={'add'}>
-              <Plus /> Add Account
-            </Link>
-          </Button> */}
-
-          <AddUser refetch={fetchUsers} />
-
-          {/* <AddAdmin refetch={fetchUsers} /> */}
+          <Link to={'add'}>
+            <Button>
+              <Plus /> Add Patient
+            </Button>
+          </Link>
         </div>
       </div>
 
@@ -157,7 +149,7 @@ export default function AccountsTable() {
             <div className="relative w-full">
               <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
               <Input
-                placeholder="Search users..."
+                placeholder="Search patients..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 className="w-full pl-10"
@@ -171,7 +163,7 @@ export default function AccountsTable() {
         <CardHeader>
           <div className="w-full flex flex-col gap-6 lg:flex-row lg:justify-between lg:items-center">
             <CardTitle>
-              Health Worker Records
+              Patient Directory
             </CardTitle>
               <div className="flex items-center gap-2">
                   <>
@@ -201,16 +193,16 @@ export default function AccountsTable() {
               <TableRow>
                 <TableHead className="w-[50px]">
                   <Checkbox
-                    checked={selected.length === users.length && users.length > 0}
+                    checked={selected.length === patients.length && patients.length > 0}
                     onCheckedChange={selectAll}
                   />
                 </TableHead>
                 <TableHead>Name</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead>Health Worker ID</TableHead>
-                <TableHead>Contact Number</TableHead>
-                <TableHead>Area of Assignment</TableHead>
-                <TableHead>Notes</TableHead>
+                <TableHead>Age</TableHead>
+                <TableHead>Sex</TableHead>
+                <TableHead>Address</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -220,8 +212,8 @@ export default function AccountsTable() {
                     Loading...
                   </TableCell>
                 </TableRow>
-              ) : users.length > 0 ? (
-                users.map((u) => (
+              ) : patients.length > 0 ? (
+                patients.map((u) => (
                   <TableRow key={u.id}>
                     <TableCell>
                       <Checkbox
@@ -230,17 +222,19 @@ export default function AccountsTable() {
                       />
                     </TableCell>
                     <TableCell>{u.name}</TableCell>
-                    <TableCell>{u.email}</TableCell>
-                    <TableCell>{u.hw_id}</TableCell>
-                    <TableCell>{u.contact_number}</TableCell>
-                    <TableCell>{u.area}</TableCell>
-                    <TableCell>{u.notes}</TableCell>
+                    <TableCell>{u.age}</TableCell>
+                    <TableCell>{u.sex}</TableCell>
+                    <TableCell>{u.address}</TableCell>
+                    <TableCell>{u.birthday}</TableCell>
+                    <TableCell>
+
+                    </TableCell>
                   </TableRow>
                 ))
               ) : (
                 <TableRow>
                   <TableCell colSpan={7} className="text-center">
-                    No health workers found.
+                    No Patients found.
                   </TableCell>
                 </TableRow>
               )}

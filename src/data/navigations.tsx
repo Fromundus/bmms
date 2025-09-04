@@ -1,5 +1,5 @@
 import NavItem from "@/types/NavItem";
-import { Archive, Award, Bell, Briefcase, Calendar, CarFront, Coins, CreditCard, Database, DollarSign, Download, FileSignature, Folder, FolderOpen, Fuel, HelpCircle, Inbox, Logs, Megaphone, Upload, UploadCloud, Zap } from "lucide-react";
+import { Archive, Award, Bell, Briefcase, Calendar, CarFront, Coins, CreditCard, Database, DollarSign, Download, FileSignature, Folder, FolderOpen, Fuel, Heart, HelpCircle, Inbox, Logs, Megaphone, Upload, UploadCloud, Zap } from "lucide-react";
 
 import {
   LayoutDashboard,
@@ -13,7 +13,7 @@ import {
   Settings,
 } from "lucide-react";
 
-export const superadminNavigations = [
+export const bhwNavigations = [
   {
     title: "Dashboard",
     url: "/superadmin",
@@ -66,33 +66,21 @@ export const adminNavigations = [
     group: "Navigation"
   },
   {
-    title: "Fuel Stock",
-    url: "fuel-stock",
-    icon: Fuel,
+    title: "Patient Directory",
+    url: "patients",
+    icon: Users,
     group: "Navigation"
   },
   {
-    title: "Requests",
-    url: "requests",
-    icon: ClipboardCheck,
+    title: "Health Workers",
+    url: "health-workers",
+    icon: Heart,
     group: "Navigation"
   },
   {
-    title: "Drivers",
-    url: "drivers",
-    icon: CarFront,
-    group: "Navigation"
-  },
-  {
-    title: "Reports",
-    url: "reports",
-    icon: Folder,
-    group: "Navigation"
-  },
-  {
-    title: "Activity Logs",
-    url: "activity-logs",
-    icon: FileText,
+    title: "System Settings",
+    url: "settings",
+    icon: Settings,
     group: "Navigation"
   },
 ]

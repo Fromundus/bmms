@@ -9,40 +9,36 @@ import ButtonWithLoading from '../ButtonWithLoading';
 import api from '@/api/axios';
 
 type FormData = {
-    username?: string;
     name?: string;
     email?: string;
     role?: string;
-    password?: string;
-    password_confirmation?: string;
-};
-
-type Errors = {
-    username?: string;
-    name?: string;
-    email?: string;
-    role?: string;
-    password?: string;
+    contact_number?: string;
+    hw_id?: string;
+    area?: string;
+    notes?: string;
 };
 
 const AddUser = ({ refetch }: { refetch: () => void }) => {
     const [loading, setLoading] = React.useState<boolean>(false);
     const [addModal, setAddModal] = React.useState(false);
     const [formData, setFormData] = React.useState<FormData>({
-        username: "",
         name: "",
         email: "",
         role: "",
-        password: "",
-        password_confirmation: "",
+        contact_number: "",
+        hw_id: "",
+        area: "",
+        notes: "",
     });
 
-    const [errors, setErrors] = React.useState<Errors>({
-        username: "",
+    const [errors, setErrors] = React.useState<FormData>({
         name: "",
         email: "",
         role: "",
-        password: "",
+        contact_number: "",
+        hw_id: "",
+        area: "",
+        notes: "",
     });
 
     // console.log(formData);
@@ -69,17 +65,23 @@ const AddUser = ({ refetch }: { refetch: () => void }) => {
         setLoading(true);
         setErrors(null);
 
+        const data = {
+            ...formData,
+            role: "bhw"
+        }
+
         try {
-            const res = await api.post('/users', formData);
+            const res = await api.post('/users', data);
             console.log(res);
 
             setFormData({
-                username: "",
                 name: "",
                 email: "",
                 role: "",
-                password: "",
-                password_confirmation: "",
+                contact_number: "",
+                hw_id: "",
+                area: "",
+                notes: "",
             });
 
             toast({
@@ -89,6 +91,7 @@ const AddUser = ({ refetch }: { refetch: () => void }) => {
             refetch();
 
             setLoading(false);
+            setAddModal(false);
         } catch (err) {
             console.log(err);
             setErrors(err.response.data.errors);
@@ -98,30 +101,20 @@ const AddUser = ({ refetch }: { refetch: () => void }) => {
 
     useEffect(() => {
         setFormData({
-            username: "",
             name: "",
             email: "",
             role: "",
-            password: "",
-            password_confirmation: "",
+            contact_number: "",
+            hw_id: "",
+            area: "",
+            notes: "",
         });
     }, [addModal]);
 
     return (
-        <Modal title={"Add User Account"} buttonLabel={<><Plus/> Add User</>} open={addModal} setOpen={setAddModal} >
+        <Modal title={"Add Health Worker"} buttonLabel={<><Plus/> Add Health Worker</>} open={addModal} setOpen={setAddModal} >
             <form onSubmit={handleSubmit} className="space-y-6">
                 <div className='grid grid-cols-2 gap-6'>
-                    <InputWithLabel
-                        id="username"
-                        name='username'
-                        type="text"
-                        label='Username'
-                        placeholder="Enter username"
-                        value={formData.username}
-                        error={errors?.username}
-                        onChange={handleChange}
-                        disabled={loading}
-                    />
                     <InputWithLabel
                         id="name"
                         name='name'
@@ -130,6 +123,52 @@ const AddUser = ({ refetch }: { refetch: () => void }) => {
                         placeholder="Enter name"
                         value={formData.name}
                         error={errors?.name}
+                        onChange={handleChange}
+                        disabled={loading}
+                    />
+                    <InputWithLabel
+                        id="hw_id"
+                        name='hw_id'
+                        type="text"
+                        label='Health Worker ID'
+                        placeholder="Enter Health Worker ID"
+                        value={formData.hw_id}
+                        error={errors?.hw_id}
+                        onChange={handleChange}
+                        disabled={loading}
+                    />
+                    <InputWithLabel
+                        id="contact_number"
+                        name='contact_number'
+                        type="string"
+                        label='Contact Number'
+                        placeholder="Enter Contact Number"
+                        value={formData.contact_number}
+                        error={errors?.contact_number}
+                        onChange={handleChange}
+                        disabled={loading}
+                        minLength={11}
+                        maxLength={11}
+                    />
+                    <InputWithLabel
+                        id="area"
+                        name='area'
+                        type="text"
+                        label='Area of Assignment'
+                        placeholder="e.g. Purok 1"
+                        value={formData.area}
+                        error={errors?.area}
+                        onChange={handleChange}
+                        disabled={loading}
+                    />
+                    <InputWithLabel
+                        id="notes"
+                        name='notes'
+                        type="text"
+                        label='Notes'
+                        placeholder="Any relevant note about the health worker"
+                        value={formData.notes}
+                        error={errors?.notes}
                         onChange={handleChange}
                         disabled={loading}
                     />
@@ -144,30 +183,6 @@ const AddUser = ({ refetch }: { refetch: () => void }) => {
                         onChange={handleChange}
                         disabled={loading}
                     />
-                    <div className='flex flex-col gap-2'>
-                        <div className='flex flex-col gap-3 w-full'>
-                            <Label>
-                                Role
-                            </Label>
-                            <Select onValueChange={(value) => setFormData((prev) => {
-                                return {
-                                    ...prev,
-                                    role: value
-                                }
-                            })} value={formData.role}>
-                                <SelectTrigger className="w-full" disabled={loading}>
-                                    <SelectValue placeholder="Set role..." />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="superadmin">Super Admin</SelectItem>
-                                    <SelectItem value="admin">Admin</SelectItem>
-                                    <SelectItem value="driver">Driver</SelectItem>
-                                    {/* <SelectItem value="user">User</SelectItem> */}
-                                </SelectContent>
-                            </Select>
-                        </div>
-                        {errors?.role && <span className='text-destructive text-sm'>{errors?.role}</span>}
-                    </div>
                 </div>
                 <ButtonWithLoading
                     type='submit'
