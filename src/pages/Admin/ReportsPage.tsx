@@ -6,6 +6,7 @@ import api from "@/api/axios"
 import { Activity, Download } from "lucide-react"
 import AdminPageMain from "@/components/custom/AdminPageMain"
 import { Button } from "@/components/ui/button"
+import ipconfig from "@/ipconfig"
 
 type Stats = {
   total_patients: number;
@@ -36,7 +37,7 @@ const ReportsPage = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await api.get("/getStats")
+        const res = await api.get("/getStats");
         setStats(res.data)
       } catch (err) {
         console.error("Failed to fetch stats", err)
@@ -46,12 +47,62 @@ const ReportsPage = () => {
     }
 
     fetchStats()
-  }, [])
+  }, []);
+
+  // const handleDownload = (type: "excel" | "pdf") => {
+  //   const url =
+  //     type === "excel"
+  //       ? `${ipconfig}/api/reports/patients/excel`
+  //       : `${ipconfig}/api/reports/patients/pdf`;
+
+  //   const link = document.createElement("a");
+  //   link.href = url;
+  //   link.setAttribute("download", `patients.${type === "excel" ? "xlsx" : "pdf"}`);
+  //   document.body.appendChild(link);
+  //   link.click();
+  //   link.remove();
+  // };
+
+  const handleDownload = async (type: "excel" | "pdf") => {
+  try {
+    const url =
+      type === "excel"
+        ? `/reports/patients/excel`
+        : `/reports/patients/pdf`;
+
+    const response = await api.get(`${url}`, {
+      responseType: "blob",
+    });
+
+    // Create a blob URL
+    const blob = new Blob([response.data], {
+      type: type === "excel"
+        ? "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        : "application/pdf",
+    });
+
+    const downloadUrl = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = downloadUrl;
+    link.setAttribute(
+      "download",
+      `patients.${type === "excel" ? "xlsx" : "pdf"}`
+    );
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(downloadUrl); // Cleanup
+  } catch (error) {
+    console.error("Download failed:", error);
+  }
+};
 
   if (loading) {
     return (
       <AdminPage title="Reports">
-        <p className="text-center text-muted-foreground">Loading reports...</p>
+        <div className="flex items-center justify-center min-h-[80vh]">
+          <p className="text-center text-muted-foreground">Loading reports...</p>
+        </div>
       </AdminPage>
     )
   }
@@ -72,11 +123,7 @@ const ReportsPage = () => {
   ]
 
   return (
-    <AdminPageMain title="Reports & Statistics" description="" topAction={
-        <Button>
-            <Download /> Download
-        </Button>
-    }>
+    <AdminPageMain title="Reports & Statistics" description="">
         <Card className="bmms-card">
         <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -84,22 +131,26 @@ const ReportsPage = () => {
                 Malnutrition Overview
             </CardTitle>
         </CardHeader>
-        <CardContent className="pt-6">
+        <CardContent className="pt-6 flex flex-col gap-4">
+          <div className="text-center p-4 bg-blue-200 rounded-lg border">
+              <div className="text-2xl font-bold text-blue-500">{stats?.total_patients}</div>
+              <div className="text-sm text-blue-700">Total Patients</div>
+            </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-            <div className="text-center p-4 bg-green-50 rounded-lg">
-              <div className="text-2xl font-bold text-green-600">{stats?.healthy?.count}</div>
+            <div className="text-center p-4 bg-green-200 rounded-lg border">
+              <div className="text-2xl font-bold text-green-500">{stats?.healthy?.count}</div>
               <div className="text-sm text-green-700">Healthy</div>
             </div>
-            <div className="text-center p-4 bg-yellow-50 rounded-lg">
-              <div className="text-2xl font-bold text-yellow-600">{stats?.at_risk?.count}</div>
+            <div className="text-center p-4 bg-yellow-200 rounded-lg border">
+              <div className="text-2xl font-bold text-yellow-500">{stats?.at_risk?.count}</div>
               <div className="text-sm text-yellow-700">At Risk</div>
             </div>
-            <div className="text-center p-4 bg-orange-50 rounded-lg">
-              <div className="text-2xl font-bold text-orange-600">{stats?.moderate?.count}</div>
+            <div className="text-center p-4 bg-orange-200 rounded-lg border">
+              <div className="text-2xl font-bold text-orange-500">{stats?.moderate?.count}</div>
               <div className="text-sm text-orange-700">Moderate</div>
             </div>
-            <div className="text-center p-4 bg-red-50 rounded-lg">
-              <div className="text-2xl font-bold text-red-600">{stats?.severe?.count}</div>
+            <div className="text-center p-4 bg-red-200 rounded-lg border">
+              <div className="text-2xl font-bold text-red-500">{stats?.severe?.count}</div>
               <div className="text-sm text-red-700">Severe</div>
             </div>
           </div>
@@ -141,7 +192,7 @@ const ReportsPage = () => {
                 <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">Healthy</span>
                 <div className="flex items-center gap-2">
-                    <div className="w-32 bg-gray-200 rounded-full h-2">
+                    <div className="w-[100px] bg-gray-200 rounded-full h-2">
                     <div className="bg-green-500 h-2 rounded-full" style={{ width: stats?.healthy?.percent }}></div>
                     </div>
                     <span className="text-sm">{stats?.healthy?.percent}%</span>
@@ -150,7 +201,7 @@ const ReportsPage = () => {
                 <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">At Risk</span>
                 <div className="flex items-center gap-2">
-                    <div className="w-32 bg-gray-200 rounded-full h-2">
+                    <div className="w-[100px] bg-gray-200 rounded-full h-2">
                     <div className="bg-yellow-500 h-2 rounded-full" style={{ width: stats?.at_risk?.percent }}></div>
                     </div>
                     <span className="text-sm">{stats?.at_risk?.percent}%</span>
@@ -159,7 +210,7 @@ const ReportsPage = () => {
                 <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">Moderate</span>
                 <div className="flex items-center gap-2">
-                    <div className="w-32 bg-gray-200 rounded-full h-2">
+                    <div className="w-[100px] bg-gray-200 rounded-full h-2">
                     <div className="bg-orange-500 h-2 rounded-full" style={{ width: stats?.moderate?.percent }}></div>
                     </div>
                     <span className="text-sm">{stats?.moderate?.percent}%</span>
@@ -168,7 +219,7 @@ const ReportsPage = () => {
                 <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">Severe</span>
                 <div className="flex items-center gap-2">
-                    <div className="w-32 bg-gray-200 rounded-full h-2">
+                    <div className="w-[100px] bg-gray-200 rounded-full h-2">
                     <div className="bg-red-500 h-2 rounded-full" style={{ width: stats?.severe?.percent }}></div>
                     </div>
                     <span className="text-sm">{stats?.severe?.percent}%</span>
@@ -184,11 +235,11 @@ const ReportsPage = () => {
             </CardHeader>
             <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Button variant="outline" className="h-16 flex flex-col gap-2">
+                <Button variant="outline" className="h-16 flex flex-col gap-2" onClick={() => handleDownload('excel')}>
                     <Download className="h-6 w-6" />
-                    <span>Export to CSV</span>
+                    <span>Export to Excel</span>
                 </Button>
-                <Button variant="outline" className="h-16 flex flex-col gap-2">
+                <Button variant="outline" className="h-16 flex flex-col gap-2" onClick={() => handleDownload('pdf')}>
                     <Download className="h-6 w-6" />
                     <span>Export to PDF</span>
                 </Button>

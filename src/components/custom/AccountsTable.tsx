@@ -135,8 +135,8 @@ export default function AccountsTable() {
       {/* Search + Bulk Actions */}
       <div className="flex gap-6 flex-col lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <h2 className="text-2xl font-bold">Health Worker Management</h2>
-          <p className="text-muted-foreground">Manage account information and records</p>
+          <h2 className="text-2xl font-bold">Nutrition Scholar Management</h2>
+          <p className="text-muted-foreground">Manage nutrition scholar information and records</p>
         </div>
         <div className="space-x-4">
           {/* <Button>
@@ -171,7 +171,7 @@ export default function AccountsTable() {
         <CardHeader>
           <div className="w-full flex flex-col gap-6 lg:flex-row lg:justify-between lg:items-center">
             <CardTitle>
-              Health Worker Records
+              Nutrition Scholar Records
             </CardTitle>
               <div className="flex items-center gap-2">
                   <>
@@ -207,7 +207,6 @@ export default function AccountsTable() {
                 </TableHead>
                 <TableHead>Name</TableHead>
                 <TableHead>Email</TableHead>
-                <TableHead>Health Worker ID</TableHead>
                 <TableHead>Contact Number</TableHead>
                 <TableHead>Area of Assignment</TableHead>
                 <TableHead>Notes</TableHead>
@@ -231,7 +230,6 @@ export default function AccountsTable() {
                     </TableCell>
                     <TableCell>{u.name}</TableCell>
                     <TableCell>{u.email}</TableCell>
-                    <TableCell>{u.hw_id}</TableCell>
                     <TableCell>{u.contact_number}</TableCell>
                     <TableCell>{u.area}</TableCell>
                     <TableCell>{u.notes}</TableCell>

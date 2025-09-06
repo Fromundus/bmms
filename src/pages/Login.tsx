@@ -111,9 +111,6 @@ const Login = () => {
                                 Login
                             </ButtonWithLoading>
                         </form>
-                        <div className='w-full mt-4 text-center'>
-                            <span>Dont have an account? <Link className='font-semibold' to={'/register'}>Signup</Link></span>
-                        </div>
                     </CardContent>
                 </Card>
             </div>

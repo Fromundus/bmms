@@ -42,11 +42,6 @@ const Navigation = () => {
                   Login
                 </Button>
               </Link>
-              <Link to={'/register'}>
-                <Button variant="outline">
-                  Signup
-                </Button>
-              </Link>
             </div>
 
           </div>
@@ -57,11 +52,6 @@ const Navigation = () => {
             <Link to={'/'}>
               <Button>
                 Login
-              </Button>
-            </Link>
-            <Link to={'/register'}>
-              <Button variant="outline">
-                Signup
               </Button>
             </Link>
             {/* <Button

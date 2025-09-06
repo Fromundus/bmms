@@ -2,7 +2,6 @@ type User = {
   id: number;
   name: string;
   contact_number?: string | null;
-  hw_id?: string | null;
   area?: string | null;
   notes?: string | null;
   email: string;

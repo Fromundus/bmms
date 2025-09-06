@@ -18,10 +18,8 @@ import AdminLayout from "./layouts/AdminLayout";
 import ProfilePage from "./pages/ProfilePage";
 import AccountsPage from "./pages/Superadmin/AccountsPage";
 import AccountPage from "./pages/Superadmin/AccountPage";
-import Register from "./pages/Register";
 import BHWLayout from "./layouts/BHWLayout";
 import PatientsPage from "./pages/Admin/PatientsPage";
-import SettingsPage from "./pages/Admin/SettingsPage";
 import PatientsAddPage from "./pages/Admin/PatientsAddPage";
 import PatientPage from "./pages/Admin/PatientPage";
 import PatientsEditPage from "./pages/Admin/PatientsEditPage";
@@ -57,24 +55,21 @@ const App = () => {
           <Routes>
             <Route path="/" element={<GuestLayout />}>
               <Route index element={<Login />} />
-              <Route path='/register' element={<Register />} />
-
               {/* <Route path="login" element={<Login />} /> */}
             </Route>
 
-            <Route element={<PrivateRoute requiredRole="bhw" />}>
-              <Route path="/bhw" element={<BHWLayout />}>
+            <Route element={<PrivateRoute requiredRole="bns" />}>
+              <Route path="/bns" element={<BHWLayout />}>
                 <Route index element={<DashboardOverview />} />
                 <Route path="patients" element={<PatientsPage />} />
                 <Route path="patients/:id" element={<PatientPage />} />
                 <Route path="patients/add" element={<PatientsAddPage />} />
                 <Route path="patients/edit/:id" element={<PatientsEditPage />} />
-                {/* <Route path="health-workers" element={<AccountsPage />} /> */}
+                {/* <Route path="nutrition-scholars" element={<AccountsPage />} /> */}
                 <Route path="nutritional-guide" element={<NutritionalGuidancePage />} />
                 <Route path="accounts/:id" element={<AccountPage />} />
                 <Route path="reports" element={<ReportsPage />} />
                 <Route path="profile" element={<ProfilePage />} />
-                <Route path="settings" element={<SettingsPage />} />
               </Route>
             </Route>
 
@@ -85,12 +80,11 @@ const App = () => {
                 <Route path="patients/:id" element={<PatientPage />} />
                 <Route path="patients/add" element={<PatientsAddPage />} />
                 <Route path="patients/edit/:id" element={<PatientsEditPage />} />
-                <Route path="health-workers" element={<AccountsPage />} />
+                <Route path="nutrition-scholars" element={<AccountsPage />} />
                 <Route path="nutritional-guide" element={<NutritionalGuidancePage />} />
                 <Route path="accounts/:id" element={<AccountPage />} />
                 <Route path="reports" element={<ReportsPage />} />
                 <Route path="profile" element={<ProfilePage />} />
-                <Route path="settings" element={<SettingsPage />} />
               </Route>
             </Route>
 

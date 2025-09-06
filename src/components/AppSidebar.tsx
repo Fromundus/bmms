@@ -22,7 +22,7 @@ import {
   SidebarMenuItem,
   SidebarHeader,
 } from "@/components/ui/sidebar";
-import { adminNavigations, bhwNavigations } from "@/data/navigations";
+import { adminNavigations, bnsNavigations } from "@/data/navigations";
 import { useAuth } from "@/store/auth";
 import logo from "../assets/logo.png";
 
@@ -42,8 +42,8 @@ export function AppSidebar() {
 
   if(user.role === "admin"){
     navigations = adminNavigations;
-  } else if (user.role === "bhw"){
-    navigations = bhwNavigations;
+  } else if (user.role === "bns"){
+    navigations = bnsNavigations;
   }
 
   const groupedItems = navigations.reduce((acc, item) => {

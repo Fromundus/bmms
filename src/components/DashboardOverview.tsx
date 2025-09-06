@@ -30,9 +30,7 @@ import { useAuth } from "@/store/auth";
   // };
 
   const quickActionsBhw = [
-    { title: "View Reports", icon: FileText, href: "reports", description: "Latest statistics" },
     { title: "Nutritional Guidance", icon: Activity, href: "nutritional-guide", description: "Health tips" },
-    { title: "System Settings", icon: Settings, href: "settings", description: "Configure system" },
   ];
 
   const quickActions = [
@@ -210,7 +208,7 @@ export function DashboardOverview() {
             ))}
           </div>}
 
-          {user.role === "bhw" && <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {user.role === "bns" && <div className="grid grid-cols-1 gap-4">
             {quickActionsBhw.map((action) => (
               <Button
                 key={action.title}

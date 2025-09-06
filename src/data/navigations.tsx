@@ -13,10 +13,10 @@ import {
   Settings,
 } from "lucide-react";
 
-export const bhwNavigations = [
+export const bnsNavigations = [
   {
     title: "Dashboard",
-    url: "/bhw",
+    url: "/bns",
     icon: LayoutDashboard,
     group: "Navigation"
   },
@@ -26,28 +26,10 @@ export const bhwNavigations = [
     icon: Users,
     group: "Navigation"
   },
-  // {
-  //   title: "Health Workers",
-  //   url: "health-workers",
-  //   icon: Heart,
-  //   group: "Navigation"
-  // },
-  {
-    title: "Reports",
-    url: "reports",
-    icon: FileText,
-    group: "Navigation"
-  },
   {
     title: "Nutritional Guide",
     url: "nutritional-guide",
     icon: BookOpen,
-    group: "Navigation"
-  },
-  {
-    title: "System Settings",
-    url: "settings",
-    icon: Settings,
     group: "Navigation"
   },
 ]
@@ -66,8 +48,8 @@ export const adminNavigations = [
     group: "Navigation"
   },
   {
-    title: "Health Workers",
-    url: "health-workers",
+    title: "Nutrition Scholars",
+    url: "nutrition-scholars",
     icon: Heart,
     group: "Navigation"
   },
@@ -81,12 +63,6 @@ export const adminNavigations = [
     title: "Nutritional Guide",
     url: "nutritional-guide",
     icon: BookOpen,
-    group: "Navigation"
-  },
-  {
-    title: "System Settings",
-    url: "settings",
-    icon: Settings,
     group: "Navigation"
   },
 ]

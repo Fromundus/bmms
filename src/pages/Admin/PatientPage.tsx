@@ -102,15 +102,15 @@ const PatientPage = () => {
             </div>
             <div>
               <Label>Weight</Label>
-              <p>{patient.weight} kg ({patient.weight_for_age})</p>
+              <p>{patient.weight} kg <PatientStatusBadge status={patient.weight_for_age} /></p>
             </div>
             <div>
               <Label>Height</Label>
-              <p>{patient.height} cm ({patient.height_for_age})</p>
+              <p>{patient.height} cm <PatientStatusBadge status={patient.height_for_age} /></p>
             </div>
             <div>
               <Label>Weight-for-Height</Label>
-              <p>{patient.weight_for_ltht_status}</p>
+              <p><PatientStatusBadge status={patient.weight_for_ltht_status} /></p>
             </div>
           </div>
         </CardContent>

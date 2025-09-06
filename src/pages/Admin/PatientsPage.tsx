@@ -203,6 +203,15 @@ export default function PatientsPage() {
                 <TableHead>Age</TableHead>
                 <TableHead>Sex</TableHead>
                 <TableHead>Address</TableHead>
+                <TableHead>Belongs to IP Group</TableHead>
+                <TableHead>Birthday</TableHead>
+                <TableHead>Date Measured</TableHead>
+                <TableHead>Weight</TableHead>
+                <TableHead>Height</TableHead>
+                <TableHead>Age</TableHead>
+                <TableHead>Weight for Age Status</TableHead>
+                <TableHead>Height for Age Status</TableHead>
+                <TableHead>Weight for Lt/Ht Status</TableHead>
                 <TableHead>Last Checkup</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead>Actions</TableHead>
@@ -211,7 +220,7 @@ export default function PatientsPage() {
             <TableBody>
               {loading ? (
                 <TableRow>
-                  <TableCell colSpan={9} className="text-center">
+                  <TableCell colSpan={17} className="text-center">
                     Loading...
                   </TableCell>
                 </TableRow>
@@ -228,6 +237,16 @@ export default function PatientsPage() {
                     <TableCell>{u.age}</TableCell>
                     <TableCell>{u.sex}</TableCell>
                     <TableCell>{u.address}</TableCell>
+                    <TableCell>{u.belongs_to_ip}</TableCell>
+                    <TableCell>{format(new Date(u.birthday), "Pp")}</TableCell>
+                    <TableCell>{format(new Date(u.date_measured), "Pp")}</TableCell>
+                    <TableCell>{u.weight}</TableCell>
+                    <TableCell>{u.height}</TableCell>
+                    <TableCell>{u.age}</TableCell>
+                    <TableCell><PatientStatusBadge status={u.weight_for_age} /></TableCell>
+                    <TableCell><PatientStatusBadge status={u.height_for_age} /></TableCell>
+                    <TableCell><PatientStatusBadge status={u.weight_for_ltht_status} /></TableCell>
+
                     <TableCell>{format(new Date(u.updated_at), "PP")}</TableCell>
                     <TableCell><PatientStatusBadge status={u.status} /></TableCell>
                     <TableCell>
@@ -248,7 +267,7 @@ export default function PatientsPage() {
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={9} className="text-center">
+                  <TableCell colSpan={17} className="text-center">
                     No Patients found.
                   </TableCell>
                 </TableRow>

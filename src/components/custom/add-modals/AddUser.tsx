@@ -13,7 +13,6 @@ type FormData = {
     email?: string;
     role?: string;
     contact_number?: string;
-    hw_id?: string;
     area?: string;
     notes?: string;
 };
@@ -26,7 +25,6 @@ const AddUser = ({ refetch }: { refetch: () => void }) => {
         email: "",
         role: "",
         contact_number: "",
-        hw_id: "",
         area: "",
         notes: "",
     });
@@ -36,7 +34,6 @@ const AddUser = ({ refetch }: { refetch: () => void }) => {
         email: "",
         role: "",
         contact_number: "",
-        hw_id: "",
         area: "",
         notes: "",
     });
@@ -67,7 +64,7 @@ const AddUser = ({ refetch }: { refetch: () => void }) => {
 
         const data = {
             ...formData,
-            role: "bhw"
+            role: "bns"
         }
 
         try {
@@ -79,7 +76,6 @@ const AddUser = ({ refetch }: { refetch: () => void }) => {
                 email: "",
                 role: "",
                 contact_number: "",
-                hw_id: "",
                 area: "",
                 notes: "",
             });
@@ -105,14 +101,13 @@ const AddUser = ({ refetch }: { refetch: () => void }) => {
             email: "",
             role: "",
             contact_number: "",
-            hw_id: "",
             area: "",
             notes: "",
         });
     }, [addModal]);
 
     return (
-        <Modal title={"Add Health Worker"} buttonLabel={<><Plus/> Add Health Worker</>} open={addModal} setOpen={setAddModal} >
+        <Modal title={"Add Nutrition Scholar"} buttonLabel={<><Plus/> Add Nutrition Scholar</>} open={addModal} setOpen={setAddModal} >
             <form onSubmit={handleSubmit} className="space-y-6">
                 <div className='grid grid-cols-2 gap-6'>
                     <InputWithLabel
@@ -123,17 +118,6 @@ const AddUser = ({ refetch }: { refetch: () => void }) => {
                         placeholder="Enter name"
                         value={formData.name}
                         error={errors?.name}
-                        onChange={handleChange}
-                        disabled={loading}
-                    />
-                    <InputWithLabel
-                        id="hw_id"
-                        name='hw_id'
-                        type="text"
-                        label='Health Worker ID'
-                        placeholder="Enter Health Worker ID"
-                        value={formData.hw_id}
-                        error={errors?.hw_id}
                         onChange={handleChange}
                         disabled={loading}
                     />
@@ -166,7 +150,7 @@ const AddUser = ({ refetch }: { refetch: () => void }) => {
                         name='notes'
                         type="text"
                         label='Notes'
-                        placeholder="Any relevant note about the health worker"
+                        placeholder="Any relevant note about the Nutrition Scholar"
                         value={formData.notes}
                         error={errors?.notes}
                         onChange={handleChange}
