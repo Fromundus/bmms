@@ -7,6 +7,7 @@ import { Activity, Download } from "lucide-react"
 import AdminPageMain from "@/components/custom/AdminPageMain"
 import { Button } from "@/components/ui/button"
 import ipconfig from "@/ipconfig"
+import ExportWithDateRange from "@/components/custom/ExportWithDateRange"
 
 type Stats = {
   total_patients: number;
@@ -50,14 +51,15 @@ const ReportsPage = () => {
     fetchStats()
   }, []);
 
-  const handleDownload = async (type: "excel" | "pdf") => {
+  const handleDownload = async (type: "excel" | "pdf", fromDate?: string, toDate?: string) => {
   try {
     const url =
       type === "excel"
-        ? `/reports/patients/excel`
-        : `/reports/patients/pdf`;
+        ? `/reports/patients/export/excel`
+        : `/reports/patients/export/pdf`;
 
     const response = await api.get(`${url}`, {
+      params: { from_date: fromDate, to_date: toDate },
       responseType: "blob",
     });
 
@@ -221,16 +223,16 @@ const ReportsPage = () => {
                 <CardTitle>Export Data</CardTitle>
             </CardHeader>
             <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Button variant="outline" className="h-16 flex flex-col gap-2" onClick={() => handleDownload('excel')}>
+                {/* <Button variant="outline" className="h-16 flex flex-col gap-2" onClick={() => handleDownload('excel')}>
                     <Download className="h-6 w-6" />
                     <span>Export to Excel</span>
                 </Button>
                 <Button variant="outline" className="h-16 flex flex-col gap-2" onClick={() => handleDownload('pdf')}>
                     <Download className="h-6 w-6" />
                     <span>Export to PDF</span>
-                </Button>
-                </div>
+                </Button> */}
+
+                <ExportWithDateRange />
             </CardContent>
         </Card>
       </div>
