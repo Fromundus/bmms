@@ -34,10 +34,9 @@ import { useAuth } from "@/store/auth";
   ];
 
   const quickActions = [
-    { title: "Register Health Worker", icon: Heart, href: "health-workers", description: "Add new BHW" },
+    { title: "Register Nutritional Scholars", icon: Heart, href: "nutrition-scholars", description: "Add new BSN" },
     { title: "View Reports", icon: FileText, href: "reports", description: "Latest statistics" },
     { title: "Nutritional Guidance", icon: Activity, href: "nutritional-guide", description: "Health tips" },
-    { title: "System Settings", icon: Settings, href: "settings", description: "Configure system" },
   ];
 
 type Stats = {
@@ -147,31 +146,7 @@ export function DashboardOverview() {
 
       {/* Malnutrition Overview */}
       <Card className="bmms-card">
-        {/* <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Activity className="h-5 w-5" />
-            Malnutrition Overview
-          </CardTitle>
-        </CardHeader> */}
         <CardContent className="pt-6">
-          {/* <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-            <div className="text-center p-4 bg-green-50 rounded-lg">
-              <div className="text-2xl font-bold text-green-600">{stats?.healthy}</div>
-              <div className="text-sm text-green-700">Healthy</div>
-            </div>
-            <div className="text-center p-4 bg-yellow-50 rounded-lg">
-              <div className="text-2xl font-bold text-yellow-600">{stats?.at_risk}</div>
-              <div className="text-sm text-yellow-700">At Risk</div>
-            </div>
-            <div className="text-center p-4 bg-orange-50 rounded-lg">
-              <div className="text-2xl font-bold text-orange-600">{stats?.moderate}</div>
-              <div className="text-sm text-orange-700">Moderate</div>
-            </div>
-            <div className="text-center p-4 bg-red-50 rounded-lg">
-              <div className="text-2xl font-bold text-red-600">{stats?.severe}</div>
-              <div className="text-sm text-red-700">Severe</div>
-            </div>
-          </div> */}
           <div className="flex gap-4">
             <Button asChild>
               <Link to="patients">View All Patients</Link>
@@ -189,7 +164,7 @@ export function DashboardOverview() {
           <CardTitle>Quick Actions</CardTitle>
         </CardHeader>
         <CardContent>
-          {user.role === "admin" && <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {user.role === "admin" && <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {quickActions.map((action) => (
               <Button
                 key={action.title}
