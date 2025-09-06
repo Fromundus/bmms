@@ -200,7 +200,6 @@ export default function PatientsPage() {
                   />
                 </TableHead>
                 <TableHead>Name</TableHead>
-                <TableHead>Age</TableHead>
                 <TableHead>Sex</TableHead>
                 <TableHead>Address</TableHead>
                 <TableHead>Belongs to IP Group</TableHead>
@@ -234,21 +233,20 @@ export default function PatientsPage() {
                       />
                     </TableCell>
                     <TableCell>{u.name}</TableCell>
-                    <TableCell>{u.age}</TableCell>
                     <TableCell>{u.sex}</TableCell>
                     <TableCell>{u.address}</TableCell>
                     <TableCell>{u.belongs_to_ip}</TableCell>
                     <TableCell>{format(new Date(u.birthday), "Pp")}</TableCell>
-                    <TableCell>{format(new Date(u.date_measured), "Pp")}</TableCell>
-                    <TableCell>{u.weight}</TableCell>
-                    <TableCell>{u.height}</TableCell>
-                    <TableCell>{u.age}</TableCell>
-                    <TableCell><PatientStatusBadge status={u.weight_for_age} /></TableCell>
-                    <TableCell><PatientStatusBadge status={u.height_for_age} /></TableCell>
-                    <TableCell><PatientStatusBadge status={u.weight_for_ltht_status} /></TableCell>
+                    <TableCell>{format(new Date(u.latest_record.date_measured), "Pp")}</TableCell>
+                    <TableCell>{u.latest_record.weight}</TableCell>
+                    <TableCell>{u.latest_record.height}</TableCell>
+                    <TableCell>{u.latest_record.age}</TableCell>
+                    <TableCell><PatientStatusBadge status={u.latest_record.weight_for_age} /></TableCell>
+                    <TableCell><PatientStatusBadge status={u.latest_record.height_for_age} /></TableCell>
+                    <TableCell><PatientStatusBadge status={u.latest_record.weight_for_ltht_status} /></TableCell>
 
-                    <TableCell>{format(new Date(u.updated_at), "PP")}</TableCell>
-                    <TableCell><PatientStatusBadge status={u.status} /></TableCell>
+                    <TableCell>{format(new Date(u.latest_record.updated_at), "PP")}</TableCell>
+                    <TableCell><PatientStatusBadge status={u.latest_record.status} /></TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
                         <Link to={`${u.id}`}>

@@ -20,6 +20,7 @@ const PatientPage = () => {
     const fetchPatient = async () => {
       try {
         const res = await api.get(`/patients/${id}`)
+        console.log(res);
         setPatient(res.data)
       } catch (err) {
         console.error("Failed to fetch patient:", err)
@@ -33,7 +34,7 @@ const PatientPage = () => {
   if (loading) {
     return (
       <AdminPage withBackButton={true} title="View Patient">
-        <p className="text-center text-muted-foreground">Loading...</p>
+        <div className="text-center text-muted-foreground">Loading...</div>
       </AdminPage>
     )
   }
@@ -41,7 +42,7 @@ const PatientPage = () => {
   if (!patient) {
     return (
       <AdminPage withBackButton={true} title="View Patient">
-        <p className="text-center text-red-500">Patient not found</p>
+        <div className="text-center text-red-500">Patient not found</div>
       </AdminPage>
     )
   }
@@ -63,27 +64,27 @@ const PatientPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <Label>Name</Label>
-              <p>{patient.name}</p>
+              <div>{patient?.name}</div>
             </div>
             <div>
               <Label>Address</Label>
-              <p>{patient.address}</p>
+              <div>{patient?.address}</div>
             </div>
             <div>
               <Label>Belongs to IP</Label>
-              <p>{patient.belongs_to_ip}</p>
+              <div>{patient?.belongs_to_ip}</div>
             </div>
             <div>
               <Label>Sex</Label>
-              <p>{patient.sex}</p>
+              <div>{patient?.sex}</div>
             </div>
             <div>
               <Label>Birthday</Label>
-              <p>{patient.birthday}</p>
+              <div>{patient?.birthday}</div>
             </div>
             <div>
               <Label>Contact Number</Label>
-              <p>{patient.contact_number}</p>
+              <div>{patient?.contact_number}</div>
             </div>
           </div>
         </CardContent>
@@ -98,19 +99,19 @@ const PatientPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <Label>Date Measured</Label>
-              <p>{patient.date_measured}</p>
+              <div>{patient?.latest_record?.date_measured}</div>
             </div>
             <div>
               <Label>Weight</Label>
-              <p>{patient.weight} kg <PatientStatusBadge status={patient.weight_for_age} /></p>
+              <div>{patient?.latest_record?.weight} kg <PatientStatusBadge status={patient?.latest_record?.weight_for_age} /></div>
             </div>
             <div>
               <Label>Height</Label>
-              <p>{patient.height} cm <PatientStatusBadge status={patient.height_for_age} /></p>
+              <div>{patient?.latest_record?.height} cm <PatientStatusBadge status={patient?.latest_record?.height_for_age} /></div>
             </div>
             <div>
               <Label>Weight-for-Height</Label>
-              <p><PatientStatusBadge status={patient.weight_for_ltht_status} /></p>
+              <div><PatientStatusBadge status={patient?.latest_record?.weight_for_ltht_status} /></div>
             </div>
           </div>
         </CardContent>
@@ -125,27 +126,27 @@ const PatientPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <Label>Immunizations</Label>
-              <p>{patient.immunizations}</p>
+              <div>{patient?.latest_record?.immunizations}</div>
             </div>
             <div>
               <Label>Last Deworming Date</Label>
-              <p>{patient.last_deworming_date ?? "Not recorded"}</p>
+              <div>{patient?.latest_record?.last_deworming_date ?? "Not recorded"}</div>
             </div>
             <div>
               <Label>Allergies</Label>
-              <p>{patient.allergies ?? "None"}</p>
+              <div>{patient?.latest_record?.allergies ?? "None"}</div>
             </div>
             <div>
               <Label>Medical History</Label>
-              <p>{patient.medical_history ?? "None"}</p>
+              <div>{patient?.latest_record?.medical_history ?? "None"}</div>
             </div>
             <div>
               <Label>Notes</Label>
-              <p>{patient.notes}</p>
+              <div>{patient?.latest_record?.notes}</div>
             </div>
             <div>
               <Label>Status</Label>
-              <p><PatientStatusBadge status={patient.status} /></p>
+              <div><PatientStatusBadge status={patient?.latest_record?.status} /></div>
             </div>
           </div>
         </CardContent>

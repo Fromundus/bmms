@@ -10,6 +10,7 @@ import {
   Clock,
   CarFront,
   ClipboardCheck,
+  Plus,
 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -149,10 +150,10 @@ export function DashboardOverview() {
         <CardContent className="pt-6">
           <div className="flex gap-4">
             <Button asChild>
-              <Link to="patients">View All Patients</Link>
+              <Link to="patients"><Users /> View All Patients</Link>
             </Button>
             <Button variant="outline" asChild>
-              <Link to="patients/add">Add New Patient</Link>
+              <Link to="patients/add"><Plus /> Add New Patient</Link>
             </Button>
           </div>
         </CardContent>

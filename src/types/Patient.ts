@@ -1,3 +1,33 @@
+// type Patient = {
+//   id?: number;
+//   name: string;
+//   address: string;
+//   belongs_to_ip: string;
+//   sex: string;
+//   birthday: string;
+//   date_measured: string;
+//   weight: number;
+//   height: number;
+//   contact_number: string;
+//   age?: number;
+//   weight_for_age?: string;
+//   height_for_age?: string;
+//   weight_for_ltht_status?: string;
+  
+//   immunizations: string;
+//   last_deworming_date: string;
+//   allergies: string;
+//   medical_history: string;
+//   notes: string;
+
+//   status?: string;
+
+//   created_at?: string;
+//   updated_at?: string;
+// } | null;
+
+// export default Patient;
+
 type Patient = {
   id?: number;
   name: string;
@@ -5,10 +35,21 @@ type Patient = {
   belongs_to_ip: string;
   sex: string;
   birthday: string;
+  contact_number: string;
+
+  records?: PatientRecord[];
+
+  latest_record?: PatientRecord;
+
+  created_at?: string;
+  updated_at?: string;
+} | null;
+
+export type PatientRecord = {
+  id: number;
   date_measured: string;
   weight: number;
   height: number;
-  contact_number: string;
   age?: number;
   weight_for_age?: string;
   height_for_age?: string;
@@ -24,6 +65,6 @@ type Patient = {
 
   created_at?: string;
   updated_at?: string;
-} | null;
+}
 
 export default Patient;

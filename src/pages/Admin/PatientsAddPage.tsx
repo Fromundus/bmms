@@ -251,7 +251,7 @@ const PatientsAddPage = () => {
                                 id="weight"
                                 name='weight'
                                 type="number"
-                                label='Weight'
+                                label='Weight (kg)'
                                 placeholder="Enter weight"
                                 value={data.weight}
                                 error={errors?.weight}
@@ -262,7 +262,7 @@ const PatientsAddPage = () => {
                                 id="height"
                                 name='height'
                                 type="number"
-                                label='Height'
+                                label='Height (cm)'
                                 placeholder="Enter height"
                                 value={data.height}
                                 error={errors?.height}

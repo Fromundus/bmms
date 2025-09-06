@@ -238,7 +238,7 @@ export default function AccountsTable() {
               ) : (
                 <TableRow>
                   <TableCell colSpan={7} className="text-center">
-                    No health workers found.
+                    No nutrition scholars found.
                   </TableCell>
                 </TableRow>
               )}

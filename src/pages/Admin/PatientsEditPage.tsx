@@ -74,18 +74,74 @@ const PatientsEditPage = () => {
 
         setData((prev) => prev ? { ...prev, [name]: value } : prev);
 
+        const patientRecordNames = [
+            "date_measured",
+            "weight",
+            "height",
+            "immunizations",
+            "last_deworming_date",
+            "allergies",
+            "medical_history",
+            "notes",
+        ];
+
+        if(patientRecordNames.includes(name)){
+            setData((prev) => {
+                return {
+                    ...prev,
+                    latest_record: {
+                        ...prev.latest_record,
+                        [name]: value,
+                    }
+                }
+            });
+        }
+        
         setErrors((prev) => ({ ...prev, [name]: "" }));
+    };
+
+    const handleUpdateInfo = async (e: FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+
+        const formData = {
+            ...data,
+            // ...data.latest_record,
+        }
+
+        console.log(formData);
+
+        try {
+            const res = await api.put(`/patients/updateinfo/${id}`, formData);
+
+            console.log(res);
+
+            toast({ title: "Successfully Updated" });
+            // navigate(`/${user.role}/patients`);
+        } catch (err: any) {
+            setErrors(err.response?.data?.errors || {});
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
     };
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         setLoading(true);
 
+        const formData = {
+            ...data,
+            ...data.latest_record,
+        }
+
+        console.log(formData);
+
         try {
-            await api.put(`/patients/${id}`, data);
+            await api.put(`/patients/${id}`, formData);
 
             toast({ title: "Successfully Updated" });
-            navigate(`/${user.role}/patients`);
+            // navigate(`/${user.role}/patients`);
         } catch (err: any) {
             setErrors(err.response?.data?.errors || {});
             console.error(err);
@@ -104,7 +160,7 @@ const PatientsEditPage = () => {
 
     return (
         <AdminPage withBackButton={true} title='Edit Patient'>
-            <form className='space-y-4' onSubmit={handleSubmit}>
+            <div className='space-y-4'>
                 <Card>
                     <CardHeader>
                         <CardTitle>Personal Information</CardTitle>
@@ -192,6 +248,13 @@ const PatientsEditPage = () => {
                         </div>
                     </CardContent>
                 </Card>
+                <div className='w-full justify-end flex'>
+                    <div className='flex items-center gap-4'>
+                        <ButtonWithLoading type='submit' loading={loading} onClick={handleUpdateInfo}>
+                            <Save /> Update Patient Information
+                        </ButtonWithLoading>
+                    </div>
+                </div>
                 <Card>
                     <CardHeader>
                         <CardTitle>Physical Information</CardTitle>
@@ -203,7 +266,7 @@ const PatientsEditPage = () => {
                                 name='date_measured'
                                 type="date"
                                 label='Date Measured'
-                                value={data.date_measured}
+                                value={data.latest_record.date_measured}
                                 error={errors?.date_measured}
                                 onChange={handleChange}
                                 disabled={loading}
@@ -213,8 +276,8 @@ const PatientsEditPage = () => {
                                 id="weight"
                                 name='weight'
                                 type="number"
-                                label='Weight'
-                                value={data.weight ?? ""}
+                                label='Weight (kg)'
+                                value={data.latest_record.weight ?? ""}
                                 error={errors?.weight}
                                 onChange={handleChange}
                                 disabled={loading}
@@ -223,8 +286,8 @@ const PatientsEditPage = () => {
                                 id="height"
                                 name='height'
                                 type="number"
-                                label='Height'
-                                value={data.height ?? ""}
+                                label='Height (cm)'
+                                value={data.latest_record.height ?? ""}
                                 error={errors?.height}
                                 onChange={handleChange}
                                 disabled={loading}
@@ -243,7 +306,7 @@ const PatientsEditPage = () => {
                                 name='immunizations'
                                 type="text"
                                 label='Immunizations'
-                                value={data.immunizations}
+                                value={data.latest_record.immunizations}
                                 error={errors?.immunizations}
                                 onChange={handleChange}
                                 disabled={loading}
@@ -253,7 +316,7 @@ const PatientsEditPage = () => {
                                 name='last_deworming_date'
                                 type="date"
                                 label='Deworming History'
-                                value={data.last_deworming_date || ""}
+                                value={data.latest_record.last_deworming_date || ""}
                                 error={errors?.last_deworming_date}
                                 onChange={handleChange}
                                 disabled={loading}
@@ -264,7 +327,7 @@ const PatientsEditPage = () => {
                                 name='allergies'
                                 type="text"
                                 label='Allergies'
-                                value={data.allergies || ""}
+                                value={data.latest_record.allergies || ""}
                                 error={errors?.allergies}
                                 onChange={handleChange}
                                 disabled={loading}
@@ -274,7 +337,7 @@ const PatientsEditPage = () => {
                                 name='medical_history'
                                 type="text"
                                 label='Medical History'
-                                value={data.medical_history || ""}
+                                value={data.latest_record.medical_history || ""}
                                 error={errors?.medical_history}
                                 onChange={handleChange}
                                 disabled={loading}
@@ -284,7 +347,7 @@ const PatientsEditPage = () => {
                                 name='notes'
                                 type="text"
                                 label='Notes'
-                                value={data.notes || ""}
+                                value={data.latest_record.notes || ""}
                                 error={errors?.notes}
                                 onChange={handleChange}
                                 disabled={loading}
@@ -295,15 +358,12 @@ const PatientsEditPage = () => {
 
                 <div className='w-full justify-end flex'>
                     <div className='flex items-center gap-4'>
-                        <Link to={`/${user.role}/patients`}>
-                            <Button variant='outline'>Cancel</Button>
-                        </Link>
-                        <ButtonWithLoading type='submit' loading={loading}>
-                            <Save /> Update Patient
+                        <ButtonWithLoading type='submit' loading={loading} onClick={handleSubmit}>
+                            <Save /> Update Patient Records
                         </ButtonWithLoading>
                     </div>
                 </div>
-            </form>
+            </div>
         </AdminPage>
     )
 }
