@@ -38,6 +38,7 @@ const ReportsPage = () => {
     const fetchStats = async () => {
       try {
         const res = await api.get("/getStats");
+        console.log(res);
         setStats(res.data)
       } catch (err) {
         console.error("Failed to fetch stats", err)
@@ -48,20 +49,6 @@ const ReportsPage = () => {
 
     fetchStats()
   }, []);
-
-  // const handleDownload = (type: "excel" | "pdf") => {
-  //   const url =
-  //     type === "excel"
-  //       ? `${ipconfig}/api/reports/patients/excel`
-  //       : `${ipconfig}/api/reports/patients/pdf`;
-
-  //   const link = document.createElement("a");
-  //   link.href = url;
-  //   link.setAttribute("download", `patients.${type === "excel" ? "xlsx" : "pdf"}`);
-  //   document.body.appendChild(link);
-  //   link.click();
-  //   link.remove();
-  // };
 
   const handleDownload = async (type: "excel" | "pdf") => {
   try {
