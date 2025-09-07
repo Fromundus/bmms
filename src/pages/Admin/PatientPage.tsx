@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { useAuth } from '@/store/auth'
 import { useEffect, useState } from 'react'
 import api from '@/api/axios'
-import { PenBox } from 'lucide-react'
+import { History, PenBox } from 'lucide-react'
 import PatientStatusBadge from '@/components/custom/PatientStatusBadge'
 
 const PatientPage = () => {
@@ -49,11 +49,18 @@ const PatientPage = () => {
 
   return (
     <AdminPage withBackButton={true} title="View Patient" titleAction={
-      <Link to={`/${user.role}/patients/edit/${id}`}>
-        <Button>
-          <PenBox /> Update
-        </Button>
-      </Link>
+      <div className='flex items-center gap-4'>
+        <Link to={`/${user.role}/patients/history/${id}`}>
+          <Button variant='outline'>
+            <History /> View History
+          </Button>
+        </Link>
+        <Link to={`/${user.role}/patients/edit/${id}`}>
+          <Button>
+            <PenBox /> Update Patient
+          </Button>
+        </Link>
+      </div>
     }>
       {/* Personal Information */}
       <Card>
@@ -126,7 +133,7 @@ const PatientPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <Label>Immunizations</Label>
-              <div>{patient?.latest_record?.immunizations}</div>
+              <div>{patient?.latest_record?.immunizations ?? "None"}</div>
             </div>
             <div>
               <Label>Last Deworming Date</Label>
@@ -142,7 +149,7 @@ const PatientPage = () => {
             </div>
             <div>
               <Label>Notes</Label>
-              <div>{patient?.latest_record?.notes}</div>
+              <div>{patient?.latest_record?.notes ?? "None"}</div>
             </div>
             <div>
               <Label>Status</Label>

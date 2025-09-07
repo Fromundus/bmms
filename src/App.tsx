@@ -25,6 +25,7 @@ import PatientPage from "./pages/Admin/PatientPage";
 import PatientsEditPage from "./pages/Admin/PatientsEditPage";
 import NutritionalGuidancePage from "./pages/Admin/NutritionalGuidancePage";
 import ReportsPage from "./pages/Admin/ReportsPage";
+import PatientHistoryPage from "./pages/Admin/PatientHistoryPage";
 
 const queryClient = new QueryClient();
 
@@ -78,6 +79,7 @@ const App = () => {
                 <Route index element={<DashboardOverview />} />
                 <Route path="patients" element={<PatientsPage />} />
                 <Route path="patients/:id" element={<PatientPage />} />
+                <Route path="patients/history/:id" element={<PatientHistoryPage />} />
                 <Route path="patients/add" element={<PatientsAddPage />} />
                 <Route path="patients/edit/:id" element={<PatientsEditPage />} />
                 <Route path="nutrition-scholars" element={<AccountsPage />} />
