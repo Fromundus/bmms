@@ -46,6 +46,11 @@ export default function PatientsPage() {
     admin: 0,
     driver: 0,
   });
+
+  const [wfa, setWfa] = useState("");
+  const [hfa, setHfa] = useState("");
+  const [wfltht, setWfltht] = useState("");
+  const [status, setStatus] = useState("");
   
   // console.log(counts);
 
@@ -58,6 +63,10 @@ export default function PatientsPage() {
           page, 
           per_page: perPage, 
           search: searchQuery,
+          wfa: wfa,
+          hfa: hfa,
+          wfltht: wfltht,
+          status: status,
         },
       });
       console.log(res);
@@ -74,7 +83,7 @@ export default function PatientsPage() {
   // Fetch when page or search changes
   useEffect(() => {
     fetchUsers();
-  }, [page, debouncedSearch]);
+  }, [page, debouncedSearch, wfa, hfa, wfltht, status]);
 
   // Debounce search
   useEffect(() => {
@@ -157,6 +166,58 @@ export default function PatientsPage() {
                 className="w-full pl-10"
               />
             </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 w-full">
+              <Select value={wfa} onValueChange={setWfa} disabled={loading}>
+                <SelectTrigger className="w-full min-w-[60px]">
+                  <SelectValue placeholder="WFA" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All</SelectItem>
+                  <SelectItem value="Underweight">Underweight</SelectItem>
+                  <SelectItem value="Normal">Normal</SelectItem>
+                  <SelectItem value="Overweight">Overweight</SelectItem>
+                </SelectContent>
+              </Select>
+
+              <Select value={hfa} onValueChange={setHfa} disabled={loading}>
+                <SelectTrigger className="w-full min-w-[60px]">
+                  <SelectValue placeholder="HFA" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All</SelectItem>
+                  <SelectItem value="Stunted">Stunted</SelectItem>
+                  <SelectItem value="Normal">Normal</SelectItem>
+                  <SelectItem value="Tall">Tall</SelectItem>
+                </SelectContent>
+              </Select>
+
+              <Select value={wfltht} onValueChange={setWfltht} disabled={loading}>
+                <SelectTrigger className="w-full min-w-[60px]">
+                  <SelectValue placeholder="WFLTHT" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All</SelectItem>
+                  <SelectItem value="Wasted">Wasted</SelectItem>
+                  <SelectItem value="Normal">Normal</SelectItem>
+                  <SelectItem value="Obese">Obese</SelectItem>
+                </SelectContent>
+              </Select>
+
+              <Select value={status} onValueChange={setStatus} disabled={loading}>
+                <SelectTrigger className="w-full min-w-[60px]">
+                  <SelectValue placeholder="Status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All</SelectItem>
+                  <SelectItem value="Severe">Severe</SelectItem>
+                  <SelectItem value="Moderate">Moderate</SelectItem>
+                  <SelectItem value="At Risk">At Risk</SelectItem>
+                  <SelectItem value="Healthy">Healthy</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
           </div>
         </CardContent>
       </Card>
