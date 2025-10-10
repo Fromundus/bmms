@@ -47,10 +47,10 @@ export default function PatientsPage() {
     driver: 0,
   });
 
-  const [wfa, setWfa] = useState("");
-  const [hfa, setHfa] = useState("");
-  const [wfltht, setWfltht] = useState("");
-  const [status, setStatus] = useState("");
+  const [wfa, setWfa] = useState("all");
+  const [hfa, setHfa] = useState("all");
+  const [wfltht, setWfltht] = useState("all");
+  const [status, setStatus] = useState("all");
   
   // console.log(counts);
 
@@ -263,7 +263,6 @@ export default function PatientsPage() {
                 <TableHead>Name</TableHead>
                 <TableHead>Sex</TableHead>
                 <TableHead>Address</TableHead>
-                <TableHead>Belongs to IP Group</TableHead>
                 <TableHead>Birthday</TableHead>
                 <TableHead>Date Measured</TableHead>
                 <TableHead>Weight</TableHead>
@@ -280,7 +279,7 @@ export default function PatientsPage() {
             <TableBody>
               {loading ? (
                 <TableRow>
-                  <TableCell colSpan={17} className="text-center">
+                  <TableCell colSpan={15} className="text-center">
                     Loading...
                   </TableCell>
                 </TableRow>
@@ -296,9 +295,8 @@ export default function PatientsPage() {
                     <TableCell>{u.name}</TableCell>
                     <TableCell>{u.sex}</TableCell>
                     <TableCell>{u.address}</TableCell>
-                    <TableCell>{u.belongs_to_ip}</TableCell>
-                    <TableCell>{format(new Date(u.birthday), "Pp")}</TableCell>
-                    <TableCell>{format(new Date(u.latest_record.date_measured), "Pp")}</TableCell>
+                    <TableCell>{format(new Date(u.birthday), "P")}</TableCell>
+                    <TableCell>{format(new Date(u.latest_record.date_measured), "P")}</TableCell>
                     <TableCell>{u.latest_record.weight}</TableCell>
                     <TableCell>{u.latest_record.height}</TableCell>
                     <TableCell>{u.latest_record.age}</TableCell>
@@ -311,13 +309,13 @@ export default function PatientsPage() {
                     <TableCell>
                       <div className="flex items-center gap-2">
                         <Link to={`${u.id}`}>
-                          <Button variant="ghost">
-                            <Eye />
+                          <Button variant="outline">
+                            <Eye /> View
                           </Button>
                         </Link>
                         <Link to={`edit/${u.id}`}>
-                          <Button variant="ghost">
-                            <PenBoxIcon />
+                          <Button variant="outline">
+                            <PenBoxIcon /> Edit
                           </Button>
                         </Link>
                       </div>
@@ -326,7 +324,7 @@ export default function PatientsPage() {
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={17} className="text-center">
+                  <TableCell colSpan={15} className="text-center">
                     No Patients found.
                   </TableCell>
                 </TableRow>

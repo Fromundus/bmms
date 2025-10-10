@@ -27,6 +27,7 @@ import IconButton from "./IconButton";
 import Modal from "./Modal";
 import api from "@/api/axios";
 import AddUser from "./add-modals/AddUser";
+import StatusBadge from "./StatusBadge";
 
 export default function AccountsTable() {
   const [users, setUsers] = useState<User[]>([]);
@@ -128,6 +129,35 @@ export default function AccountsTable() {
     }
   };
 
+  const updateStatus = async (ids: number[], status: string) => {
+    if (!ids.length) return;
+    setLoading(true);
+
+    const data = {
+      ids: ids,
+      status: status,
+    }
+
+    try {
+      await api.put("/update-status", data);
+
+      toast({
+        title: "Updated Successfully",
+      });
+      
+      setSelected([]);
+      fetchUsers();
+    } catch (err) {
+      console.log(err);
+      toast({
+        title: err.response.status,
+        description: err.response.data.message,
+        variant: "destructive",
+      });
+      setLoading(false);
+    }
+  };
+
   const navigate = useNavigate();
 
   return (
@@ -210,12 +240,15 @@ export default function AccountsTable() {
                 <TableHead>Contact Number</TableHead>
                 <TableHead>Area of Assignment</TableHead>
                 <TableHead>Notes</TableHead>
+                <TableHead>Role</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {loading ? (
                 <TableRow>
-                  <TableCell colSpan={7} className="text-center">
+                  <TableCell colSpan={9} className="text-center">
                     Loading...
                   </TableCell>
                 </TableRow>
@@ -233,11 +266,33 @@ export default function AccountsTable() {
                     <TableCell>{u.contact_number}</TableCell>
                     <TableCell>{u.area}</TableCell>
                     <TableCell>{u.notes}</TableCell>
+                    <TableCell>{u.role}</TableCell>
+                    <TableCell>
+                      <StatusBadge status={u.status} />
+                    </TableCell>
+                    <TableCell>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" className="hover:bg-secondary hover:text-foreground">
+                            <MoreVertical />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          {(u.status === "pending" || u.status === "inactive") && <DropdownMenuItem onClick={() => updateStatus([u.id], "active")}>
+                            Verify/Activate
+                          </DropdownMenuItem>}
+
+                          {u.status === "active" && <DropdownMenuItem onClick={() => updateStatus([u.id], "inactive")}>
+                            Deactivate
+                          </DropdownMenuItem>}
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
                   </TableRow>
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={7} className="text-center">
+                  <TableCell colSpan={9} className="text-center">
                     No nutrition scholars found.
                   </TableCell>
                 </TableRow>

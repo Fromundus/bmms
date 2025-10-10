@@ -16,7 +16,6 @@ import { toast } from '@/hooks/use-toast';
 type Error = {
     name: string;
     address: string;
-    belongs_to_ip: string;
     sex: string;
     birthday: string;
     date_measured: string;
@@ -34,10 +33,9 @@ type Error = {
 const PatientsAddPage = () => {
     const { user } = useAuth();
     const [loading, setLoading] = useState<boolean>(false);
-    const [data, setData] = useState<Patient>({
+    const [data, setData] = useState({
         name: "",
         address: "",
-        belongs_to_ip: "",
         sex: "",
         birthday: "",
         date_measured: "",
@@ -54,7 +52,6 @@ const PatientsAddPage = () => {
     const [errors, setErrors] = useState<Error>({
         name: "",
         address: "",
-        belongs_to_ip: "",
         sex: "",
         birthday: "",
         date_measured: "",
@@ -100,7 +97,6 @@ const PatientsAddPage = () => {
             setData({
                 name: "",
                 address: "",
-                belongs_to_ip: "",
                 sex: "",
                 birthday: "",
                 date_measured: "",
@@ -163,24 +159,6 @@ const PatientsAddPage = () => {
                                 onChange={handleChange}
                                 disabled={loading}
                             />
-                            <div className="space-y-2">
-                                <Label htmlFor="belongs_to_ip">Belongs to IP</Label>
-                                <Select value={data.belongs_to_ip} onValueChange={(value) => setData((prev) => {
-                                    return {
-                                        ...prev,
-                                        belongs_to_ip: value
-                                    }
-                                })}>
-                                <SelectTrigger>
-                                    <SelectValue placeholder="Select" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="Yes">Yes</SelectItem>
-                                    <SelectItem value="No">No</SelectItem>
-                                </SelectContent>
-                                </Select>
-                                {errors?.belongs_to_ip && <span className='text-red-500 text-sm'>{errors?.belongs_to_ip}</span>}
-                            </div>
                             <div className="space-y-2">
                                 <Label htmlFor="sex">Sex</Label>
                                 <Select value={data.sex} onValueChange={(value) => setData((prev) => {

@@ -34,10 +34,10 @@ export const bnsNavigations = [
   },
 ]
 
-export const adminNavigations = [
+export const bhwNavigations = [
   {
     title: "Dashboard",
-    url: "/admin",
+    url: "/bhw",
     icon: LayoutDashboard,
     group: "Navigation"
   },
@@ -63,6 +63,15 @@ export const adminNavigations = [
     title: "Nutritional Guide",
     url: "nutritional-guide",
     icon: BookOpen,
+    group: "Navigation"
+  },
+]
+
+export const adminNavigations = [
+  {
+    title: "Accounts",
+    url: "/admin",
+    icon: Users,
     group: "Navigation"
   },
 ]

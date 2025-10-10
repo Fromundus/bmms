@@ -99,14 +99,25 @@ export function DashboardOverview() {
   return (
     <AdminPageMain title="Dashboard Overview" description="Monitor patients">
       {/* Statistics Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card className="bmms-card border-l-4 border-l-green-500">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+        <Card className="bmms-card border-l-4 border-primary">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Patients</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">{stats?.total_patients}</div>
+            <div className="text-2xl font-bold text-primary">{stats?.total_patients}</div>
+            <p className="text-xs text-muted-foreground">Total</p>
+          </CardContent>
+        </Card>
+
+        <Card className="bmms-card border-l-4 border-l-green-500">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Healthy</CardTitle>
+            <Users className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-green-600">{stats?.healthy?.count}</div>
             <p className="text-xs text-muted-foreground">Healthy</p>
           </CardContent>
         </Card>
@@ -165,7 +176,7 @@ export function DashboardOverview() {
           <CardTitle>Quick Actions</CardTitle>
         </CardHeader>
         <CardContent>
-          {user.role === "admin" && <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {user.role === "bhw" && <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {quickActions.map((action) => (
               <Button
                 key={action.title}

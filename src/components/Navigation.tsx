@@ -42,6 +42,11 @@ const Navigation = () => {
                   Login
                 </Button>
               </Link>
+              <Link to={'/register'}>
+                <Button className="bg-background" variant="outline">
+                  Sign Up
+                </Button>
+              </Link>
             </div>
 
           </div>
@@ -52,6 +57,11 @@ const Navigation = () => {
             <Link to={'/'}>
               <Button>
                 Login
+              </Button>
+            </Link>
+            <Link to={'/register'}>
+              <Button className="bg-background" variant="outline">
+                Sign Up
               </Button>
             </Link>
             {/* <Button

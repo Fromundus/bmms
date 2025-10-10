@@ -112,6 +112,9 @@ const Login = () => {
                             </ButtonWithLoading>
                         </form>
                     </CardContent>
+                    <CardFooter className='text-center w-full flex justify-center'>
+                        <span>Don't have an account? <Link className='font-semibold' to={'/register'}>Create Account</Link></span>
+                    </CardFooter>
                 </Card>
             </div>
         </div>

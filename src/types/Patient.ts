@@ -29,42 +29,35 @@
 // export default Patient;
 
 type Patient = {
-  id?: number;
-  name: string;
   address: string;
-  belongs_to_ip: string;
-  sex: string;
   birthday: string;
   contact_number: string;
-
-  records?: PatientRecord[];
-
+  created_at: string;
+  id: 100
   latest_record?: PatientRecord;
-
-  created_at?: string;
-  updated_at?: string;
+  name: string;
+  sex: string;
+  updated_at: string;
 } | null;
 
 export type PatientRecord = {
-  id: number;
+  age: number;
+  allergies: null | string;
+  created_at: string;
   date_measured: string;
-  weight: number;
   height: number;
-  age?: number;
-  weight_for_age?: string;
-  height_for_age?: string;
-  weight_for_ltht_status?: string;
-  
+  height_for_age: string;
+  id: number;
   immunizations: string;
   last_deworming_date: string;
-  allergies: string;
   medical_history: string;
   notes: string;
-
-  status?: string;
-
-  created_at?: string;
-  updated_at?: string;
+  patient_id: number;
+  status: string;
+  updated_at: string;
+  weight: number;
+  weight_for_age: string;
+  weight_for_ltht_status: string;
 }
 
 export default Patient;

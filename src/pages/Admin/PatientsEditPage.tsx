@@ -190,22 +190,6 @@ const PatientsEditPage = () => {
                                 disabled={loading}
                             />
                             <div className="space-y-2">
-                                <Label htmlFor="belongs_to_ip">Belongs to IP</Label>
-                                <Select
-                                    value={data.belongs_to_ip}
-                                    onValueChange={(value) => setData((prev) => prev ? { ...prev, belongs_to_ip: value } : prev)}
-                                >
-                                    <SelectTrigger>
-                                        <SelectValue placeholder="Select" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="Yes">Yes</SelectItem>
-                                        <SelectItem value="No">No</SelectItem>
-                                    </SelectContent>
-                                </Select>
-                                {errors?.belongs_to_ip && <span className='text-red-500 text-sm'>{errors?.belongs_to_ip}</span>}
-                            </div>
-                            <div className="space-y-2">
                                 <Label htmlFor="sex">Sex</Label>
                                 <Select
                                     value={data.sex}

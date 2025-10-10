@@ -46,6 +46,10 @@ const PatientHistoryPage = () => {
               <div>{item.date_measured}</div>
             </div>
             <div>
+              <Label>Age</Label>
+              <div>{item.age}</div>
+            </div>
+            <div>
               <Label>Weight</Label>
               <div>{item.weight} kg <PatientStatusBadge status={item.weight_for_age} /></div>
             </div>
@@ -120,10 +124,6 @@ const PatientHistoryPage = () => {
               <div>
                 <Label>Address</Label>
                 <div>{patient?.address}</div>
-              </div>
-              <div>
-                <Label>Belongs to IP</Label>
-                <div>{patient?.belongs_to_ip}</div>
               </div>
               <div>
                 <Label>Sex</Label>

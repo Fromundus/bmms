@@ -26,6 +26,7 @@ import PatientsEditPage from "./pages/Admin/PatientsEditPage";
 import NutritionalGuidancePage from "./pages/Admin/NutritionalGuidancePage";
 import ReportsPage from "./pages/Admin/ReportsPage";
 import PatientHistoryPage from "./pages/Admin/PatientHistoryPage";
+import Register from "./pages/Register";
 
 const queryClient = new QueryClient();
 
@@ -56,6 +57,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<GuestLayout />}>
               <Route index element={<Login />} />
+              <Route path="/register" element={<Register />} />
               {/* <Route path="login" element={<Login />} /> */}
             </Route>
 
@@ -70,12 +72,12 @@ const App = () => {
                 <Route path="nutritional-guide" element={<NutritionalGuidancePage />} />
                 <Route path="accounts/:id" element={<AccountPage />} />
                 <Route path="reports" element={<ReportsPage />} />
-                <Route path="profile" element={<ProfilePage />} />
+                {/* <Route path="profile" element={<ProfilePage />} /> */}
               </Route>
             </Route>
 
-            <Route element={<PrivateRoute requiredRole="admin" />}>
-              <Route path="/admin" element={<AdminLayout />}>
+            <Route element={<PrivateRoute requiredRole="bhw" />}>
+              <Route path="/bhw" element={<AdminLayout />}>
                 <Route index element={<DashboardOverview />} />
                 <Route path="patients" element={<PatientsPage />} />
                 <Route path="patients/:id" element={<PatientPage />} />
@@ -86,7 +88,15 @@ const App = () => {
                 <Route path="nutritional-guide" element={<NutritionalGuidancePage />} />
                 <Route path="accounts/:id" element={<AccountPage />} />
                 <Route path="reports" element={<ReportsPage />} />
-                <Route path="profile" element={<ProfilePage />} />
+                {/* <Route path="profile" element={<ProfilePage />} /> */}
+              </Route>
+            </Route>
+
+            <Route element={<PrivateRoute requiredRole="admin" />}>
+              <Route path="/admin" element={<AdminLayout />}>
+                <Route index element={<AccountsPage />} />
+                <Route path=":id" element={<AccountPage />} />
+                {/* <Route path="profile" element={<ProfilePage />} /> */}
               </Route>
             </Route>
 

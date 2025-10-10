@@ -78,16 +78,16 @@ const PatientPage = () => {
               <div>{patient?.address}</div>
             </div>
             <div>
-              <Label>Belongs to IP</Label>
-              <div>{patient?.belongs_to_ip}</div>
-            </div>
-            <div>
               <Label>Sex</Label>
               <div>{patient?.sex}</div>
             </div>
             <div>
               <Label>Birthday</Label>
               <div>{patient?.birthday}</div>
+            </div>
+            <div>
+              <Label>Age</Label>
+              <div>{patient?.latest_record?.age}</div>
             </div>
             <div>
               <Label>Contact Number</Label>
