@@ -12,6 +12,7 @@ import ButtonWithLoading from '@/components/custom/ButtonWithLoading';
 import { Save } from 'lucide-react';
 import api from '@/api/axios';
 import { toast } from '@/hooks/use-toast';
+import Questionnaire, { QuestionnaireData } from "../../components/custom/Questionnaire";
 
 type Error = {
     name: string;
@@ -37,6 +38,15 @@ const PatientsEditPage = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState<boolean>(false);
     const [data, setData] = useState<Patient | null>(null);
+
+    const [answers, setAnswers] = useState<QuestionnaireData>({
+        lowIncome: false,
+        recentIllness: false,
+        eats3Meals: false,
+        eatsVegetables: false,
+        cleanWater: false,
+        breastfeeding: false,
+    });
 
     const [errors, setErrors] = useState<Error>({
         name: "",
@@ -106,7 +116,6 @@ const PatientsEditPage = () => {
 
         const formData = {
             ...data,
-            // ...data.latest_record,
         }
 
         console.log(formData);
@@ -133,6 +142,7 @@ const PatientsEditPage = () => {
         const formData = {
             ...data,
             ...data.latest_record,
+            questionnaire_data: answers,
         }
 
         console.log(formData);
@@ -141,7 +151,7 @@ const PatientsEditPage = () => {
             await api.put(`/patients/${id}`, formData);
 
             toast({ title: "Successfully Updated" });
-            // navigate(`/${user.role}/patients`);
+            navigate(`/${user.role}/patients/${id}`);
         } catch (err: any) {
             setErrors(err.response?.data?.errors || {});
             console.error(err);
@@ -337,6 +347,17 @@ const PatientsEditPage = () => {
                                 disabled={loading}
                             />
                         </div>
+                    </CardContent>
+                </Card>
+
+                <Card>
+                    <CardHeader>
+                        <CardTitle>
+                            Questionnaire
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <Questionnaire data={answers} setData={setAnswers} />
                     </CardContent>
                 </Card>
 

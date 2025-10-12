@@ -58,6 +58,8 @@ export type PatientRecord = {
   weight: number;
   weight_for_age: string;
   weight_for_ltht_status: string;
+  likely_cause: string;
+  questionnaire_data: string;
 }
 
 export default Patient;

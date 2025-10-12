@@ -271,7 +271,6 @@ export default function PatientsPage() {
                 <TableHead>Weight for Age Status</TableHead>
                 <TableHead>Height for Age Status</TableHead>
                 <TableHead>Weight for Lt/Ht Status</TableHead>
-                <TableHead>Last Checkup</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead>Actions</TableHead>
               </TableRow>
@@ -285,35 +284,34 @@ export default function PatientsPage() {
                 </TableRow>
               ) : patients.length > 0 ? (
                 patients.map((u) => (
-                  <TableRow key={u.id}>
+                  <TableRow key={u?.id}>
                     <TableCell>
                       <Checkbox
-                        checked={selected.includes(u.id)}
-                        onCheckedChange={() => toggleSelect(u.id)}
+                        checked={selected.includes(u?.id)}
+                        onCheckedChange={() => toggleSelect(u?.id)}
                       />
                     </TableCell>
-                    <TableCell>{u.name}</TableCell>
-                    <TableCell>{u.sex}</TableCell>
-                    <TableCell>{u.address}</TableCell>
-                    <TableCell>{format(new Date(u.birthday), "P")}</TableCell>
-                    <TableCell>{format(new Date(u.latest_record.date_measured), "P")}</TableCell>
-                    <TableCell>{u.latest_record.weight}</TableCell>
-                    <TableCell>{u.latest_record.height}</TableCell>
-                    <TableCell>{u.latest_record.age}</TableCell>
-                    <TableCell><PatientStatusBadge status={u.latest_record.weight_for_age} /></TableCell>
-                    <TableCell><PatientStatusBadge status={u.latest_record.height_for_age} /></TableCell>
-                    <TableCell><PatientStatusBadge status={u.latest_record.weight_for_ltht_status} /></TableCell>
+                    <TableCell>{u?.name}</TableCell>
+                    <TableCell>{u?.sex}</TableCell>
+                    <TableCell>{u?.address}</TableCell>
+                    <TableCell>{format(new Date(u?.birthday), "P")}</TableCell>
+                    <TableCell>{u?.latest_record?.date_measured}</TableCell>
+                    <TableCell>{u?.latest_record?.weight}</TableCell>
+                    <TableCell>{u?.latest_record?.height}</TableCell>
+                    <TableCell>{u?.latest_record?.age}</TableCell>
+                    <TableCell><PatientStatusBadge status={u?.latest_record?.weight_for_age} /></TableCell>
+                    <TableCell><PatientStatusBadge status={u?.latest_record?.height_for_age} /></TableCell>
+                    <TableCell><PatientStatusBadge status={u?.latest_record?.weight_for_ltht_status} /></TableCell>
 
-                    <TableCell>{format(new Date(u.latest_record.updated_at), "PP")}</TableCell>
-                    <TableCell><PatientStatusBadge status={u.latest_record.status} /></TableCell>
+                    <TableCell><PatientStatusBadge status={u?.latest_record?.status} /></TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
-                        <Link to={`${u.id}`}>
+                        <Link to={`${u?.id}`}>
                           <Button variant="outline">
                             <Eye /> View
                           </Button>
                         </Link>
-                        <Link to={`edit/${u.id}`}>
+                        <Link to={`edit/${u?.id}`}>
                           <Button variant="outline">
                             <PenBoxIcon /> Edit
                           </Button>

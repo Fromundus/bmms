@@ -175,7 +175,7 @@ export default function AccountsTable() {
             </Link>
           </Button> */}
 
-          <AddUser refetch={fetchUsers} />
+          {/* <AddUser refetch={fetchUsers} /> */}
 
           {/* <AddAdmin refetch={fetchUsers} /> */}
         </div>

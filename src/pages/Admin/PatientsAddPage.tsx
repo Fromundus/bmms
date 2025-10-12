@@ -12,6 +12,7 @@ import ButtonWithLoading from '@/components/custom/ButtonWithLoading';
 import { Save } from 'lucide-react';
 import api from '@/api/axios';
 import { toast } from '@/hooks/use-toast';
+import Questionnaire, { QuestionnaireData } from "../../components/custom/Questionnaire";
 
 type Error = {
     name: string;
@@ -48,6 +49,16 @@ const PatientsAddPage = () => {
         medical_history: "",
         notes: "",
     });
+
+    const [answers, setAnswers] = useState<QuestionnaireData>({
+        lowIncome: false,
+        recentIllness: false,
+        eats3Meals: false,
+        eatsVegetables: false,
+        cleanWater: false,
+        breastfeeding: false,
+    });
+
 
     const [errors, setErrors] = useState<Error>({
         name: "",
@@ -88,9 +99,14 @@ const PatientsAddPage = () => {
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         setLoading(true);
+
+        const formData = {
+            ...data,
+            questionnaire_data: answers,
+        }
             
         try {
-            const res = await api.post('/patients', data);
+            const res = await api.post('/patients', formData);
 
             console.log(res);
 
@@ -315,6 +331,17 @@ const PatientsAddPage = () => {
                                 disabled={loading}
                             />
                         </div>
+                    </CardContent>
+                </Card>
+
+                <Card>
+                    <CardHeader>
+                        <CardTitle>
+                            Questionnaire
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <Questionnaire data={answers} setData={setAnswers} />
                     </CardContent>
                 </Card>
 

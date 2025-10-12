@@ -155,6 +155,10 @@ const PatientPage = () => {
               <Label>Status</Label>
               <div><PatientStatusBadge status={patient?.latest_record?.status} /></div>
             </div>
+            {patient?.latest_record?.likely_cause && <div>
+              <Label>Likely Cause</Label>
+              <div className='text-destructive'>{patient?.latest_record?.likely_cause}</div>
+            </div>}
           </div>
         </CardContent>
       </Card>

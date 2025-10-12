@@ -85,6 +85,10 @@ const PatientHistoryPage = () => {
               <Label>Status</Label>
               <div><PatientStatusBadge status={item.status} /></div>
             </div>
+            {item.likely_cause && <div>
+              <Label>Likely Cause</Label>
+              <div className='text-destructive'>{item.likely_cause}</div>
+            </div>}
           </div>
         </CardContent>
       </Card>
