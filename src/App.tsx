@@ -29,6 +29,7 @@ import PatientHistoryPage from "./pages/Admin/PatientHistoryPage";
 import Register from "./pages/Register";
 import LogsPage from "./pages/Admin/LogsPage";
 import NotificationsPage from "./pages/Admin/NotificationsPage";
+import SchedulePage from "./pages/Admin/SchedulePage";
 
 const queryClient = new QueryClient();
 
@@ -75,6 +76,7 @@ const App = () => {
                 <Route path="accounts/:id" element={<AccountPage />} />
                 <Route path="reports" element={<ReportsPage />} />
                 <Route path="notifications" element={<NotificationsPage />} />
+                <Route path="schedule" element={<SchedulePage />} />
                 {/* <Route path="profile" element={<ProfilePage />} /> */}
               </Route>
             </Route>
@@ -92,6 +94,7 @@ const App = () => {
                 <Route path="accounts/:id" element={<AccountPage />} />
                 <Route path="reports" element={<ReportsPage />} />
                 <Route path="notifications" element={<NotificationsPage />} />
+                <Route path="schedule" element={<SchedulePage />} />
                 {/* <Route path="profile" element={<ProfilePage />} /> */}
               </Route>
             </Route>

@@ -1,5 +1,5 @@
 import NavItem from "@/types/NavItem";
-import { Archive, Award, Bell, BookOpen, Briefcase, Calendar, CarFront, Coins, CreditCard, Database, DollarSign, Download, FileSignature, Folder, FolderOpen, Fuel, Heart, HelpCircle, Inbox, Logs, Megaphone, Upload, UploadCloud, Zap } from "lucide-react";
+import { Archive, Award, Bell, BookOpen, Briefcase, Calendar, CarFront, Coins, CreditCard, Database, DollarSign, Download, FileSignature, Folder, FolderOpen, Fuel, Heart, HelpCircle, Inbox, Logs, Megaphone, MessageCircle, Upload, UploadCloud, Zap } from "lucide-react";
 
 import {
   LayoutDashboard,
@@ -37,6 +37,12 @@ export const bnsNavigations = [
     url: "notifications",
     icon: Bell,
     group: "Navigation",
+  },
+  {
+    title: "Schedule",
+    url: "schedule",
+    icon: MessageCircle,
+    group: "Navigation"
   }
 ]
 
@@ -76,6 +82,12 @@ export const bhwNavigations = [
     url: "notifications",
     icon: Bell,
     group: "Navigation",
+  },
+  {
+    title: "Schedule",
+    url: "schedule",
+    icon: MessageCircle,
+    group: "Navigation"
   }
 ]
 

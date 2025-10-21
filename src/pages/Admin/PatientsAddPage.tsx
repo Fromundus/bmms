@@ -132,7 +132,7 @@ const PatientsAddPage = () => {
 
             setLoading(false);
 
-            // navigate(`/${user.role}/patients`);
+            navigate(`/${user.role}/patients`);
 
         } catch (err) {
             setErrors(err.response.data.errors);
