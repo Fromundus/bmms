@@ -125,7 +125,7 @@ export default function Dashboard() {
               </div>
             </div>
             <div className="flex items-center gap-4">
-              <DropdownMenu>
+              {/* <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <div className="p-2 rounded hover:bg-accent relative">
                     <Bell className="size-[22px]" />
@@ -135,7 +135,7 @@ export default function Dashboard() {
                 <DropdownMenuContent align="end" className="w-full flex-col space-y-2">
                   {notifications?.length > 0 ? renderNotifs : <div className="p-6 text-center">No notifications.</div>}
                 </DropdownMenuContent>
-              </DropdownMenu>
+              </DropdownMenu> */}
               <ThemeToggle />
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>

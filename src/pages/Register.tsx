@@ -10,7 +10,7 @@ import { Value } from '@radix-ui/react-select';
 import axios from 'axios';
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import logo from "../assets/logo.png";
+import background from "../assets/background.jpg";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 type FormData = {
@@ -80,7 +80,10 @@ const Register = () => {
 
 
     return (
-        <div className="min-h-screen py-12 flex items-center justify-center">
+        <div
+            className="min-h-screen py-12 flex items-center justify-center bg-cover bg-center bg-fixed bg-no-repeat"
+            style={{ backgroundImage: `url(${background})` }}
+        >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
                 <Card className='max-w-md mx-auto w-full'>
                     <CardHeader className='flex items-center'>

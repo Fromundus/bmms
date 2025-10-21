@@ -21,6 +21,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "@/api/axios";
 import { useAuth } from "@/store/auth";
+import ReportsPage from "@/pages/Admin/ReportsPage";
 
   // const stats = {
   //   totalResidents: 1248,
@@ -35,8 +36,8 @@ import { useAuth } from "@/store/auth";
   ];
 
   const quickActions = [
-    { title: "Register Nutritional Scholars", icon: Heart, href: "nutrition-scholars", description: "Add new BSN" },
-    { title: "View Reports", icon: FileText, href: "reports", description: "Latest statistics" },
+    // { title: "Register Nutritional Scholars", icon: Heart, href: "nutrition-scholars", description: "Add new BSN" },
+    // { title: "View Reports", icon: FileText, href: "reports", description: "Latest statistics" },
     { title: "Nutritional Guidance", icon: Activity, href: "nutritional-guide", description: "Health tips" },
   ];
 
@@ -170,13 +171,15 @@ export function DashboardOverview() {
         </CardContent>
       </Card>
 
+      <ReportsPage />
+
       {/* Quick Actions */}
       <Card className="bmms-card">
         <CardHeader>
           <CardTitle>Quick Actions</CardTitle>
         </CardHeader>
         <CardContent>
-          {user.role === "bhw" && <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {user.role === "bhw" && <div className="grid grid-cols-1 gap-4">
             {quickActions.map((action) => (
               <Button
                 key={action.title}

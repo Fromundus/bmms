@@ -113,7 +113,7 @@ const ReportsPage = () => {
 
   return (
     <AdminPageMain title="Reports & Statistics" description="">
-        <Card className="bmms-card">
+      {/* <Card className="bmms-card">
         <CardHeader>
             <CardTitle className="flex items-center gap-2">
                 <Activity className="h-5 w-5" />
@@ -144,11 +144,11 @@ const ReportsPage = () => {
             </div>
           </div>
         </CardContent>
-      </Card>
+      </Card> */}
 
       <div className="flex flex-col lg:flex-row flex-wrap gap-4">
         {/* Pie Chart */}
-        <Card className="flex-1">
+        {/* <Card className="flex-1">
           <CardHeader><CardTitle>Distribution (Pie Chart)</CardTitle></CardHeader>
           <CardContent className="h-80">
             <ResponsiveContainer width="100%" height="100%">
@@ -170,7 +170,7 @@ const ReportsPage = () => {
               </PieChart>
             </ResponsiveContainer>
           </CardContent>
-        </Card>
+        </Card> */}
 
         <Card className="bmms-card flex-1 h-full">
             <CardHeader>

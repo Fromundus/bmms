@@ -32,6 +32,12 @@ export const bnsNavigations = [
     icon: BookOpen,
     group: "Navigation"
   },
+  {
+    title: "Notifications",
+    url: "notifications",
+    icon: Bell,
+    group: "Navigation",
+  }
 ]
 
 export const bhwNavigations = [
@@ -53,18 +59,24 @@ export const bhwNavigations = [
     icon: Heart,
     group: "Navigation"
   },
-  {
-    title: "Reports",
-    url: "reports",
-    icon: FileText,
-    group: "Navigation"
-  },
+  // {
+  //   title: "Reports",
+  //   url: "reports",
+  //   icon: FileText,
+  //   group: "Navigation"
+  // },
   {
     title: "Nutritional Guide",
     url: "nutritional-guide",
     icon: BookOpen,
     group: "Navigation"
   },
+  {
+    title: "Notifications",
+    url: "notifications",
+    icon: Bell,
+    group: "Navigation",
+  }
 ]
 
 export const adminNavigations = [
@@ -74,4 +86,16 @@ export const adminNavigations = [
     icon: Users,
     group: "Navigation"
   },
-]
+  {
+    title: "Logs",
+    url: "logs",
+    icon: ClipboardCheck,
+    group: "Navigation"
+  },
+  {
+    title: "Notifications",
+    url: "notifications",
+    icon: Bell,
+    group: "Navigation",
+  }
+];

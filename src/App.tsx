@@ -27,6 +27,8 @@ import NutritionalGuidancePage from "./pages/Admin/NutritionalGuidancePage";
 import ReportsPage from "./pages/Admin/ReportsPage";
 import PatientHistoryPage from "./pages/Admin/PatientHistoryPage";
 import Register from "./pages/Register";
+import LogsPage from "./pages/Admin/LogsPage";
+import NotificationsPage from "./pages/Admin/NotificationsPage";
 
 const queryClient = new QueryClient();
 
@@ -72,6 +74,7 @@ const App = () => {
                 <Route path="nutritional-guide" element={<NutritionalGuidancePage />} />
                 <Route path="accounts/:id" element={<AccountPage />} />
                 <Route path="reports" element={<ReportsPage />} />
+                <Route path="notifications" element={<NotificationsPage />} />
                 {/* <Route path="profile" element={<ProfilePage />} /> */}
               </Route>
             </Route>
@@ -88,6 +91,7 @@ const App = () => {
                 <Route path="nutritional-guide" element={<NutritionalGuidancePage />} />
                 <Route path="accounts/:id" element={<AccountPage />} />
                 <Route path="reports" element={<ReportsPage />} />
+                <Route path="notifications" element={<NotificationsPage />} />
                 {/* <Route path="profile" element={<ProfilePage />} /> */}
               </Route>
             </Route>
@@ -97,6 +101,8 @@ const App = () => {
                 <Route index element={<AccountsPage />} />
                 <Route path=":id" element={<AccountPage />} />
                 {/* <Route path="profile" element={<ProfilePage />} /> */}
+                <Route path="logs" element={<LogsPage />} />
+                <Route path="notifications" element={<NotificationsPage />} />
               </Route>
             </Route>
 

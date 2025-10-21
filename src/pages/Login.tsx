@@ -10,7 +10,7 @@ import { Value } from '@radix-ui/react-select';
 import axios from 'axios';
 import React, { ChangeEvent, FormEvent } from 'react'
 import { Link } from 'react-router-dom';
-import logo from "../assets/logo.png";
+import background from "../assets/background.jpg";
 
 type FormData = {
     email: string;
@@ -59,14 +59,17 @@ const Login = () => {
 
 
     return (
-        <div className="min-h-screen py-12 flex items-center justify-center">
+        <div
+            className="min-h-screen py-12 flex items-center justify-center bg-cover bg-center bg-fixed bg-no-repeat"
+            style={{ backgroundImage: `url(${background})` }}
+        >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                <Card className='max-w-md mx-auto w-full'>
+                <Card className='max-w-sm mx-auto w-full'>
                     <CardHeader className='flex items-center'>
                         <CardTitle>
                             <div className='flex flex-col gap-4 w-full text-center'>
                                 <span>Login</span>
-                                <span className='text-base font-normal text-muted-foreground'>Access your Barangay Wellness Tracker Account.</span>
+                                {/* <span className='text-base font-normal text-muted-foreground'>Access your Barangay Wellness Tracker Account.</span> */}
                             </div>
                         </CardTitle>
                     </CardHeader>
