@@ -67,7 +67,7 @@ export function AppSidebar() {
           </div>
           <div>
             {/* <h2 className="font-semibold text-lg">FICELCO</h2> */}
-            <p className="text-xs text-muted-foreground">Barangay Malnutrition Monitoring System</p>
+            <p className="text-xs text-muted-foreground">Barangay Nutritional Status Monitoring System</p>
           </div>
         </div>
       </SidebarHeader>

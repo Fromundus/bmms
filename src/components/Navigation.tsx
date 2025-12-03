@@ -30,7 +30,7 @@ const Navigation = () => {
               {/* <img src={logo} alt="FICELCO Logo" /> */}
               <HeartPulse className="size-8" />
             </div>
-            <span className="text-xl font-bold text-foreground hidden md:block">Barangay Malnutrition Monitoring System</span>
+            <span className="text-xl font-bold text-foreground hidden md:block">Barangay Nutritional Status Monitoring System</span>
           </Link>
 
           {/* Desktop Navigation */}
