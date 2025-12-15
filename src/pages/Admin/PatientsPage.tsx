@@ -174,9 +174,10 @@ export default function PatientsPage() {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All</SelectItem>
+                  <SelectItem value="Severely Underweight">Severely Underweight</SelectItem>
                   <SelectItem value="Underweight">Underweight</SelectItem>
                   <SelectItem value="Normal">Normal</SelectItem>
-                  <SelectItem value="Overweight">Overweight</SelectItem>
+                  <SelectItem value="Mildly Underweight">Mildly Underweight</SelectItem>
                 </SelectContent>
               </Select>
 
@@ -186,9 +187,9 @@ export default function PatientsPage() {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All</SelectItem>
+                  <SelectItem value="Severely Stunted">Severely Stunted</SelectItem>
                   <SelectItem value="Stunted">Stunted</SelectItem>
                   <SelectItem value="Normal">Normal</SelectItem>
-                  <SelectItem value="Tall">Tall</SelectItem>
                 </SelectContent>
               </Select>
 
@@ -198,8 +199,10 @@ export default function PatientsPage() {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All</SelectItem>
+                  <SelectItem value="Severely Wasted">Severely Wasted</SelectItem>
                   <SelectItem value="Wasted">Wasted</SelectItem>
                   <SelectItem value="Normal">Normal</SelectItem>
+                  <SelectItem value="Overweight">Overweight</SelectItem>
                   <SelectItem value="Obese">Obese</SelectItem>
                 </SelectContent>
               </Select>

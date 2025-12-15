@@ -69,6 +69,7 @@ const App = () => {
                 <Route index element={<DashboardOverview />} />
                 <Route path="patients" element={<PatientsPage />} />
                 <Route path="patients/:id" element={<PatientPage />} />
+                <Route path="patients/history/:id" element={<PatientHistoryPage />} />
                 <Route path="patients/add" element={<PatientsAddPage />} />
                 <Route path="patients/edit/:id" element={<PatientsEditPage />} />
                 {/* <Route path="nutrition-scholars" element={<AccountsPage />} /> */}
