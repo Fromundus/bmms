@@ -251,6 +251,7 @@ const PatientsAddPage = () => {
                                 error={errors?.weight}
                                 onChange={handleChange}
                                 disabled={loading}
+                                step="any"
                             />
                             <InputWithLabel
                                 id="height"
@@ -262,6 +263,7 @@ const PatientsAddPage = () => {
                                 error={errors?.height}
                                 onChange={handleChange}
                                 disabled={loading}
+                                step="any"
                             />
                         </div>
                     </CardContent>
