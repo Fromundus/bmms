@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/table";
 import { MoreVertical, Plus, PlusCircle, Save, Shield, Trash, User as UserIcon, UserCheck, Search, CarFront, Eye, Pen, PenBoxIcon } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import User from "@/types/User";
 // import AddAdmin from "./add-modals/AddAdmin";
 // import AddUser from "./add-modals/AddUser";
@@ -25,11 +25,12 @@ import ButtonWithLoading from "@/components/custom/ButtonWithLoading";
 import Patient from "@/types/Patient";
 import { format } from "date-fns";
 import PatientStatusBadge from "@/components/custom/PatientStatusBadge";
+import { Label } from "@/components/ui/label";
 
 export default function PatientsPage() {
   const [patients, setPatients] = useState<Patient[]>([]);
   const [page, setPage] = useState(1);
-  const [perPage] = useState(10);
+  // const [perPage] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
   const [selected, setSelected] = useState<number[]>([]);
   const [search, setSearch] = useState("");
@@ -38,8 +39,12 @@ export default function PatientsPage() {
 
   const [deleteModal, setDeleteModal] = useState(false);
 
-  const [fetchTotal, setFetchTotal] = useState();
+  const [searchParams] = useSearchParams();
 
+  const selectedStatus = searchParams.get("status");
+
+  const [fetchTotal, setFetchTotal] = useState();
+  
   const [counts, setCounts] = useState({
     total: 0,
     superadmin: 0,
@@ -53,7 +58,22 @@ export default function PatientsPage() {
   const [status, setStatus] = useState("all");
   
   // console.log(counts);
+  console.log(selectedStatus);
 
+  React.useEffect(() => {
+    if(selectedStatus){
+      if(selectedStatus === "healthy"){
+        setStatus('Healthy');
+      } else if(selectedStatus === "atrisk"){
+        setStatus('At Risk');
+      } else if(selectedStatus === "moderate"){
+        setStatus('Moderate');
+      } else if(selectedStatus === "severe"){
+        setStatus('Severe');
+      }
+    }
+  }, [selectedStatus]);
+  
   const fetchUsers = async (searchQuery = debouncedSearch) => {
     setLoading(true);
 
@@ -61,7 +81,7 @@ export default function PatientsPage() {
       const res = await api.get(`/patients`, {
         params: { 
           page, 
-          per_page: perPage, 
+          // per_page: perPage, 
           search: searchQuery,
           wfa: wfa,
           hfa: hfa,
@@ -156,7 +176,7 @@ export default function PatientsPage() {
 
       <Card>
         <CardContent className="p-6">
-          <div className="flex flex-col w-full lg:justify-between lg:flex-row gap-2">
+          <div className="flex flex-col w-full gap-4">
             <div className="relative w-full">
               <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
               <Input
@@ -168,57 +188,77 @@ export default function PatientsPage() {
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2 w-full">
-              <Select value={wfa} onValueChange={setWfa} disabled={loading}>
-                <SelectTrigger className="w-full min-w-[60px]">
-                  <SelectValue placeholder="WFA" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All</SelectItem>
-                  <SelectItem value="Severely Underweight">Severely Underweight</SelectItem>
-                  <SelectItem value="Underweight">Underweight</SelectItem>
-                  <SelectItem value="Normal">Normal</SelectItem>
-                  <SelectItem value="Mildly Underweight">Mildly Underweight</SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="w-full gap-2 flex flex-col">
+                <Label>
+                  Weight for Age Status
+                </Label>
+                <Select value={wfa} onValueChange={setWfa} disabled={loading}>
+                  <SelectTrigger className="w-full min-w-[60px]">
+                    <SelectValue placeholder="WFA" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All</SelectItem>
+                    <SelectItem value="Severely Underweight">Severely Underweight</SelectItem>
+                    <SelectItem value="Underweight">Underweight</SelectItem>
+                    <SelectItem value="Normal">Normal</SelectItem>
+                    <SelectItem value="Mildly Underweight">Mildly Underweight</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-              <Select value={hfa} onValueChange={setHfa} disabled={loading}>
-                <SelectTrigger className="w-full min-w-[60px]">
-                  <SelectValue placeholder="HFA" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All</SelectItem>
-                  <SelectItem value="Severely Stunted">Severely Stunted</SelectItem>
-                  <SelectItem value="Stunted">Stunted</SelectItem>
-                  <SelectItem value="Normal">Normal</SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="w-full gap-2 flex flex-col">
+                <Label>
+                  Height for Age Status
+                </Label>
+                <Select value={hfa} onValueChange={setHfa} disabled={loading}>
+                  <SelectTrigger className="w-full min-w-[60px]">
+                    <SelectValue placeholder="HFA" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All</SelectItem>
+                    <SelectItem value="Severely Stunted">Severely Stunted</SelectItem>
+                    <SelectItem value="Stunted">Stunted</SelectItem>
+                    <SelectItem value="Normal">Normal</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-              <Select value={wfltht} onValueChange={setWfltht} disabled={loading}>
-                <SelectTrigger className="w-full min-w-[60px]">
-                  <SelectValue placeholder="WFLTHT" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All</SelectItem>
-                  <SelectItem value="Severely Wasted">Severely Wasted</SelectItem>
-                  <SelectItem value="Wasted">Wasted</SelectItem>
-                  <SelectItem value="Normal">Normal</SelectItem>
-                  <SelectItem value="Overweight">Overweight</SelectItem>
-                  <SelectItem value="Obese">Obese</SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="w-full gap-2 flex flex-col">
+                <Label>
+                  BMI
+                </Label>
+                <Select value={wfltht} onValueChange={setWfltht} disabled={loading}>
+                  <SelectTrigger className="w-full min-w-[60px]">
+                    <SelectValue placeholder="WFLTHT" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All</SelectItem>
+                    <SelectItem value="Severely Wasted">Severely Wasted</SelectItem>
+                    <SelectItem value="Wasted">Wasted</SelectItem>
+                    <SelectItem value="Normal">Normal</SelectItem>
+                    <SelectItem value="Overweight">Overweight</SelectItem>
+                    <SelectItem value="Obese">Obese</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-              <Select value={status} onValueChange={setStatus} disabled={loading}>
-                <SelectTrigger className="w-full min-w-[60px]">
-                  <SelectValue placeholder="Status" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All</SelectItem>
-                  <SelectItem value="Severe">Severe</SelectItem>
-                  <SelectItem value="Moderate">Moderate</SelectItem>
-                  <SelectItem value="At Risk">At Risk</SelectItem>
-                  <SelectItem value="Healthy">Healthy</SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="w-full gap-2 flex flex-col">
+                <Label>
+                  Overall Status
+                </Label>
+                <Select value={status} onValueChange={setStatus} disabled={loading}>
+                  <SelectTrigger className="w-full min-w-[60px]">
+                    <SelectValue placeholder="Status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All</SelectItem>
+                    <SelectItem value="Severe">Severe</SelectItem>
+                    <SelectItem value="Moderate">Moderate</SelectItem>
+                    <SelectItem value="At Risk">At Risk</SelectItem>
+                    <SelectItem value="Healthy">Healthy</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
 
           </div>
@@ -273,8 +313,8 @@ export default function PatientsPage() {
                 <TableHead>Age</TableHead>
                 <TableHead>Weight for Age Status</TableHead>
                 <TableHead>Height for Age Status</TableHead>
-                <TableHead>Weight for Lt/Ht Status</TableHead>
-                <TableHead>Status</TableHead>
+                <TableHead>BMI</TableHead>
+                <TableHead>Overall Status</TableHead>
                 <TableHead>Actions</TableHead>
               </TableRow>
             </TableHeader>

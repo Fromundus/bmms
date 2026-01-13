@@ -93,8 +93,14 @@ export const bhwNavigations = [
 
 export const adminNavigations = [
   {
-    title: "Accounts",
+    title: "Patient Directory",
     url: "/admin",
+    icon: Users,
+    group: "Navigation"
+  },
+  {
+    title: "Accounts",
+    url: "accounts",
     icon: Users,
     group: "Navigation"
   },

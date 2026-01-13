@@ -1,17 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* 
+
+
 * {
-  font-family: "Poppins", sans-serif;
-} */
+  font-family: "Inter", sans-serif;
+}
+
+/* FICELCO Design System - Electric Cooperative Professional Theme */
 
 @layer base {
   :root {
-    /* --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%; */
-
-    --background: 210 100% 97%;
+    --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
     --card: 0 0% 100%;
@@ -23,7 +23,7 @@
     /* Professional government blue */
     /* --primary: 214 84% 56%; */
     /* --primary: 46 85% 48%;  */
-    --primary: 214 84% 56%;
+    --primary: 0 0% 12%;
     --primary-foreground: 0 0% 100%;
     --primary-muted: 214 32% 91%;
 
@@ -174,5 +174,11 @@
   
   .bg-subtle-gradient {
     background: var(--gradient-subtle);
+  }
+}
+
+@layer base {
+  .dark input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
   }
 }

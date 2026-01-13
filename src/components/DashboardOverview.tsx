@@ -17,7 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import AdminPageMain from "./custom/AdminPageMain";
 import { Users, Activity, AlertTriangle, FileText, Heart, Settings } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "@/api/axios";
 import { useAuth } from "@/store/auth";
@@ -97,11 +97,13 @@ export function DashboardOverview() {
     fetchStats();
   }, []);
 
+  const navigate = useNavigate();
+
   return (
     <AdminPageMain title="Dashboard Overview" description="Monitor patients">
       {/* Statistics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-        <Card className="bmms-card border-l-4 border-primary">
+        <Card className="bmms-card border-l-4 cursor-pointer border-primary" onClick={() => navigate('patients')}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Patients</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
@@ -112,7 +114,7 @@ export function DashboardOverview() {
           </CardContent>
         </Card>
 
-        <Card className="bmms-card border-l-4 border-l-green-500">
+        <Card className="bmms-card border-l-4 cursor-pointer border-l-green-500" onClick={() => navigate('patients?status=healthy')}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Healthy</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
@@ -123,7 +125,7 @@ export function DashboardOverview() {
           </CardContent>
         </Card>
 
-        <Card className="bmms-card border-l-4 border-l-yellow-500">
+        <Card className="bmms-card border-l-4 cursor-pointer border-l-yellow-500" onClick={() => navigate('patients?status=atrisk')}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">At Risk</CardTitle>
             <AlertTriangle className="h-4 w-4 text-yellow-500" />
@@ -134,7 +136,7 @@ export function DashboardOverview() {
           </CardContent>
         </Card>
 
-        <Card className="bmms-card border-l-4 border-l-orange-500">
+        <Card className="bmms-card border-l-4 cursor-pointer border-l-orange-500" onClick={() => navigate('patients?status=moderate')}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Moderate Cases</CardTitle>
             <Activity className="h-4 w-4 text-orange-500" />
@@ -145,7 +147,7 @@ export function DashboardOverview() {
           </CardContent>
         </Card>
 
-        <Card className="bmms-card border-l-4 border-l-red-500">
+        <Card className="bmms-card border-l-4 cursor-pointer border-l-red-500" onClick={() => navigate('patients?status=severe')}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Severe Cases</CardTitle>
             <AlertTriangle className="h-4 w-4 text-red-500" />

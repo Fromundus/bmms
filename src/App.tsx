@@ -102,8 +102,13 @@ const App = () => {
 
             <Route element={<PrivateRoute requiredRole="admin" />}>
               <Route path="/admin" element={<AdminLayout />}>
-                <Route index element={<AccountsPage />} />
-                <Route path=":id" element={<AccountPage />} />
+                <Route index element={<PatientsPage />} />
+                <Route path=":id" element={<PatientPage />} />
+                <Route path="history/:id" element={<PatientHistoryPage />} />
+                <Route path="add" element={<PatientsAddPage />} />
+                <Route path="edit/:id" element={<PatientsEditPage />} />
+                <Route path="accounts" element={<AccountsPage />} />
+                <Route path="accounts/:id" element={<AccountPage />} />
                 {/* <Route path="profile" element={<ProfilePage />} /> */}
                 <Route path="logs" element={<LogsPage />} />
                 <Route path="notifications" element={<NotificationsPage />} />

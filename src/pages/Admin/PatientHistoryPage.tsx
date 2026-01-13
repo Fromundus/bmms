@@ -9,6 +9,14 @@ import { useEffect, useState } from 'react'
 import api from '@/api/axios'
 import { History, PenBox } from 'lucide-react'
 import PatientStatusBadge from '@/components/custom/PatientStatusBadge'
+import {
+  Table,
+  TableHeader,
+  TableRow,
+  TableHead,
+  TableBody,
+  TableCell,
+} from "@/components/ui/table";
 
 const PatientHistoryPage = () => {
   const { user } = useAuth()
@@ -35,63 +43,18 @@ const PatientHistoryPage = () => {
 
   const renderHistory = records?.map((item) => {
     return (
-      <Card key={item.id}>
-        <CardHeader>
-          <CardTitle>Physical & Medical Information</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <Label>Date Measured</Label>
-              <div>{item.date_measured}</div>
-            </div>
-            <div>
-              <Label>Age</Label>
-              <div>{item.age}</div>
-            </div>
-            <div>
-              <Label>Weight</Label>
-              <div>{item.weight} kg <PatientStatusBadge status={item.weight_for_age} /></div>
-            </div>
-            <div>
-              <Label>Height</Label>
-              <div>{item.height} cm <PatientStatusBadge status={item.height_for_age} /></div>
-            </div>
-            <div>
-              <Label>Weight-for-Height</Label>
-              <div><PatientStatusBadge status={item.weight_for_ltht_status} /></div>
-            </div>
-            <div>
-              <Label>Immunizations</Label>
-              <div>{item.immunizations ?? "None"}</div>
-            </div>
-            <div>
-              <Label>Last Deworming Date</Label>
-              <div>{item.last_deworming_date ?? "Not recorded"}</div>
-            </div>
-            <div>
-              <Label>Allergies</Label>
-              <div>{item.allergies ?? "None"}</div>
-            </div>
-            <div>
-              <Label>Medical History</Label>
-              <div>{item.medical_history ?? "None"}</div>
-            </div>
-            <div>
-              <Label>Notes</Label>
-              <div>{item.notes ?? "None"}</div>
-            </div>
-            <div>
-              <Label>Status</Label>
-              <div><PatientStatusBadge status={item.status} /></div>
-            </div>
-            {item.likely_cause && <div>
-              <Label>Likely Cause</Label>
-              <div className='text-destructive'>{item.likely_cause}</div>
-            </div>}
-          </div>
-        </CardContent>
-      </Card>
+      <TableRow key={item?.id}>
+        <TableCell>{item?.date_measured}</TableCell>
+        <TableCell>{item?.weight}</TableCell>
+        <TableCell>{item?.height}</TableCell>
+        <TableCell>{item?.age}</TableCell>
+        <TableCell><PatientStatusBadge status={item?.weight_for_age} /></TableCell>
+        <TableCell><PatientStatusBadge status={item?.height_for_age} /></TableCell>
+        <TableCell><PatientStatusBadge status={item?.weight_for_ltht_status} /></TableCell>
+
+        <TableCell><PatientStatusBadge status={item?.status} /></TableCell>
+        <TableCell className='text-destructive'>{item?.likely_cause}</TableCell>
+      </TableRow>
     )
   })
 
@@ -114,7 +77,7 @@ const PatientHistoryPage = () => {
   return (
     <AdminPage withBackButton={true} title="View History">
       {/* Personal Information */}
-      <div className='flex flex-col lg:flex-row gap-4'>
+      <div className='flex flex-col gap-4'>
         <Card className='h-fit w-full'>
           <CardHeader>
             <CardTitle>Personal Information</CardTitle>
@@ -145,12 +108,52 @@ const PatientHistoryPage = () => {
           </CardContent>
         </Card>
         <div className='flex flex-col gap-4 w-full'>
-          <Card>
+          {/* <Card>
             <CardContent className='p-6 flex items-center justify-center text-lg font-semibold'>
               <span className='flex items-center gap-2'><History />Physical & Medical Information History</span>
             </CardContent>
+          </Card> */}
+          <Card>
+            <CardHeader>
+              <CardTitle className='flex items-center gap-2'>
+                <History /> Physical & Medical Information History
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Date Measured</TableHead>
+                    <TableHead>Weight</TableHead>
+                    <TableHead>Height</TableHead>
+                    <TableHead>Age</TableHead>
+                    <TableHead>Weight for Age Status</TableHead>
+                    <TableHead>Height for Age Status</TableHead>
+                    <TableHead>BMI</TableHead>
+                    <TableHead>Overall Status</TableHead>
+                    <TableHead>Likely Cause</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {loading ? (
+                    <TableRow>
+                      <TableCell colSpan={15} className="text-center">
+                        Loading...
+                      </TableCell>
+                    </TableRow>
+                  ) : records.length > 0 ? (
+                    renderHistory
+                  ) : (
+                    <TableRow>
+                      <TableCell colSpan={15} className="text-center">
+                        No History found.
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </CardContent>
           </Card>
-          {renderHistory}
         </div>
       </div>
     </AdminPage>
