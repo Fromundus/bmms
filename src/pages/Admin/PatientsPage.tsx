@@ -27,6 +27,7 @@ import { format } from "date-fns";
 import PatientStatusBadge from "@/components/custom/PatientStatusBadge";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/store/auth";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function PatientsPage() {
   const { user } = useAuth();
@@ -157,8 +158,14 @@ export default function PatientsPage() {
     }
   };
 
+  const queryClient = useQueryClient();
+
   const handleGenerateReport = async () => {
     setLoading(true);
+
+    toast({
+      title: "Generating report. Please wait...",
+    });
     
     try {
       const res = await api.get("/generate-report");
@@ -168,6 +175,9 @@ export default function PatientsPage() {
       });
 
       console.log(res);
+      setLoading(false);
+
+      queryClient.invalidateQueries({ queryKey: ['reports'] });
     } catch (err) {
       console.log(err);
       toast({
@@ -291,9 +301,9 @@ export default function PatientsPage() {
         </CardContent>
       </Card>
 
-      <Button onClick={handleGenerateReport}>
+      {user?.role === "admin" && <Button onClick={handleGenerateReport}>
         Generate Report and Solutions
-      </Button>
+      </Button>}
 
       <Card>
         <CardHeader>

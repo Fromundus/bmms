@@ -26,6 +26,12 @@ export const bnsNavigations = [
     icon: Users,
     group: "Navigation"
   },
+  // {
+  //   title: "Reports & Solutions",
+  //   url: "reports-and-solutions",
+  //   icon: ClipboardCheck,
+  //   group: "Navigation"
+  // },
   {
     title: "Nutritional Guide",
     url: "nutritional-guide",
@@ -59,6 +65,12 @@ export const bhwNavigations = [
     icon: Users,
     group: "Navigation"
   },
+  // {
+  //   title: "Reports & Solutions",
+  //   url: "reports-and-solutions",
+  //   icon: ClipboardCheck,
+  //   group: "Navigation"
+  // },
   {
     title: "Nutrition Scholars",
     url: "nutrition-scholars",
@@ -96,6 +108,12 @@ export const adminNavigations = [
     title: "Patient Directory",
     url: "/admin",
     icon: Users,
+    group: "Navigation"
+  },
+  {
+    title: "Reports & Solutions",
+    url: "reports-and-solutions",
+    icon: ClipboardCheck,
     group: "Navigation"
   },
   {

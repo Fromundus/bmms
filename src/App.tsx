@@ -30,6 +30,7 @@ import Register from "./pages/Register";
 import LogsPage from "./pages/Admin/LogsPage";
 import NotificationsPage from "./pages/Admin/NotificationsPage";
 import SchedulePage from "./pages/Admin/SchedulePage";
+import ReportsAndSolutions from "./pages/Admin/ReportsAndSolutions";
 
 const queryClient = new QueryClient();
 
@@ -67,6 +68,7 @@ const App = () => {
             <Route element={<PrivateRoute requiredRole="bns" />}>
               <Route path="/bns" element={<BHWLayout />}>
                 <Route index element={<DashboardOverview />} />
+                {/* <Route path="reports-and-solutions" element={<ReportsAndSolutions />} /> */}
                 <Route path="patients" element={<PatientsPage />} />
                 <Route path="patients/:id" element={<PatientPage />} />
                 <Route path="patients/history/:id" element={<PatientHistoryPage />} />
@@ -85,6 +87,7 @@ const App = () => {
             <Route element={<PrivateRoute requiredRole="bhw" />}>
               <Route path="/bhw" element={<AdminLayout />}>
                 <Route index element={<DashboardOverview />} />
+                {/* <Route path="reports-and-solutions" element={<ReportsAndSolutions />} /> */}
                 <Route path="patients" element={<PatientsPage />} />
                 <Route path="patients/:id" element={<PatientPage />} />
                 <Route path="patients/history/:id" element={<PatientHistoryPage />} />
@@ -103,6 +106,7 @@ const App = () => {
             <Route element={<PrivateRoute requiredRole="admin" />}>
               <Route path="/admin" element={<AdminLayout />}>
                 <Route index element={<PatientsPage />} />
+                <Route path="reports-and-solutions" element={<ReportsAndSolutions />} />
                 <Route path=":id" element={<PatientPage />} />
                 <Route path="history/:id" element={<PatientHistoryPage />} />
                 <Route path="add" element={<PatientsAddPage />} />
