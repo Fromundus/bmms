@@ -26,8 +26,10 @@ import Patient from "@/types/Patient";
 import { format } from "date-fns";
 import PatientStatusBadge from "@/components/custom/PatientStatusBadge";
 import { Label } from "@/components/ui/label";
+import { useAuth } from "@/store/auth";
 
 export default function PatientsPage() {
+  const { user } = useAuth();
   const [patients, setPatients] = useState<Patient[]>([]);
   const [page, setPage] = useState(1);
   // const [perPage] = useState(10);
@@ -155,6 +157,30 @@ export default function PatientsPage() {
     }
   };
 
+  const handleGenerateReport = async () => {
+    setLoading(true);
+    
+    try {
+      const res = await api.get("/generate-report");
+
+      toast({
+        title: "Generated Report Successfully",
+      });
+
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+      toast({
+        title: err.response.status,
+        description: err.response.data.message,
+        variant: "destructive",
+      });
+      setLoading(false);
+    }
+  };
+
+
+
   const navigate = useNavigate();
 
   return (
@@ -265,12 +291,16 @@ export default function PatientsPage() {
         </CardContent>
       </Card>
 
+      <Button onClick={handleGenerateReport}>
+        Generate Report and Solutions
+      </Button>
+
       <Card>
         <CardHeader>
           <div className="w-full flex flex-col gap-6 lg:flex-row lg:justify-between lg:items-center">
             <CardTitle>
-              Patient Directory
-            </CardTitle>
+              Patient Directory ({ user?.role === "admin" ? "All" : user?.role === "bhw" ? "From ages 20 and above" : "From ages 0 to 19" })
+            </CardTitle> 
               <div className="flex items-center gap-2">
                   <>
                     <Modal disabled={selected.length === 0 || loading} title="Delete Accounts" buttonLabel={<Trash />} buttonClassName="w-10 h-10 bg-destructive text-white hover:bg-destructive/50" open={deleteModal} setOpen={setDeleteModal}>

@@ -164,7 +164,7 @@ const PatientsAddPage = () => {
                                 onChange={handleChange}
                                 disabled={loading}
                             />
-                            <InputWithLabel
+                            {/* <InputWithLabel
                                 id="address"
                                 name='address'
                                 type="address"
@@ -174,8 +174,28 @@ const PatientsAddPage = () => {
                                 error={errors?.address}
                                 onChange={handleChange}
                                 disabled={loading}
-                            />
-                            <div className="space-y-2">
+                            /> */}
+                            <div className="flex flex-col gap-3">
+                                <Label htmlFor="address">Address</Label>
+                                <Select value={data.address} onValueChange={(value) => setData((prev) => {
+                                    return {
+                                        ...prev,
+                                        address: value
+                                    }
+                                })}>
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Select" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="Purok 1 (JMA Alberto Street)">Purok 1 (JMA Alberto Street)</SelectItem>
+                                    <SelectItem value="Purok 2 (San Lorenzo)">Purok 2 (San Lorenzo)</SelectItem>
+                                    <SelectItem value="Purok 3 Salvacion Street">Purok 3 Salvacion Street</SelectItem>
+                                </SelectContent>
+                                </Select>
+                                {errors?.address && <span className='text-red-500 text-sm'>{errors?.address}</span>}
+                            </div>
+                            
+                            <div className="flex flex-col gap-3">
                                 <Label htmlFor="sex">Sex</Label>
                                 <Select value={data.sex} onValueChange={(value) => setData((prev) => {
                                     return {
