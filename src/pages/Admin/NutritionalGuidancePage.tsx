@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { ChevronDown, ChevronRight, BookOpen, Utensils, Droplets, Apple, Leaf, Heart } from "lucide-react";
+import { ChevronDown, ChevronRight, BookOpen, Utensils, Droplets, Apple, Leaf, Heart, Info, Search, AlertCircle } from "lucide-react";
 import AdminPageMain from "@/components/custom/AdminPageMain";
 
 const guidanceTopics = [
@@ -202,6 +202,8 @@ const NutritionalGuidancePage = () => {
         </CardHeader>
       </Card>
 
+      <NutritionComputationGuide />
+      <MalnutritionCauseGuide />
       <NutritionLegend />
 
       <div className="space-y-4">
@@ -434,6 +436,252 @@ const NutritionLegend = () => {
           <p className="text-xs text-green-700 mt-2">
             ✅ Continue **good feeding and healthy lifestyle**.
           </p>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
+
+const NutritionComputationGuide = () => {
+  return (
+    <Card className="bmms-card border border-muted">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2 justify-center">
+          <Info className="h-5 w-5 text-primary" />
+          How Nutrition Status Is Computed
+        </CardTitle>
+        <p className="text-center text-muted-foreground text-sm">
+          This system uses age, weight, height, and BMI to classify nutrition status
+        </p>
+      </CardHeader>
+
+      <CardContent className="space-y-6 text-sm text-muted-foreground">
+        {/* WFA */}
+        <div>
+          <h4 className="font-semibold text-foreground mb-2">
+            1. Weight-for-Age (WFA)
+          </h4>
+          <p>
+            Weight-for-age checks whether a person’s body weight is appropriate
+            for their age group.
+          </p>
+          <ul className="list-disc list-inside mt-2 space-y-1">
+            <li>
+              Younger children are classified as <strong>Severely Underweight</strong> or{" "}
+              <strong>Underweight</strong> if their weight is far below what is expected
+              for their age.
+            </li>
+            <li>
+              Older children and adolescents are checked for underweight status
+              using higher weight thresholds.
+            </li>
+            <li>
+              Adults are screened only for very low weight (underweight) or very
+              high weight (overweight).
+            </li>
+          </ul>
+        </div>
+
+        {/* HFA */}
+        <div>
+          <h4 className="font-semibold text-foreground mb-2">
+            2. Height-for-Age (HFA)
+          </h4>
+          <p>
+            Height-for-age measures long-term growth. Low height for age suggests
+            delayed or restricted growth.
+          </p>
+          <ul className="list-disc list-inside mt-2 space-y-1">
+            <li>
+              Children with very short height for their age are classified as{" "}
+              <strong>Severely Stunted</strong>.
+            </li>
+            <li>
+              Children and adolescents below expected height are classified as{" "}
+              <strong>Stunted</strong>.
+            </li>
+            <li>
+              Adults are screened only to identify historically very short stature.
+            </li>
+          </ul>
+        </div>
+
+        {/* WFH / BMI */}
+        <div>
+          <h4 className="font-semibold text-foreground mb-2">
+            3. Weight-for-Height / Body Mass Index (BMI)
+          </h4>
+          <p>
+            This indicator checks whether body weight is too low or too high for
+            a person’s height.
+          </p>
+
+          <div className="mt-2 space-y-2">
+            <p className="font-medium text-foreground">
+              Children & Adolescents (below 20 years)
+            </p>
+            <ul className="list-disc list-inside space-y-1">
+              <li>BMI &lt; 14 → <strong>Severely Wasted</strong></li>
+              <li>BMI &lt; 16 → <strong>Wasted</strong></li>
+              <li>BMI &gt; 23 → <strong>Overweight</strong></li>
+              <li>BMI &gt; 27 → <strong>Obese</strong></li>
+              <li>Otherwise → <strong>Normal</strong></li>
+            </ul>
+
+            <p className="font-medium text-foreground mt-3">
+              Adults (20 years and above)
+            </p>
+            <ul className="list-disc list-inside space-y-1">
+              <li>BMI &lt; 16 → <strong>Severely Wasted</strong></li>
+              <li>BMI &lt; 18.5 → <strong>Wasted</strong></li>
+              <li>BMI ≥ 25 → <strong>Overweight</strong></li>
+              <li>BMI ≥ 30 → <strong>Obese</strong></li>
+              <li>Otherwise → <strong>Normal</strong></li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Overall Status */}
+        <div>
+          <h4 className="font-semibold text-foreground mb-2">
+            4. Overall Nutrition Status
+          </h4>
+          <p>
+            The overall status summarizes all measurements into a single result.
+            The most serious finding always takes priority.
+          </p>
+
+          <ul className="list-disc list-inside mt-2 space-y-1">
+            <li>
+              <strong>Severe</strong> — Any severe condition (very low BMI, severe
+              underweight, severe stunting, or severe wasting).
+            </li>
+            <li>
+              <strong>Moderate</strong> — Clear nutrition problems such as
+              underweight, stunting, wasting, or obesity.
+            </li>
+            <li>
+              <strong>At Risk</strong> — Mild underweight, overweight, or low-normal BMI.
+            </li>
+            <li>
+              <strong>Healthy</strong> — All measurements fall within normal range.
+            </li>
+          </ul>
+        </div>
+
+        <div className="text-xs text-muted-foreground pt-2 border-t">
+          ⚠ This nutrition assessment is a screening tool and does not replace
+          professional medical evaluation.
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
+const MalnutritionCauseGuide = () => {
+  return (
+    <Card className="bmms-card border border-muted">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2 justify-center">
+          <Search className="h-5 w-5 text-primary" />
+          How Possible Causes Are Identified
+        </CardTitle>
+        <p className="text-center text-muted-foreground text-sm">
+          Causes are inferred from questionnaire answers and nutrition status
+        </p>
+      </CardHeader>
+
+      <CardContent className="space-y-6 text-sm text-muted-foreground">
+        <div>
+          <p>
+            The system analyzes possible causes of malnutrition only when a person
+            is <strong>not classified as Healthy</strong>. It uses answers from the
+            household and nutrition questionnaire to identify contributing factors.
+          </p>
+        </div>
+
+        {/* Undernutrition */}
+        <div>
+          <h4 className="font-semibold text-foreground mb-2">
+            1. Undernutrition (Severe or Moderate)
+          </h4>
+          <p>
+            When the overall status is <strong>Severe</strong> or{" "}
+            <strong>Moderate</strong>, the system checks for common causes of
+            undernutrition.
+          </p>
+
+          <ul className="list-disc list-inside mt-2 space-y-1">
+            <li>
+              <strong>Low household income / food insecurity</strong> — if the
+              household reports low income.
+            </li>
+            <li>
+              <strong>Inadequate food intake or skipped meals</strong> — if fewer
+              than three meals are eaten per day.
+            </li>
+            <li>
+              <strong>Poor diet quality</strong> — if vegetables or fruits are not
+              eaten regularly.
+            </li>
+            <li>
+              <strong>Frequent illness or infection</strong> — if there was recent
+              sickness.
+            </li>
+            <li>
+              <strong>Unsafe water or poor sanitation</strong> — if clean drinking
+              water is unavailable.
+            </li>
+            <li>
+              <strong>Lack of breastfeeding</strong> — if an infant is not breastfed.
+            </li>
+          </ul>
+        </div>
+
+        {/* Overweight */}
+        <div>
+          <h4 className="font-semibold text-foreground mb-2">
+            2. Overweight or Obesity Risk
+          </h4>
+          <p>
+            When the overall status is <strong>At Risk</strong> or{" "}
+            <strong>Severe</strong>, the system also checks for possible causes of
+            excess weight.
+          </p>
+
+          <ul className="list-disc list-inside mt-2 space-y-1">
+            <li>
+              <strong>High calorie intake with poor diet balance</strong> — eating
+              regular meals but lacking vegetables.
+            </li>
+            <li>
+              <strong>Sedentary lifestyle or overeating</strong> — when there is no
+              illness and no food insecurity reported.
+            </li>
+          </ul>
+        </div>
+
+        {/* Fallback */}
+        <div>
+          <h4 className="font-semibold text-foreground mb-2">
+            3. No Identified Cause
+          </h4>
+          <p>
+            If none of the questionnaire answers indicate a clear contributing
+            factor, the system reports:
+          </p>
+          <div className="flex items-center gap-2 mt-2 text-muted-foreground">
+            <AlertCircle className="h-4 w-4" />
+            <span>
+              <em>No significant cause detected based on questionnaire</em>
+            </span>
+          </div>
+        </div>
+
+        <div className="text-xs text-muted-foreground pt-2 border-t">
+          ⚠ Identified causes are meant to guide
+          nutrition counseling, not to assign blame or make medical diagnoses.
         </div>
       </CardContent>
     </Card>
