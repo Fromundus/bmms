@@ -334,7 +334,7 @@ export default function PatientsPage() {
         </CardHeader>
         <CardContent>
           {/* Table */}
-          <Table>
+          <Table className="text-xs">
             <TableHeader>
               <TableRow>
                 <TableHead className="w-[50px]">
@@ -374,11 +374,11 @@ export default function PatientsPage() {
                         onCheckedChange={() => toggleSelect(u?.id)}
                       />
                     </TableCell>
-                    <TableCell>{u?.name}</TableCell>
+                    <TableCell className="text-nowrap">{u?.name}</TableCell>
                     <TableCell>{u?.sex}</TableCell>
-                    <TableCell>{u?.address}</TableCell>
+                    <TableCell className="text-nowrap">{u?.address}</TableCell>
                     <TableCell>{format(new Date(u?.birthday), "P")}</TableCell>
-                    <TableCell>{u?.latest_record?.date_measured}</TableCell>
+                    <TableCell className="text-nowrap">{u?.latest_record?.date_measured}</TableCell>
                     <TableCell>{u?.latest_record?.weight}</TableCell>
                     <TableCell>{u?.latest_record?.height}</TableCell>
                     <TableCell>{u?.latest_record?.age}</TableCell>

@@ -14,23 +14,6 @@ import api from '@/api/axios';
 import { toast } from '@/hooks/use-toast';
 import Questionnaire, { QuestionnaireData } from "../../components/custom/Questionnaire";
 
-type Error = {
-    name: string;
-    address: string;
-    sex: string;
-    birthday: string;
-    date_measured: string;
-    weight: string;
-    height: string;
-    contact_number: string;
-
-    immunizations: string;
-    last_deworming_date: string;
-    allergies: string;
-    medical_history: string;
-    notes: string;
-}
-
 const PatientsAddPage = () => {
     const { user } = useAuth();
     const [loading, setLoading] = useState<boolean>(false);
@@ -47,6 +30,10 @@ const PatientsAddPage = () => {
         last_deworming_date: "",
         allergies: "",
         medical_history: "",
+        birth_history: "",
+        past_illnesses: "",
+        current_medication: "",
+        family_medical_history: "",
         notes: "",
     });
 
@@ -59,22 +46,7 @@ const PatientsAddPage = () => {
         breastfeeding: false,
     });
 
-
-    const [errors, setErrors] = useState<Error>({
-        name: "",
-        address: "",
-        sex: "",
-        birthday: "",
-        date_measured: "",
-        weight: "",
-        height: "",
-        contact_number: "",
-        immunizations: "",
-        last_deworming_date: "",
-        allergies: "",
-        medical_history: "",
-        notes: "",
-    });
+    const [errors, setErrors] = useState(null);
 
     const navigate = useNavigate();
     
@@ -109,22 +81,6 @@ const PatientsAddPage = () => {
             const res = await api.post('/patients', formData);
 
             console.log(res);
-
-            setData({
-                name: "",
-                address: "",
-                sex: "",
-                birthday: "",
-                date_measured: "",
-                weight: null,
-                height: null,
-                contact_number: "",
-                immunizations: "",
-                last_deworming_date: "",
-                allergies: "",
-                medical_history: "",
-                notes: "",
-            });
 
             toast({
                 title: "Successfully Created"
@@ -288,7 +244,8 @@ const PatientsAddPage = () => {
                         </div>
                     </CardContent>
                 </Card>
-                <Card>
+
+                {user?.role === "bns" && <Card>
                     <CardHeader>
                         <CardTitle>
                             Medical & Health Information
@@ -334,10 +291,54 @@ const PatientsAddPage = () => {
                                 id="medical_history"
                                 name='medical_history'
                                 type="text"
-                                label='Medical_history'
+                                label='Medical history'
                                 placeholder="Enter medical history"
                                 value={data.medical_history}
                                 error={errors?.medical_history}
+                                onChange={handleChange}
+                                disabled={loading}
+                            />
+                            <InputWithLabel
+                                id="birth_history"
+                                name='birth_history'
+                                type="text"
+                                label='Birth history'
+                                placeholder="Enter birth history"
+                                value={data.birth_history}
+                                error={errors?.birth_history}
+                                onChange={handleChange}
+                                disabled={loading}
+                            />
+                            <InputWithLabel
+                                id="past_illnesses"
+                                name='past_illnesses'
+                                type="text"
+                                label='Past Ilnesses'
+                                placeholder="Enter past illnesses"
+                                value={data.past_illnesses}
+                                error={errors?.past_illnesses}
+                                onChange={handleChange}
+                                disabled={loading}
+                            />
+                            <InputWithLabel
+                                id="current_medication"
+                                name='current_medication'
+                                type="text"
+                                label='Current Medication'
+                                placeholder="Enter current medication"
+                                value={data.current_medication}
+                                error={errors?.current_medication}
+                                onChange={handleChange}
+                                disabled={loading}
+                            />
+                            <InputWithLabel
+                                id="family_medical_history"
+                                name='family_medical_history'
+                                type="text"
+                                label='Family Medical History'
+                                placeholder="Enter family medical history"
+                                value={data.family_medical_history}
+                                error={errors?.family_medical_history}
                                 onChange={handleChange}
                                 disabled={loading}
                             />
@@ -354,7 +355,7 @@ const PatientsAddPage = () => {
                             />
                         </div>
                     </CardContent>
-                </Card>
+                </Card>}
 
                 <Card>
                     <CardHeader>

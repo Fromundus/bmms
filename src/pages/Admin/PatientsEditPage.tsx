@@ -14,24 +14,6 @@ import api from '@/api/axios';
 import { toast } from '@/hooks/use-toast';
 import Questionnaire, { QuestionnaireData } from "../../components/custom/Questionnaire";
 
-type Error = {
-    name: string;
-    address: string;
-    belongs_to_ip: string;
-    sex: string;
-    birthday: string;
-    date_measured: string;
-    weight: string;
-    height: string;
-    contact_number: string;
-
-    immunizations: string;
-    last_deworming_date: string;
-    allergies: string;
-    medical_history: string;
-    notes: string;
-}
-
 const PatientsEditPage = () => {
     const { user } = useAuth();
     const { id } = useParams(); // get patient id from url
@@ -48,22 +30,7 @@ const PatientsEditPage = () => {
         breastfeeding: false,
     });
 
-    const [errors, setErrors] = useState<Error>({
-        name: "",
-        address: "",
-        belongs_to_ip: "",
-        sex: "",
-        birthday: "",
-        date_measured: "",
-        weight: "",
-        height: "",
-        contact_number: "",
-        immunizations: "",
-        last_deworming_date: "",
-        allergies: "",
-        medical_history: "",
-        notes: "",
-    });
+    const [errors, setErrors] = useState(null);
 
     // Fetch patient data when page loads
     useEffect(() => {
@@ -92,6 +59,10 @@ const PatientsEditPage = () => {
             "last_deworming_date",
             "allergies",
             "medical_history",
+            "birth_history",
+            "past_illnesses",
+            "current_medication",
+            "family_medical_history",
             "notes",
         ];
 
@@ -299,7 +270,7 @@ const PatientsEditPage = () => {
                         </div>
                     </CardContent>
                 </Card>
-                <Card>
+                {user?.role === "bns" && <Card>
                     <CardHeader>
                         <CardTitle>Medical & Health Information</CardTitle>
                     </CardHeader>
@@ -340,9 +311,54 @@ const PatientsEditPage = () => {
                                 id="medical_history"
                                 name='medical_history'
                                 type="text"
-                                label='Medical History'
+                                label='Birth history'
+                                placeholder="Enter birth history"
                                 value={data.latest_record.medical_history || ""}
                                 error={errors?.medical_history}
+                                onChange={handleChange}
+                                disabled={loading}
+                            />
+                            <InputWithLabel
+                                id="birth_history"
+                                name='birth_history'
+                                type="text"
+                                label='Birth history'
+                                placeholder="Enter birth history"
+                                value={data.latest_record.birth_history || ""}
+                                error={errors?.birth_history}
+                                onChange={handleChange}
+                                disabled={loading}
+                            />
+                            <InputWithLabel
+                                id="past_illnesses"
+                                name='past_illnesses'
+                                type="text"
+                                label='Past Ilnesses'
+                                placeholder="Enter past illnesses"
+                                value={data.latest_record.past_illnesses || ""}
+                                error={errors?.past_illnesses}
+                                onChange={handleChange}
+                                disabled={loading}
+                            />
+                            <InputWithLabel
+                                id="current_medication"
+                                name='current_medication'
+                                type="text"
+                                label='Current Medication'
+                                placeholder="Enter current medication"
+                                value={data.latest_record.current_medication || ""}
+                                error={errors?.current_medication}
+                                onChange={handleChange}
+                                disabled={loading}
+                            />
+                            <InputWithLabel
+                                id="family_medical_history"
+                                name='family_medical_history'
+                                type="text"
+                                label='Family Medical History'
+                                placeholder="Enter family medical history"
+                                value={data.latest_record.family_medical_history || ""}
+                                error={errors?.family_medical_history}
                                 onChange={handleChange}
                                 disabled={loading}
                             />
@@ -358,7 +374,7 @@ const PatientsEditPage = () => {
                             />
                         </div>
                     </CardContent>
-                </Card>
+                </Card>}
 
                 <Card>
                     <CardHeader>

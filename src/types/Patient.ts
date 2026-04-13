@@ -51,6 +51,10 @@ export type PatientRecord = {
   immunizations: string;
   last_deworming_date: string;
   medical_history: string;
+  birth_history: string;
+  past_illnesses: string;
+  current_medication: string;
+  family_medical_history: string;
   notes: string;
   patient_id: number;
   status: string;

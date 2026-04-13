@@ -125,7 +125,7 @@ const PatientPage = () => {
       </Card>
 
       {/* Medical & Health Information */}
-      <Card>
+      {user?.role === "bns" && <Card>
         <CardHeader>
           <CardTitle>Medical & Health Information</CardTitle>
         </CardHeader>
@@ -148,6 +148,23 @@ const PatientPage = () => {
               <div>{patient?.latest_record?.medical_history ?? "None"}</div>
             </div>
             <div>
+              <Label>Birth History</Label>
+              <div>{patient?.latest_record?.birth_history ?? "None"}</div>
+            </div>
+            <div>
+              <Label>Past Illnesses</Label>
+              <div>{patient?.latest_record?.past_illnesses ?? "None"}</div>
+            </div>
+            <div>
+              <Label>Current Medication</Label>
+              <div>{patient?.latest_record?.current_medication ?? "None"}</div>
+            </div>
+            <div>
+              <Label>Family Medical History</Label>
+              <div>{patient?.latest_record?.family_medical_history ?? "None"}</div>
+            </div>
+
+            <div>
               <Label>Notes</Label>
               <div>{patient?.latest_record?.notes ?? "None"}</div>
             </div>
@@ -155,13 +172,13 @@ const PatientPage = () => {
               <Label>Status</Label>
               <div><PatientStatusBadge status={patient?.latest_record?.status} /></div>
             </div>
-            {patient?.latest_record?.likely_cause && <div>
-              <Label>Likely Cause</Label>
-              <div className='text-destructive'>{patient?.latest_record?.likely_cause}</div>
-            </div>}
           </div>
         </CardContent>
-      </Card>
+      </Card>}
+      {patient?.latest_record?.likely_cause && <div>
+        <Label>Likely Cause</Label>
+        <div className='text-destructive'>{patient?.latest_record?.likely_cause}</div>
+      </div>}
     </AdminPage>
   )
 }
