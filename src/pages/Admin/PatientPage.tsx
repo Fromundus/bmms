@@ -33,7 +33,7 @@ const PatientPage = () => {
 
   if (loading) {
     return (
-      <AdminPage withBackButton={true} title="View Patient">
+      <AdminPage withBackButton={true} title="View Resident">
         <div className="text-center text-muted-foreground">Loading...</div>
       </AdminPage>
     )
@@ -41,14 +41,14 @@ const PatientPage = () => {
 
   if (!patient) {
     return (
-      <AdminPage withBackButton={true} title="View Patient">
-        <div className="text-center text-red-500">Patient not found</div>
+      <AdminPage withBackButton={true} title="View Resident">
+        <div className="text-center text-red-500">Resident not found</div>
       </AdminPage>
     )
   }
 
   return (
-    <AdminPage withBackButton={true} title="View Patient" titleAction={
+    <AdminPage withBackButton={true} title="View Resident" titleAction={
       <div className='flex items-center gap-4'>
         <Link to={`/${user.role}/patients/history/${id}`}>
           <Button variant='outline'>
@@ -57,7 +57,7 @@ const PatientPage = () => {
         </Link>
         <Link to={`/${user.role}/patients/edit/${id}`}>
           <Button>
-            <PenBox /> Update Patient
+            <PenBox /> Update Resident
           </Button>
         </Link>
       </div>

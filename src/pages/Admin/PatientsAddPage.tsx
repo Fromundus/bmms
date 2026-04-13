@@ -143,7 +143,7 @@ const PatientsAddPage = () => {
     }
 
     return (
-        <AdminPage withBackButton={true} title='Add New Patient'>
+        <AdminPage withBackButton={true} title='Add New Resident'>
             <form className='space-y-4' onSubmit={handleSubmit}>
                 <Card>
                     <CardHeader>
@@ -375,7 +375,7 @@ const PatientsAddPage = () => {
                             </Button>
                         </Link>
                         <ButtonWithLoading type='submit' loading={loading}>
-                            <Save /> Save Patient
+                            <Save /> Save Resident
                         </ButtonWithLoading>
                     </div>
                 </div>

@@ -61,7 +61,7 @@ const SchedulePage = () => {
         e.preventDefault();
 
         if (selectedPatients.length === 0) {
-            toast({ title: "Select at least one patient", variant: "destructive" });
+            toast({ title: "Select at least one resident", variant: "destructive" });
             return;
         }
 
@@ -89,7 +89,7 @@ const SchedulePage = () => {
             <Card className='w-full'>
                 <CardHeader>
                     <CardTitle>
-                        Notify Patients
+                        Notify Residents
                     </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -115,9 +115,9 @@ const SchedulePage = () => {
                         />
 
                         <InputWithLabel
-                            label="Search Patient"
+                            label="Search Resident"
                             type="text"
-                            placeholder="Type patient name..."
+                            placeholder="Type resident name..."
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                             disabled={loading}

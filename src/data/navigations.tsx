@@ -21,7 +21,7 @@ export const bnsNavigations = [
     group: "Navigation"
   },
   {
-    title: "Patient Directory",
+    title: "Resident Directory",
     url: "patients",
     icon: Users,
     group: "Navigation"
@@ -60,7 +60,7 @@ export const bhwNavigations = [
     group: "Navigation"
   },
   {
-    title: "Patient Directory",
+    title: "Resident Directory",
     url: "patients",
     icon: Users,
     group: "Navigation"
@@ -105,7 +105,7 @@ export const bhwNavigations = [
 
 export const adminNavigations = [
   {
-    title: "Patient Directory",
+    title: "Resident Directory",
     url: "/admin",
     icon: Users,
     group: "Navigation"

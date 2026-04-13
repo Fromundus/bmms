@@ -198,13 +198,13 @@ export default function PatientsPage() {
       {/* Search + Bulk Actions */}
       <div className="flex gap-6 flex-col lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <h2 className="text-2xl font-bold">Patient Management</h2>
-          <p className="text-muted-foreground">Manage patients</p>
+          <h2 className="text-2xl font-bold">Resident Management</h2>
+          <p className="text-muted-foreground">Manage residents</p>
         </div>
         <div className="space-x-4">
           <Link to={'add'}>
             <Button>
-              <Plus /> Add Patient
+              <Plus /> Add Resident
             </Button>
           </Link>
         </div>
@@ -216,7 +216,7 @@ export default function PatientsPage() {
             <div className="relative w-full">
               <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
               <Input
-                placeholder="Search patients..."
+                placeholder="Search residents..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 className="w-full pl-10"
@@ -309,7 +309,7 @@ export default function PatientsPage() {
         <CardHeader>
           <div className="w-full flex flex-col gap-6 lg:flex-row lg:justify-between lg:items-center">
             <CardTitle>
-              Patient Directory ({ user?.role === "admin" ? "All" : user?.role === "bhw" ? "From ages 20 and above" : "From ages 0 to 19" })
+              Resident Directory ({ user?.role === "admin" ? "All" : user?.role === "bhw" ? "From ages 20 and above" : "From ages 0 to 19" })
             </CardTitle> 
               <div className="flex items-center gap-2">
                   <>
@@ -406,7 +406,7 @@ export default function PatientsPage() {
               ) : (
                 <TableRow>
                   <TableCell colSpan={15} className="text-center">
-                    No Patients found.
+                    No Residents found.
                   </TableCell>
                 </TableRow>
               )}

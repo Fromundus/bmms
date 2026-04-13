@@ -162,14 +162,14 @@ const PatientsEditPage = () => {
 
     if (!data) {
         return (
-            <AdminPage withBackButton={true} title="Edit Patient">
-                <p>Loading patient data...</p>
+            <AdminPage withBackButton={true} title="Edit Resident">
+                <p>Loading resident data...</p>
             </AdminPage>
         );
     }
 
     return (
-        <AdminPage withBackButton={true} title='Edit Patient'>
+        <AdminPage withBackButton={true} title='Edit Resident'>
             <div className='space-y-4'>
                 <Card>
                     <CardHeader>
@@ -253,7 +253,7 @@ const PatientsEditPage = () => {
                 <div className='w-full justify-end flex'>
                     <div className='flex items-center gap-4'>
                         <ButtonWithLoading type='submit' loading={loading} onClick={handleUpdateInfo}>
-                            <Save /> Update Patient Information
+                            <Save /> Update Resident Information
                         </ButtonWithLoading>
                     </div>
                 </div>
@@ -374,7 +374,7 @@ const PatientsEditPage = () => {
                 <div className='w-full justify-end flex'>
                     <div className='flex items-center gap-4'>
                         <ButtonWithLoading type='submit' loading={loading} onClick={handleSubmit}>
-                            <Save /> Update Patient Records
+                            <Save /> Update Resident Records
                         </ButtonWithLoading>
                     </div>
                 </div>

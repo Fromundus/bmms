@@ -100,12 +100,12 @@ export function DashboardOverview() {
   const navigate = useNavigate();
 
   return (
-    <AdminPageMain title="Dashboard Overview" description="Monitor patients">
+    <AdminPageMain title="Dashboard Overview" description="Monitor residents">
       {/* Statistics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
         <Card className="bmms-card border-l-4 cursor-pointer border-primary" onClick={() => navigate('patients')}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Patients</CardTitle>
+            <CardTitle className="text-sm font-medium">Total Residents</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -164,10 +164,10 @@ export function DashboardOverview() {
         <CardContent className="pt-6">
           <div className="flex gap-4">
             <Button asChild>
-              <Link to="patients"><Users /> View All Patients</Link>
+              <Link to="patients"><Users /> View All Residents</Link>
             </Button>
             <Button variant="outline" asChild>
-              <Link to="patients/add"><Plus /> Add New Patient</Link>
+              <Link to="patients/add"><Plus /> Add New Resident</Link>
             </Button>
           </div>
         </CardContent>
