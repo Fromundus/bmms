@@ -25,15 +25,15 @@ const ReportsAndSolutions = () => {
         <div className="space-y-6">
             <div className="flex gap-6 flex-col lg:flex-row lg:items-center lg:justify-between">
                 <div>
-                    <h2 className="text-2xl font-bold">Reports and Solutions</h2>
-                    <p className="text-muted-foreground">Reports and solutions built on knowledge-based, data-driven analysis</p>
+                    <h2 className="text-2xl font-bold">Reports</h2>
+                    <p className="text-muted-foreground">Reports built on DSS and data-driven analysis</p>
                 </div>
             </div>
             
             <Card>
                 <CardHeader>
                     <CardTitle>
-                        List of Reports and Solutions
+                        List of Reports
                     </CardTitle>
                 </CardHeader>
                 <CardContent className='flex flex-col gap-4'>

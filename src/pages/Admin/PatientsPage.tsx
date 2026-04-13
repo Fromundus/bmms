@@ -302,7 +302,7 @@ export default function PatientsPage() {
       </Card>
 
       {user?.role === "admin" && <Button onClick={handleGenerateReport}>
-        Generate Report and Solutions
+        Generate Report
       </Button>}
 
       <Card>
