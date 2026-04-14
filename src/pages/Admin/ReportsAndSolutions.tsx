@@ -1,4 +1,5 @@
 import api from '@/api/axios';
+import ReportCard from '@/components/custom/ReportCard';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useQuery } from '@tanstack/react-query'
 import { format } from 'date-fns';
@@ -6,7 +7,7 @@ import React from 'react'
 
 const fetchReports = async ({ queryKey }) => {
     const [_key] = queryKey;
-    const res = await api.get('/reports');
+    const res = await api.get('/summaries');
 
     return res.data;
 }
@@ -26,7 +27,7 @@ const ReportsAndSolutions = () => {
             <div className="flex gap-6 flex-col lg:flex-row lg:items-center lg:justify-between">
                 <div>
                     <h2 className="text-2xl font-bold">Reports</h2>
-                    <p className="text-muted-foreground">Reports built on DSS and data-driven analysis</p>
+                    {/* <p className="text-muted-foreground">Reports built on DSS and data-driven analysis</p> */}
                 </div>
             </div>
             
@@ -41,23 +42,18 @@ const ReportsAndSolutions = () => {
                         <span>Loading...</span>
                     ) : reports?.length ? reports.map((item) => {
                         return (
-                            <Card key={item.id} className='border border-primary'>
-                                <CardHeader>
-                                    <CardTitle>
-                                        Generated on {format(new Date(item.created_at), 'PPp')}
-                                    </CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    <div dangerouslySetInnerHTML={{
-                                    __html: item.body
-                                        .replace(/\n/g, "<br>")
-                                        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-                                    }} />
-                                </CardContent>
-                                {/* <CardContent className='whitespace-pre-line'>
-                                    {item.body}
-                                </CardContent> */}
-                            </Card>
+                            // <Card key={item.id} className='border border-primary'>
+                            //     <CardHeader>
+                            //         <CardTitle>
+                            //             Generated on {format(new Date(item.created_at), 'PPp')}
+                            //         </CardTitle>
+                            //     </CardHeader>
+                            //     <CardContent>
+                                    
+                            //     </CardContent>
+                            // </Card>
+
+                            <ReportCard item={item} />
                         )
                     }) : (
                         <span>No reports found.</span>

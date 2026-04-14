@@ -168,7 +168,8 @@ export default function PatientsPage() {
     });
     
     try {
-      const res = await api.get("/generate-report");
+      // const res = await api.get("/generate-report");
+      const res = await api.post("/summaries");
 
       toast({
         title: "Generated Report Successfully",
