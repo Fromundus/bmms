@@ -27,7 +27,7 @@ export const bnsNavigations = [
     group: "Navigation"
   },
   // {
-  //   title: "Reports",
+  //   title: "Reports and Summaries",
   //   url: "reports-and-solutions",
   //   icon: ClipboardCheck,
   //   group: "Navigation"
@@ -66,7 +66,7 @@ export const bhwNavigations = [
     group: "Navigation"
   },
   // {
-  //   title: "Reports",
+  //   title: "Reports and Summaries",
   //   url: "reports-and-solutions",
   //   icon: ClipboardCheck,
   //   group: "Navigation"
@@ -78,7 +78,7 @@ export const bhwNavigations = [
     group: "Navigation"
   },
   // {
-  //   title: "Reports",
+  //   title: "Reports and Summaries",
   //   url: "reports",
   //   icon: FileText,
   //   group: "Navigation"
@@ -111,7 +111,7 @@ export const adminNavigations = [
     group: "Navigation"
   },
   {
-    title: "Reports",
+    title: "Reports and Summaries",
     url: "reports-and-solutions",
     icon: ClipboardCheck,
     group: "Navigation"
