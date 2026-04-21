@@ -197,7 +197,32 @@ interface ReportItem {
   recommendations: any[];
 }
 
-const COLORS = ["#22c55e", "#eab308", "#f97316", "#ef4444", "#3b82f6"];
+// const COLORS = ["#22c55e", "#eab308", "#f97316", "#ef4444", "#3b82f6"];
+
+export const STATUS_COLORS: Record<string, string> = {
+    // GREEN
+    Healthy: "#22c55e",
+    Normal: "#22c55e",
+
+    // YELLOW
+    "At Risk": "#eab308",
+    Underweight: "#eab308",
+
+    // ORANGE
+    Moderate: "#f97316",
+    Overweight: "#f97316",
+    Wasted: "#f97316",
+    Stunted: "#f97316",
+    "Mildly Underweight": "#f97316",
+    Tall: "#f97316",
+
+    // RED
+    Severe: "#ef4444",
+    Obese: "#ef4444",
+    "Severely Underweight": "#ef4444",
+    "Severely Stunted": "#ef4444",
+    "Severely Wasted": "#ef4444",
+};
 
 export default function ReportCard({ item }: { item: ReportItem }) {
   const adults = item.chart_data.adults;
@@ -206,21 +231,22 @@ export default function ReportCard({ item }: { item: ReportItem }) {
   const adultData = [
     { name: "Healthy", value: adults.healthy },
     { name: "Moderate", value: adults.moderate },
-    { name: "Overweight", value: adults.overweight },
-    { name: "Obese", value: adults.obese },
+    // { name: "Overweight", value: adults.overweight },
+    // { name: "Obese", value: adults.obese },
     { name: "Severe", value: adults.severe },
-    { name: "Wasted", value: adults.wasted },
+    // { name: "Wasted", value: adults.wasted },
     { name: "At Risk", value: adults.at_risk },
   ];
 
   const childData = [
     { name: "Healthy", value: children.healthy },
     { name: "Moderate", value: children.moderate },
-    { name: "Stunted", value: children.stunted },
-    { name: "Underweight", value: children.underweight },
-    { name: "Wasted", value: children.wasted },
-    { name: "Obese", value: children.obese },
+    // { name: "Stunted", value: children.stunted },
+    // { name: "Underweight", value: children.underweight },
+    // { name: "Wasted", value: children.wasted },
+    // { name: "Obese", value: children.obese },
     { name: "Severe", value: children.severe },
+    { name: "At Risk", value: children.at_risk },
   ];
 
   const comparisonData = [
@@ -274,8 +300,12 @@ export default function ReportCard({ item }: { item: ReportItem }) {
             <ResponsiveContainer width="100%" height={180}>
               <PieChart>
                 <Pie data={adultData} dataKey="value" outerRadius={60}>
-                  {adultData.map((_, index) => (
-                    <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                  {adultData.map((entry, index) => (
+                    // <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                    <Cell
+                      key={index}
+                      fill={STATUS_COLORS[entry.name] || "#94a3b8"} // fallback gray
+                    />
                   ))}
                 </Pie>
                 <Tooltip />
@@ -288,8 +318,12 @@ export default function ReportCard({ item }: { item: ReportItem }) {
             <ResponsiveContainer width="100%" height={180}>
               <PieChart>
                 <Pie data={childData} dataKey="value" outerRadius={60}>
-                  {childData.map((_, index) => (
-                    <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                  {childData.map((entry, index) => (
+                    // <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                    <Cell
+                      key={index}
+                      fill={STATUS_COLORS[entry.name] || "#94a3b8"} // fallback gray
+                    />
                   ))}
                 </Pie>
                 <Tooltip />
@@ -306,14 +340,17 @@ export default function ReportCard({ item }: { item: ReportItem }) {
               <XAxis dataKey="name" tick={{ fontSize: 10 }} />
               <YAxis hide />
               <Tooltip />
-              <Bar dataKey="adults" />
-              <Bar dataKey="children" />
+              {/* <Bar dataKey="adults" />
+              <Bar dataKey="children" /> */}
+
+              <Bar dataKey="adults" fill="#3b82f6" />
+              <Bar dataKey="children" fill="#3b82f6" />
             </BarChart>
           </ResponsiveContainer>
         </div>
 
         {/* REMARK */}
-        <div className="p-2 border-l-2 border-red-500 bg-muted/30 rounded">
+        <div className="p-2 border-l-2 border-blue-500 bg-muted/30 rounded">
           <p className="text-xs font-medium">Summary</p>
           <p className="text-xs text-muted-foreground">{item.remark}</p>
         </div>
@@ -324,12 +361,12 @@ export default function ReportCard({ item }: { item: ReportItem }) {
             <div key={index} className="p-2 border rounded-lg">
               <div className="flex justify-between items-center">
                 <p className="text-xs font-semibold">{rec.group}</p>
-                <Badge variant={priorityColor[rec.priority]} className="text-[10px] px-2 py-0">
+                {/* <Badge variant={priorityColor[rec.priority]} className="text-[10px] px-2 py-0">
                   {rec.priority}
-                </Badge>
+                </Badge> */}
               </div>
               <p className="text-xs mt-1">{rec.message}</p>
-              <ul className="list-disc ml-4 mt-1 text-[11px] text-muted-foreground">
+              <ul className="list-disc ml-4 mt-1 text-xs text-muted-foreground">
                 {rec.actions.map((action: string, i: number) => (
                   <li key={i}>{action}</li>
                 ))}

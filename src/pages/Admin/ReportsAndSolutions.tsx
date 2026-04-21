@@ -53,7 +53,7 @@ const ReportsAndSolutions = () => {
                             //     </CardContent>
                             // </Card>
 
-                            <ReportCard item={item} />
+                            <ReportCard key={item.id} item={item} />
                         )
                     }) : (
                         <span>No reports found.</span>
