@@ -299,7 +299,7 @@ export default function ReportCard({ item }: { item: ReportItem }) {
             <h3 className="text-xs font-medium mb-1">Adults</h3>
             <ResponsiveContainer width="100%" height={180}>
               <PieChart>
-                <Pie data={adultData} dataKey="value" outerRadius={60}>
+                <Pie data={adultData} dataKey="value" outerRadius={60} label={({ name, value }) => `${name}: ${value}`}>
                   {adultData.map((entry, index) => (
                     // <Cell key={index} fill={COLORS[index % COLORS.length]} />
                     <Cell
@@ -317,7 +317,7 @@ export default function ReportCard({ item }: { item: ReportItem }) {
             <h3 className="text-xs font-medium mb-1">Children</h3>
             <ResponsiveContainer width="100%" height={180}>
               <PieChart>
-                <Pie data={childData} dataKey="value" outerRadius={60}>
+                <Pie data={childData} dataKey="value" outerRadius={60} label={({ name, value }) => `${name}: ${value}`}>
                   {childData.map((entry, index) => (
                     // <Cell key={index} fill={COLORS[index % COLORS.length]} />
                     <Cell
@@ -343,8 +343,8 @@ export default function ReportCard({ item }: { item: ReportItem }) {
               {/* <Bar dataKey="adults" />
               <Bar dataKey="children" /> */}
 
-              <Bar dataKey="adults" fill="#3b82f6" />
-              <Bar dataKey="children" fill="#3b82f6" />
+              <Bar dataKey="adults" fill="#3b82f6" label={{ position: "top", fontSize: 10 }} />
+              <Bar dataKey="children" fill="#3b82f6" label={{ position: "top", fontSize: 10 }} />
             </BarChart>
           </ResponsiveContainer>
         </div>
