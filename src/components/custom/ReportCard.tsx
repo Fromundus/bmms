@@ -263,6 +263,27 @@ export default function ReportCard({ item }: { item: ReportItem }) {
     low: "outline",
   };
 
+  const renderInsideLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, value }) => {
+    const RADIAN = Math.PI / 180;
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    return (
+      <text
+        x={x}
+        y={y}
+        fill="#fff"
+        textAnchor="middle"
+        dominantBaseline="central"
+        fontSize={12}
+      >
+        {value}
+      </text>
+    );
+  };
+
   return (
     <Card className="border border-primary shadow-md rounded-xl">
       <CardHeader className="py-3">
@@ -294,12 +315,19 @@ export default function ReportCard({ item }: { item: ReportItem }) {
         </div>
 
         {/* PIE CHARTS */}
-        <div className="grid grid-cols-2 gap-3">
-          <div className="p-2 border rounded-lg">
+        <div className="flex items-center gap-4">
+          <div className="p-2 border rounded-lg w-full">
             <h3 className="text-xs font-medium mb-1">Adults</h3>
             <ResponsiveContainer width="100%" height={180}>
               <PieChart>
-                <Pie data={adultData} dataKey="value" outerRadius={60} label={({ name, value }) => `${name}: ${value}`}>
+                {/* <Pie data={adultData} dataKey="value" outerRadius={60} label={({ name, value }) => `${name}: ${value}`}> */}
+                <Pie
+                  data={adultData}
+                  dataKey="value"
+                  outerRadius={80}
+                  label={renderInsideLabel}
+                  labelLine={false}
+                >
                   {adultData.map((entry, index) => (
                     // <Cell key={index} fill={COLORS[index % COLORS.length]} />
                     <Cell
@@ -313,11 +341,44 @@ export default function ReportCard({ item }: { item: ReportItem }) {
             </ResponsiveContainer>
           </div>
 
-          <div className="p-2 border rounded-lg">
+          <div className="flex flex-col gap-2 text-nowrap">
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 bg-[#22c55e]"></div>
+              <div className="text-[11px]">
+                <p className="font-semibold">Healthy</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 bg-[#eab308]"></div>
+              <div className="text-[11px]">
+                <p className="font-semibold">At Risk</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 bg-[#f97316]"></div>
+              <div className="text-[11px]">
+                <p className="font-semibold">Moderate</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 bg-[#ef4444]"></div>
+              <div className="text-[11px]">
+                <p className="font-semibold">Severe</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="p-2 border rounded-lg w-full">
             <h3 className="text-xs font-medium mb-1">Children</h3>
             <ResponsiveContainer width="100%" height={180}>
               <PieChart>
-                <Pie data={childData} dataKey="value" outerRadius={60} label={({ name, value }) => `${name}: ${value}`}>
+                  <Pie
+                    data={childData}
+                    dataKey="value"
+                    outerRadius={80}
+                    label={renderInsideLabel}
+                    labelLine={false}
+                  >
                   {childData.map((entry, index) => (
                     // <Cell key={index} fill={COLORS[index % COLORS.length]} />
                     <Cell
@@ -334,17 +395,30 @@ export default function ReportCard({ item }: { item: ReportItem }) {
 
         {/* BAR CHART */}
         <div className="p-2 border rounded-lg">
-          <h3 className="text-xs font-medium mb-1">Comparison</h3>
+          <h3 className="text-xs font-medium mb-4">Comparison</h3>
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={comparisonData}>
               <XAxis dataKey="name" tick={{ fontSize: 10 }} />
-              <YAxis hide />
+              <YAxis tick={{ fontSize: 10 }} />
               <Tooltip />
-              {/* <Bar dataKey="adults" />
-              <Bar dataKey="children" /> */}
 
-              <Bar dataKey="adults" fill="#3b82f6" label={{ position: "top", fontSize: 10 }} />
-              <Bar dataKey="children" fill="#3b82f6" label={{ position: "top", fontSize: 10 }} />
+              <Bar dataKey="adults" label={{ position: "top", fontSize: 13 }}>
+                {comparisonData.map((entry, index) => (
+                  <Cell
+                    key={`adult-${index}`}
+                    fill={STATUS_COLORS[entry.name] || "#94a3b8"}
+                  />
+                ))}
+              </Bar>
+
+              <Bar dataKey="children" label={{ position: "top", fontSize: 13 }}>
+                {comparisonData.map((entry, index) => (
+                  <Cell
+                    key={`child-${index}`}
+                    fill={STATUS_COLORS[entry.name] || "#94a3b8"}
+                  />
+                ))}
+              </Bar>
             </BarChart>
           </ResponsiveContainer>
         </div>
