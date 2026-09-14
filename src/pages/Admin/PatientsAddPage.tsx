@@ -22,6 +22,7 @@ const PatientsAddPage = () => {
         address: "",
         sex: "",
         birthday: "",
+        belongs_to_ip: "0",
         date_measured: "",
         weight: null,
         height: null,
@@ -194,6 +195,24 @@ const PatientsAddPage = () => {
                                 minLength={11}
                                 maxLength={11}
                             />
+                            <div className="flex flex-col gap-3">
+                                <Label htmlFor="address">Belongs to IP</Label>
+                                <Select value={data.belongs_to_ip} onValueChange={(value) => setData((prev) => {
+                                    return {
+                                        ...prev,
+                                        belongs_to_ip: value
+                                    }
+                                })}>
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Select" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value={"0"}>No</SelectItem>
+                                    <SelectItem value={"1"}>Yes</SelectItem>
+                                </SelectContent>
+                                </Select>
+                                {errors?.belongs_to_ip && <span className='text-red-500 text-sm'>{errors?.belongs_to_ip}</span>}
+                            </div>
                         </div>
                     </CardContent>
                 </Card>

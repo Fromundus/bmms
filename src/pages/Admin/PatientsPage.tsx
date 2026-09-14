@@ -347,6 +347,7 @@ export default function PatientsPage() {
                 <TableHead>Name</TableHead>
                 <TableHead>Sex</TableHead>
                 <TableHead>Address</TableHead>
+                <TableHead>Belongs to IP</TableHead>
                 <TableHead>Birthday</TableHead>
                 <TableHead>Date Measured</TableHead>
                 <TableHead>Weight</TableHead>
@@ -378,6 +379,7 @@ export default function PatientsPage() {
                     <TableCell className="text-nowrap">{u?.name}</TableCell>
                     <TableCell>{u?.sex}</TableCell>
                     <TableCell className="text-nowrap">{u?.address}</TableCell>
+                    <TableCell>{u?.belongs_to_ip ? "Yes" : "No"}</TableCell>
                     <TableCell>{format(new Date(u?.birthday), "P")}</TableCell>
                     <TableCell className="text-nowrap">{u?.latest_record?.date_measured}</TableCell>
                     <TableCell>{u?.latest_record?.weight}</TableCell>
