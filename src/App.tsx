@@ -105,12 +105,19 @@ const App = () => {
 
             <Route element={<PrivateRoute requiredRole="admin" />}>
               <Route path="/admin" element={<AdminLayout />}>
-                <Route index element={<PatientsPage />} />
                 <Route path="reports-and-solutions" element={<ReportsAndSolutions />} />
+                
+                <Route index element={<PatientsPage />} />
                 <Route path=":id" element={<PatientPage />} />
                 <Route path="history/:id" element={<PatientHistoryPage />} />
                 <Route path="add" element={<PatientsAddPage />} />
                 <Route path="edit/:id" element={<PatientsEditPage />} />
+
+                <Route path="patients/:id" element={<PatientPage />} />
+                <Route path="patients/history/:id" element={<PatientHistoryPage />} />
+                <Route path="patients/add" element={<PatientsAddPage />} />
+                <Route path="patients/edit/:id" element={<PatientsEditPage />} />
+
                 <Route path="accounts" element={<AccountsPage />} />
                 <Route path="accounts/:id" element={<AccountPage />} />
                 {/* <Route path="profile" element={<ProfilePage />} /> */}

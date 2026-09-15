@@ -12,6 +12,7 @@ import { Badge } from '@/components/ui/badge';
 type Log = {
   id: number;
   action: string;
+  message: string;
   ip_address: string;
   user_agent: string;
   logged_at: string;
@@ -65,8 +66,9 @@ const LogsPage = () => {
                         <TableRow>
                         <TableHead>User</TableHead>
                         <TableHead>Action</TableHead>
-                        <TableHead>IP Address</TableHead>
-                        <TableHead>User Agent</TableHead>
+                        <TableHead>Message</TableHead>
+                        {/* <TableHead>IP Address</TableHead> */}
+                        {/* <TableHead>User Agent</TableHead> */}
                         <TableHead>Timestamp</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -91,8 +93,9 @@ const LogsPage = () => {
                                     {log.action}
                                 </Badge>
                             </TableCell>
-                            <TableCell>{log.ip_address || "—"}</TableCell>
-                            <TableCell className="truncate max-w-xs">{log.user_agent}</TableCell>
+                            <TableCell>{log.message || "—"}</TableCell>
+                            {/* <TableCell>{log.ip_address || "—"}</TableCell> */}
+                            {/* <TableCell className="truncate max-w-xs">{log.user_agent}</TableCell> */}
                             <TableCell>{new Date(log.logged_at).toLocaleString()}</TableCell>
                             </TableRow>
                         ))
