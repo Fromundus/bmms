@@ -30,7 +30,7 @@ import { useAuth } from "@/store/auth";
 import { useQueryClient } from "@tanstack/react-query";
 
 export default function PatientsPage() {
-  const { user } = useAuth();
+  const { user, can } = useAuth();
   const [patients, setPatients] = useState<Patient[]>([]);
   const [page, setPage] = useState(1);
   // const [perPage] = useState(10);
@@ -203,11 +203,11 @@ export default function PatientsPage() {
           <p className="text-muted-foreground">Manage residents</p>
         </div>
         <div className="space-x-4">
-          <Link to={'add'}>
+          {can('residents.create') && <Link to={'add'}>
             <Button>
               <Plus /> Add Resident
             </Button>
-          </Link>
+          </Link>}
         </div>
       </div>
 
@@ -302,7 +302,7 @@ export default function PatientsPage() {
         </CardContent>
       </Card>
 
-      {user?.role === "admin" && <Button onClick={handleGenerateReport}>
+      {can('reports.create') && <Button onClick={handleGenerateReport}>
         Generate Report
       </Button>}
 
@@ -314,7 +314,7 @@ export default function PatientsPage() {
             </CardTitle> 
               <div className="flex items-center gap-2">
                   <>
-                    <Modal disabled={selected.length === 0 || loading} title="Delete Accounts" buttonLabel={<Trash />} buttonClassName="w-10 h-10 bg-destructive text-white hover:bg-destructive/50" open={deleteModal} setOpen={setDeleteModal}>
+                    {can('residents.delete') && <Modal disabled={selected.length === 0 || loading} title="Delete Accounts" buttonLabel={<Trash />} buttonClassName="w-10 h-10 bg-destructive text-white hover:bg-destructive/50" open={deleteModal} setOpen={setDeleteModal}>
                       <p>Are you sure you want to delete?</p>
                       <div className="w-full grid grid-cols-2 gap-2">
                         <ButtonWithLoading className="w-full" loading={loading} disabled={loading || selected.length === 0} onClick={bulkDelete}>
@@ -324,7 +324,7 @@ export default function PatientsPage() {
                           Cancel
                         </Button>
                       </div>
-                    </Modal>
+                    </Modal>}
 
                     {/* <IconButton variant="destructive" onClick={bulkDelete} disabled={selected.length === 0 || loading}>
                       <Trash />
@@ -392,16 +392,16 @@ export default function PatientsPage() {
                     <TableCell><PatientStatusBadge status={u?.latest_record?.status} /></TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
-                        <Link to={`${u?.id}`}>
+                        {can('residents.view') && <Link to={`${u?.id}`}>
                           <Button variant="outline">
                             <Eye /> View
                           </Button>
-                        </Link>
-                        <Link to={`edit/${u?.id}`}>
+                        </Link>}
+                        {can('residents.update') && <Link to={`edit/${u?.id}`}>
                           <Button variant="outline">
                             <PenBoxIcon /> Edit
                           </Button>
-                        </Link>
+                        </Link>}
                       </div>
                     </TableCell>
                   </TableRow>

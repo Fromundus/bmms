@@ -13,6 +13,65 @@ import {
   Settings,
 } from "lucide-react";
 
+export const navigations = [
+  {
+      title: "Dashboard",
+      url: "/",
+      icon: LayoutDashboard,
+      group: "Navigation",
+      permission: "dashboard.view",
+  },
+  {
+      title: "Resident Directory",
+      url: "patients",
+      icon: Users,
+      group: "Navigation",
+      permission: "residents.view",
+  },
+  {
+      title: "Reports and Summaries",
+      url: "reports-and-solutions",
+      icon: ClipboardCheck,
+      group: "Navigation",
+      permission: "reports.view",
+  },
+  {
+      title: "Accounts",
+      url: "accounts",
+      icon: Users,
+      group: "Navigation",
+      permission: "users.view",
+  },
+  {
+      title: "Logs",
+      url: "logs",
+      icon: ClipboardCheck,
+      group: "Navigation",
+      permission: "logs.view",
+  },
+  {
+      title: "Nutritional Guide",
+      url: "nutritional-guide",
+      icon: BookOpen,
+      group: "Navigation",
+      permission: "guide.view",
+  },
+  {
+      title: "Notifications",
+      url: "notifications",
+      icon: Bell,
+      group: "Navigation",
+      permission: "notifications.view",
+  },
+  {
+      title: "Schedule",
+      url: "schedule",
+      icon: MessageCircle,
+      group: "Navigation",
+      permission: "schedule.view",
+  },
+];
+
 export const bnsNavigations = [
   {
     title: "Dashboard",

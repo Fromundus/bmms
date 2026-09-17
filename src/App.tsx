@@ -76,6 +76,7 @@ const App = () => {
                 <Route path="patients/edit/:id" element={<PatientsEditPage />} />
                 {/* <Route path="nutrition-scholars" element={<AccountsPage />} /> */}
                 <Route path="nutritional-guide" element={<NutritionalGuidancePage />} />
+                <Route path="accounts" element={<AccountsPage />} />
                 <Route path="accounts/:id" element={<AccountPage />} />
                 <Route path="reports" element={<ReportsPage />} />
                 <Route path="notifications" element={<NotificationsPage />} />
@@ -93,8 +94,9 @@ const App = () => {
                 <Route path="patients/history/:id" element={<PatientHistoryPage />} />
                 <Route path="patients/add" element={<PatientsAddPage />} />
                 <Route path="patients/edit/:id" element={<PatientsEditPage />} />
-                <Route path="nutrition-scholars" element={<AccountsPage />} />
+                {/* <Route path="nutrition-scholars" element={<AccountsPage />} /> */}
                 <Route path="nutritional-guide" element={<NutritionalGuidancePage />} />
+                <Route path="accounts" element={<AccountsPage />} />
                 <Route path="accounts/:id" element={<AccountPage />} />
                 <Route path="reports" element={<ReportsPage />} />
                 <Route path="notifications" element={<NotificationsPage />} />
@@ -105,18 +107,21 @@ const App = () => {
 
             <Route element={<PrivateRoute requiredRole="admin" />}>
               <Route path="/admin" element={<AdminLayout />}>
-                <Route path="reports-and-solutions" element={<ReportsAndSolutions />} />
+                <Route index element={<DashboardOverview />} />
                 
-                <Route index element={<PatientsPage />} />
+                {/* <Route index element={<PatientsPage />} />
                 <Route path=":id" element={<PatientPage />} />
                 <Route path="history/:id" element={<PatientHistoryPage />} />
                 <Route path="add" element={<PatientsAddPage />} />
-                <Route path="edit/:id" element={<PatientsEditPage />} />
+                <Route path="edit/:id" element={<PatientsEditPage />} /> */}
 
+                <Route path="patients" element={<PatientsPage />} />
                 <Route path="patients/:id" element={<PatientPage />} />
                 <Route path="patients/history/:id" element={<PatientHistoryPage />} />
                 <Route path="patients/add" element={<PatientsAddPage />} />
                 <Route path="patients/edit/:id" element={<PatientsEditPage />} />
+
+                <Route path="reports-and-solutions" element={<ReportsAndSolutions />} />
 
                 <Route path="accounts" element={<AccountsPage />} />
                 <Route path="accounts/:id" element={<AccountPage />} />

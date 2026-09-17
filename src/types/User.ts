@@ -9,6 +9,10 @@ type User = {
   role: string;
   status: string;
   created_at?: string;
+  roles: {
+        name: string;
+    } | null;
+  permissions: string[];
 } | null;
 
 export default User;

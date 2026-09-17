@@ -62,7 +62,7 @@ type Stats = {
 }
 
 export function DashboardOverview() {
-  const { user } = useAuth();
+  const { user, can } = useAuth();
   const [stats, setStats] = useState<Stats>({
       total_patients: 0,
       severe: {
@@ -163,12 +163,12 @@ export function DashboardOverview() {
       <Card className="bmms-card">
         <CardContent className="pt-6">
           <div className="flex gap-4">
-            <Button asChild>
+            {can('residents.view') && <Button asChild>
               <Link to="patients"><Users /> View All Residents</Link>
-            </Button>
-            <Button variant="outline" asChild>
+            </Button>}
+            {can('residents.create') && <Button variant="outline" asChild>
               <Link to="patients/add"><Plus /> Add New Resident</Link>
-            </Button>
+            </Button>}
           </div>
         </CardContent>
       </Card>

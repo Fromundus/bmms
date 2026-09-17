@@ -18,11 +18,14 @@ type AuthStore = {
   login: (user: User, token: string) => void;
   logout: () => Promise<void>;
   fetchUser: () => Promise<void>;
+
+  hasRole: (role: string) => boolean;
+  can: (permission: string) => boolean;
 };
 
 export const useAuth = create<AuthStore>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       user: null,
       token: null,
       connection: true,
@@ -58,7 +61,14 @@ export const useAuth = create<AuthStore>()(
       },
       updateConnection: (value: boolean) => {
         set({ connection: value });
-      }
+      },
+      hasRole: (role) => {
+          return get().user?.roles?.name === role;
+      },
+
+      can: (permission) => {
+          return get().user?.permissions?.includes(permission) ?? false;
+      },
     }),
     {
       name: 'auth-storage',

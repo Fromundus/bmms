@@ -112,7 +112,7 @@ const ReportsPage = () => {
   ]
 
   return (
-    <AdminPageMain title="Reports & Statistics" description="">
+    <AdminPageMain title="Statistics" description="">
       {/* <Card className="bmms-card">
         <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -218,23 +218,23 @@ const ReportsPage = () => {
             </CardContent>
         </Card>
 
-        <Card className="bmms-card w-full">
+        {/* <Card className="bmms-card w-full">
             <CardHeader>
                 <CardTitle>Export Data</CardTitle>
             </CardHeader>
             <CardContent>
-                {/* <Button variant="outline" className="h-16 flex flex-col gap-2" onClick={() => handleDownload('excel')}>
+                <Button variant="outline" className="h-16 flex flex-col gap-2" onClick={() => handleDownload('excel')}>
                     <Download className="h-6 w-6" />
                     <span>Export to Excel</span>
                 </Button>
                 <Button variant="outline" className="h-16 flex flex-col gap-2" onClick={() => handleDownload('pdf')}>
                     <Download className="h-6 w-6" />
                     <span>Export to PDF</span>
-                </Button> */}
+                </Button>
 
                 <ExportWithDateRange />
             </CardContent>
-        </Card>
+        </Card> */}
       </div>
     </AdminPageMain>
   )

@@ -22,7 +22,7 @@ import {
   SidebarMenuItem,
   SidebarHeader,
 } from "@/components/ui/sidebar";
-import { adminNavigations, bhwNavigations, bnsNavigations } from "@/data/navigations";
+import { adminNavigations, bhwNavigations, bnsNavigations, navigations } from "@/data/navigations";
 import { useAuth } from "@/store/auth";
 import logo from "../assets/logo.png";
 
@@ -36,19 +36,25 @@ const menuItems = [
 ];
 
 export function AppSidebar() {
-  const { user } = useAuth();
+  const { user, can } = useAuth();
 
-  let navigations: typeof menuItems = [];
+  
 
-  if(user.role === "bhw"){
-    navigations = bhwNavigations;
-  } else if (user.role === "bns"){
-    navigations = bnsNavigations;
-  } else if (user.role === "admin"){
-    navigations = adminNavigations;
-  }
+  const allowedNavigations = navigations.filter((item) =>
+      can(item.permission)
+  );
 
-  const groupedItems = navigations.reduce((acc, item) => {
+  // let navigations: typeof menuItems = [];
+
+  // if(user.role === "bhw"){
+  //   navigations = bhwNavigations;
+  // } else if (user.role === "bns"){
+  //   navigations = bnsNavigations;
+  // } else if (user.role === "admin"){
+  //   navigations = adminNavigations;
+  // }
+
+  const groupedItems = allowedNavigations.reduce((acc, item) => {
     if (!acc[item.group]) {
       acc[item.group] = [];
     }
