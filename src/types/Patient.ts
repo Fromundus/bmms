@@ -32,6 +32,7 @@ type Patient = {
   address: string;
   birthday: string;
   belongs_to_ip: number;
+  is_pregnant: number;
   contact_number: string;
   created_at: string;
   id: 100

@@ -23,6 +23,7 @@ const PatientsAddPage = () => {
         sex: "",
         birthday: "",
         belongs_to_ip: "0",
+        is_pregnant: "0",
         date_measured: "",
         weight: null,
         height: null,
@@ -157,7 +158,8 @@ const PatientsAddPage = () => {
                                 <Select value={data.sex} onValueChange={(value) => setData((prev) => {
                                     return {
                                         ...prev,
-                                        sex: value
+                                        sex: value,
+                                        is_pregnant: '0',
                                     }
                                 })}>
                                 <SelectTrigger>
@@ -213,6 +215,24 @@ const PatientsAddPage = () => {
                                 </Select>
                                 {errors?.belongs_to_ip && <span className='text-red-500 text-sm'>{errors?.belongs_to_ip}</span>}
                             </div>
+                            {data.sex === "Female" && <div className="flex flex-col gap-3">
+                                <Label htmlFor="address">Is Pregnant</Label>
+                                <Select value={data.is_pregnant} onValueChange={(value) => setData((prev) => {
+                                    return {
+                                        ...prev,
+                                        is_pregnant: value
+                                    }
+                                })}>
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Select" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value={"0"}>No</SelectItem>
+                                    <SelectItem value={"1"}>Yes</SelectItem>
+                                </SelectContent>
+                                </Select>
+                                {errors?.is_pregnant && <span className='text-red-500 text-sm'>{errors?.is_pregnant}</span>}
+                            </div>}
                         </div>
                     </CardContent>
                 </Card>

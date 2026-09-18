@@ -97,6 +97,10 @@ const PatientPage = () => {
               <Label>Belongs to IP</Label>
               <div>{patient?.belongs_to_ip ? "Yes" : "No"}</div>
             </div>
+            {patient?.sex === "Female" && <div>
+              <Label>Is Pregnant</Label>
+              <div>{patient?.is_pregnant ? "Yes" : "No"}</div>
+            </div>}
           </div>
         </CardContent>
       </Card>

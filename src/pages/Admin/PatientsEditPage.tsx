@@ -182,7 +182,7 @@ const PatientsEditPage = () => {
                                 <Label htmlFor="sex">Sex</Label>
                                 <Select
                                     value={data.sex}
-                                    onValueChange={(value) => setData((prev) => prev ? { ...prev, sex: value } : prev)}
+                                    onValueChange={(value) => setData((prev) => prev ? { ...prev, sex: value, is_pregnant: 0, } : prev)}
                                 >
                                     <SelectTrigger>
                                         <SelectValue placeholder="Select" />
@@ -236,6 +236,24 @@ const PatientsEditPage = () => {
                                 </Select>
                                 {errors?.belongs_to_ip && <span className='text-red-500 text-sm'>{errors?.belongs_to_ip}</span>}
                             </div>
+                            {data.sex === "Female" && <div className="flex flex-col gap-3">
+                                <Label htmlFor="address">Is Pregnant</Label>
+                                <Select value={String(data.is_pregnant)} onValueChange={(value) => setData((prev) => {
+                                    return {
+                                        ...prev,
+                                        is_pregnant: Number(value)
+                                    }
+                                })}>
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Select" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value={"0"}>No</SelectItem>
+                                    <SelectItem value={"1"}>Yes</SelectItem>
+                                </SelectContent>
+                                </Select>
+                                {errors?.is_pregnant && <span className='text-red-500 text-sm'>{errors?.is_pregnant}</span>}
+                            </div>}
                         </div>
                     </CardContent>
                 </Card>
