@@ -45,6 +45,8 @@ type Patient = {
 export type PatientRecord = {
   age: number;
   allergies: null | string;
+  bmi: string | null;
+  bmi_for_age: string | null;
   created_at: string;
   date_measured: string;
   height: number;

@@ -356,6 +356,8 @@ export default function PatientsPage() {
                 <TableHead>Age</TableHead>
                 <TableHead>Weight for Age Status</TableHead>
                 <TableHead>Height for Age Status</TableHead>
+                <TableHead>Weight for Length/Height</TableHead>
+                <TableHead>BMI for Age</TableHead>
                 <TableHead>BMI</TableHead>
                 <TableHead>Overall Status</TableHead>
                 <TableHead>Actions</TableHead>
@@ -390,6 +392,8 @@ export default function PatientsPage() {
                     <TableCell><PatientStatusBadge status={u?.latest_record?.weight_for_age} /></TableCell>
                     <TableCell><PatientStatusBadge status={u?.latest_record?.height_for_age} /></TableCell>
                     <TableCell><PatientStatusBadge status={u?.latest_record?.weight_for_ltht_status} /></TableCell>
+                    <TableCell><PatientStatusBadge status={u?.latest_record?.bmi_for_age} /></TableCell>
+                    <TableCell><PatientStatusBadge status={u?.latest_record?.bmi} /></TableCell>
 
                     <TableCell><PatientStatusBadge status={u?.latest_record?.status} /></TableCell>
                     <TableCell>
