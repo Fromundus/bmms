@@ -125,8 +125,28 @@ const PatientPage = () => {
               <div>{patient?.latest_record?.height} cm <PatientStatusBadge status={patient?.latest_record?.height_for_age} /></div>
             </div>
             <div>
-              <Label>Weight-for-Height</Label>
+              <Label>Weight-for-Age</Label>
+              <div><PatientStatusBadge status={patient?.latest_record?.weight_for_age} /></div>
+            </div>
+            <div>
+              <Label>Height-for-Age</Label>
+              <div><PatientStatusBadge status={patient?.latest_record?.height_for_age} /></div>
+            </div>
+            <div>
+              <Label>Weight-for-Height/Lenght</Label>
               <div><PatientStatusBadge status={patient?.latest_record?.weight_for_ltht_status} /></div>
+            </div>
+            <div>
+              <Label>BMI-for-Age</Label>
+              <div><PatientStatusBadge status={patient?.latest_record?.bmi_for_age} /></div>
+            </div>
+            <div>
+              <Label>BMI</Label>
+              <div><PatientStatusBadge status={patient?.latest_record?.bmi} /></div>
+            </div>
+            <div>
+              <Label>Status</Label>
+              <div><PatientStatusBadge status={patient?.latest_record?.status} /></div>
             </div>
           </div>
         </CardContent>
