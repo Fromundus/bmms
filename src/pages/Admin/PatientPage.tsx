@@ -93,10 +93,10 @@ const PatientPage = () => {
               <Label>Contact Number</Label>
               <div>{patient?.contact_number}</div>
             </div>
-            <div>
+            {/* <div>
               <Label>Belongs to IP</Label>
               <div>{patient?.belongs_to_ip ? "Yes" : "No"}</div>
-            </div>
+            </div> */}
             {patient?.sex === "Female" && <div>
               <Label>Is Pregnant</Label>
               <div>{patient?.is_pregnant ? "Yes" : "No"}</div>

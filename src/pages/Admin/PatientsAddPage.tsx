@@ -197,7 +197,7 @@ const PatientsAddPage = () => {
                                 minLength={11}
                                 maxLength={11}
                             />
-                            <div className="flex flex-col gap-3">
+                            {/* <div className="flex flex-col gap-3">
                                 <Label htmlFor="address">Belongs to IP</Label>
                                 <Select value={data.belongs_to_ip} onValueChange={(value) => setData((prev) => {
                                     return {
@@ -214,7 +214,7 @@ const PatientsAddPage = () => {
                                 </SelectContent>
                                 </Select>
                                 {errors?.belongs_to_ip && <span className='text-red-500 text-sm'>{errors?.belongs_to_ip}</span>}
-                            </div>
+                            </div> */}
                             {data.sex === "Female" && <div className="flex flex-col gap-3">
                                 <Label htmlFor="address">Is Pregnant</Label>
                                 <Select value={data.is_pregnant} onValueChange={(value) => setData((prev) => {
