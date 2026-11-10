@@ -42,17 +42,6 @@ const ReportsAndSolutions = () => {
                         <span>Loading...</span>
                     ) : reports?.length ? reports.map((item) => {
                         return (
-                            // <Card key={item.id} className='border border-primary'>
-                            //     <CardHeader>
-                            //         <CardTitle>
-                            //             Generated on {format(new Date(item.created_at), 'PPp')}
-                            //         </CardTitle>
-                            //     </CardHeader>
-                            //     <CardContent>
-                                    
-                            //     </CardContent>
-                            // </Card>
-
                             <ReportCard key={item.id} item={item} />
                         )
                     }) : (

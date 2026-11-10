@@ -192,6 +192,7 @@ interface ReportItem {
   chart_data: {
     adults: any;
     children: any;
+    pregnant_women: any;
   };
   remark: string;
   recommendations: any[];
@@ -227,6 +228,7 @@ export const STATUS_COLORS: Record<string, string> = {
 export default function ReportCard({ item }: { item: ReportItem }) {
   const adults = item.chart_data.adults;
   const children = item.chart_data.children;
+  const pregnantWomen = item.chart_data.pregnant_women
 
   const adultData = [
     { name: "Healthy", value: adults.healthy },
@@ -249,11 +251,30 @@ export default function ReportCard({ item }: { item: ReportItem }) {
     { name: "At Risk", value: children.at_risk },
   ];
 
+  const pregnantData = [
+      {
+          name: 'Healthy',
+          value: pregnantWomen?.healthy,
+      },
+      {
+          name: 'At Risk',
+          value: pregnantWomen?.at_risk,
+      },
+      {
+          name: 'Moderate',
+          value: pregnantWomen?.moderate,
+      },
+      {
+          name: 'Severe',
+          value: pregnantWomen?.severe,
+      },
+  ]
+
   const comparisonData = [
-    { name: "Healthy", adults: adults.healthy, children: children.healthy },
-    { name: "At Risk", adults: adults.at_risk, children: children.at_risk },
-    { name: "Moderate", adults: adults.moderate, children: children.moderate },
-    { name: "Severe", adults: adults.severe, children: children.severe },
+    { name: "Healthy", adults: adults.healthy, children: children.healthy, pregnantWomen: pregnantWomen?.healthy },
+    { name: "At Risk", adults: adults.at_risk, children: children.at_risk, pregnantWomen: pregnantWomen?.at_risk },
+    { name: "Moderate", adults: adults.moderate, children: children.moderate, pregnantWomen: pregnantWomen?.moderate },
+    { name: "Severe", adults: adults.severe, children: children.severe, pregnantWomen: pregnantWomen?.severe },
   ];
 
   const priorityColor: any = {
@@ -297,7 +318,7 @@ export default function ReportCard({ item }: { item: ReportItem }) {
 
       <CardContent className="space-y-4">
         {/* SUMMARY */}
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-4 gap-2">
           <div className="p-2 border rounded-lg">
             <p className="text-xs text-muted-foreground">Population</p>
             <h2 className="text-lg font-semibold">{item.total_population}</h2>
@@ -311,6 +332,17 @@ export default function ReportCard({ item }: { item: ReportItem }) {
           <div className="p-2 border rounded-lg">
             <p className="text-xs text-muted-foreground">Children</p>
             <h2 className="text-lg font-semibold">{children.total}</h2>
+          </div>
+
+          {/* Pregnant Women */}
+          <div className="rounded-lg border p-3">
+              <p className="text-xs text-muted-foreground">
+                  Pregnant Women
+              </p>
+
+              <h2 className="text-lg font-semibold">
+                  {pregnantWomen?.total ?? 0}
+              </h2>
           </div>
         </div>
 
@@ -341,33 +373,6 @@ export default function ReportCard({ item }: { item: ReportItem }) {
             </ResponsiveContainer>
           </div>
 
-          <div className="flex flex-col gap-2 text-nowrap">
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-[#22c55e]"></div>
-              <div className="text-[11px]">
-                <p className="font-semibold">Healthy</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-[#eab308]"></div>
-              <div className="text-[11px]">
-                <p className="font-semibold">At Risk</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-[#f97316]"></div>
-              <div className="text-[11px]">
-                <p className="font-semibold">Moderate</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-[#ef4444]"></div>
-              <div className="text-[11px]">
-                <p className="font-semibold">Severe</p>
-              </div>
-            </div>
-          </div>
-
           <div className="p-2 border rounded-lg w-full">
             <h3 className="text-xs font-medium mb-1">Children</h3>
             <ResponsiveContainer width="100%" height={180}>
@@ -390,6 +395,57 @@ export default function ReportCard({ item }: { item: ReportItem }) {
                 <Tooltip />
               </PieChart>
             </ResponsiveContainer>
+          </div>
+
+          <div className="p-2 border rounded-lg w-full">
+            <h3 className="text-xs font-medium mb-1">Pregnant</h3>
+            <ResponsiveContainer width="100%" height={180}>
+              <PieChart>
+                  <Pie
+                    data={pregnantData}
+                    dataKey="value"
+                    outerRadius={80}
+                    label={renderInsideLabel}
+                    labelLine={false}
+                  >
+                  {childData.map((entry, index) => (
+                    // <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                    <Cell
+                      key={index}
+                      fill={STATUS_COLORS[entry.name] || "#94a3b8"} // fallback gray
+                    />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        <div className="flex gap-2 text-nowrap w-full justify-center">
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 bg-[#22c55e]"></div>
+            <div className="text-[11px]">
+              <p className="font-semibold">Healthy</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 bg-[#eab308]"></div>
+            <div className="text-[11px]">
+              <p className="font-semibold">At Risk</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 bg-[#f97316]"></div>
+            <div className="text-[11px]">
+              <p className="font-semibold">Moderate</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 bg-[#ef4444]"></div>
+            <div className="text-[11px]">
+              <p className="font-semibold">Severe</p>
+            </div>
           </div>
         </div>
 
@@ -415,6 +471,15 @@ export default function ReportCard({ item }: { item: ReportItem }) {
                 {comparisonData.map((entry, index) => (
                   <Cell
                     key={`child-${index}`}
+                    fill={STATUS_COLORS[entry.name] || "#94a3b8"}
+                  />
+                ))}
+              </Bar>
+
+              <Bar dataKey="pregnantWomen" label={{ position: "top", fontSize: 13 }}>
+                {comparisonData.map((entry, index) => (
+                  <Cell
+                    key={`pregnantWomen-${index}`}
                     fill={STATUS_COLORS[entry.name] || "#94a3b8"}
                   />
                 ))}
