@@ -184,6 +184,13 @@ import {
   Pie,
   Cell,
 } from "recharts";
+import { useRef } from "react";
+import * as XLSX from "xlsx";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+
+import { Button } from "@/components/ui/button";
+import { FileSpreadsheet, FileText } from "lucide-react";
 
 interface ReportItem {
   id: number;
@@ -305,18 +312,216 @@ export default function ReportCard({ item }: { item: ReportItem }) {
     );
   };
 
+
+const reportRef = useRef<HTMLDivElement>(null);
+
+// EXPORT EXCEL
+const exportExcel = () => {
+  const workbook = XLSX.utils.book_new();
+
+  // Summary
+  const summaryData = [
+    ["Health Report"],
+    ["Report Date", format(new Date(item.created_at), "PP")],
+    ["Total Population", item.total_population],
+    ["Adults", adults.total],
+    ["Children", children.total],
+    ["Pregnant Women", pregnantWomen?.total ?? 0],
+    [],
+    ["Summary", item.remark],
+  ];
+
+  const summarySheet = XLSX.utils.aoa_to_sheet(summaryData);
+  XLSX.utils.book_append_sheet(workbook, summarySheet, "Summary");
+
+  // Adult Distribution
+  const adultSheet = XLSX.utils.json_to_sheet(
+    adultData.map((entry) => ({
+      Status: entry.name,
+      Count: entry.value ?? 0,
+    }))
+  );
+  XLSX.utils.book_append_sheet(workbook, adultSheet, "Adults");
+
+  // Children Distribution
+  const childSheet = XLSX.utils.json_to_sheet(
+    childData.map((entry) => ({
+      Status: entry.name,
+      Count: entry.value ?? 0,
+    }))
+  );
+  XLSX.utils.book_append_sheet(workbook, childSheet, "Children");
+
+  // Pregnant Women Distribution
+  const pregnantSheet = XLSX.utils.json_to_sheet(
+    pregnantData.map((entry) => ({
+      Status: entry.name,
+      Count: entry.value ?? 0,
+    }))
+  );
+  XLSX.utils.book_append_sheet(
+    workbook,
+    pregnantSheet,
+    "Pregnant Women"
+  );
+
+  // Adults vs Children vs Pregnant Women
+  const comparisonSheet = XLSX.utils.json_to_sheet(
+    comparisonData.map((entry) => ({
+      Status: entry.name,
+      Adults: entry.adults ?? 0,
+      Children: entry.children ?? 0,
+      PregnantWomen: entry.pregnantWomen ?? 0,
+    }))
+  );
+  XLSX.utils.book_append_sheet(
+    workbook,
+    comparisonSheet,
+    "Comparison"
+  );
+
+  // Recommendations
+  const recommendationsSheet = XLSX.utils.json_to_sheet(
+    item.recommendations.map((rec) => ({
+      Group: rec.group,
+      Priority: rec.priority,
+      Recommendation: rec.message,
+      Actions: (rec.actions ?? []).join("; "),
+    }))
+  );
+  XLSX.utils.book_append_sheet(
+    workbook,
+    recommendationsSheet,
+    "Recommendations"
+  );
+
+  XLSX.writeFile(
+    workbook,
+    `Health_Report_${item.id}.xlsx`
+  );
+};
+
+// EXPORT PDF
+const exportPDF = async () => {
+  if (!reportRef.current) return;
+
+  try {
+    const canvas = await html2canvas(reportRef.current, {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: "#ffffff",
+      logging: false,
+    });
+
+    const pdf = new jsPDF("landscape", "mm", "a4");
+
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+
+    const imageWidth = pageWidth;
+    const imageHeight =
+      (canvas.height * imageWidth) / canvas.width;
+
+    // Calculate the source canvas height for each PDF page
+    const sourcePageHeight =
+      (canvas.width * pageHeight) / imageWidth;
+
+    let sourceY = 0;
+    let page = 0;
+
+    while (sourceY < canvas.height) {
+      const sliceHeight = Math.min(
+        sourcePageHeight,
+        canvas.height - sourceY
+      );
+
+      const pageCanvas = document.createElement("canvas");
+      pageCanvas.width = canvas.width;
+      pageCanvas.height = sliceHeight;
+
+      const context = pageCanvas.getContext("2d");
+      if (!context) {
+        throw new Error("Could not create PDF canvas.");
+      }
+
+      context.drawImage(
+        canvas,
+        0,
+        sourceY,
+        canvas.width,
+        sliceHeight,
+        0,
+        0,
+        canvas.width,
+        sliceHeight
+      );
+
+      const pageImage = pageCanvas.toDataURL("image/png");
+      const sliceImageHeight =
+        (sliceHeight * imageWidth) / canvas.width;
+
+      if (page > 0) {
+        pdf.addPage();
+      }
+
+      pdf.addImage(
+        pageImage,
+        "PNG",
+        0,
+        0,
+        imageWidth,
+        sliceImageHeight
+      );
+
+      sourceY += sliceHeight;
+      page++;
+    }
+
+    pdf.save(`Health_Report_${item.id}.pdf`);
+  } catch (error) {
+    console.error("PDF export failed:", error);
+  }
+};
+
+
   return (
     <Card className="border border-primary shadow-md rounded-xl">
       <CardHeader className="py-3">
-        <div className="flex justify-between items-center">
-          <CardTitle className="text-base">Health Report</CardTitle>
-          <Badge variant="secondary" className="text-xs">
-            {format(new Date(item.created_at), "PP")}
-          </Badge>
+        <div className="flex flex-wrap justify-between items-center gap-3">
+          <div className="flex items-center gap-2">
+            <CardTitle className="text-base">
+              Health Report
+            </CardTitle>
+
+            <Badge variant="secondary" className="text-xs">
+              {format(new Date(item.created_at), "PP")}
+            </Badge>
+          </div>
+
+          <div className="flex items-center gap-2">
+            {/* <Button
+              size="sm"
+              variant="outline"
+              onClick={exportExcel}
+            >
+              <FileSpreadsheet className="mr-2 h-4 w-4" />
+              Excel
+            </Button> */}
+
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={exportPDF}
+              className="bg-red-500 hover:bg-red-600"
+            >
+              <FileText className="mr-2 h-4 w-4" />
+              Export PDF
+            </Button>
+          </div>
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-4">
+      <CardContent ref={reportRef} className="space-y-4">
         {/* SUMMARY */}
         <div className="grid grid-cols-4 gap-2">
           <div className="p-2 border rounded-lg">
