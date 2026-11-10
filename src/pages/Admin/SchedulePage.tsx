@@ -182,7 +182,7 @@ const fetchPatients = async ({
 }
 
 const SchedulePage = () => {
-    const [selectedPatients, setSelectedPatients] = useState<number[]>([])
+    const [selectedPatients, setSelectedPatients] = useState([]);
     const [search, setSearch] = useState('')
     const [data, setData] = useState({
         date: '',
