@@ -22,6 +22,7 @@ import { useEffect, useState } from "react";
 import api from "@/api/axios";
 import { useAuth } from "@/store/auth";
 import ReportsPage from "@/pages/Admin/ReportsPage";
+import BarangayStats from "./custom/BarangayStats";
 
   // const stats = {
   //   totalResidents: 1248,
@@ -174,6 +175,8 @@ export function DashboardOverview() {
       </Card>
 
       <ReportsPage />
+
+      <BarangayStats />
 
       {/* Quick Actions */}
       <Card className="bmms-card">

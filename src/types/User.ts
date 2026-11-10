@@ -1,8 +1,12 @@
+import { Barangay } from "./Barangay";
+
 type User = {
   id: number;
   name: string;
   contact_number?: string | null;
   area?: string | null;
+  barangay: Barangay;
+  barangay_id: number;
   notes?: string | null;
   email: string;
   email_verified_at: string;

@@ -76,6 +76,9 @@ export function AppSidebar() {
             <p className="text-xs text-muted-foreground">Barangay Nutritional Status Monitoring System</p>
           </div>
         </div>
+        {user?.barangay?.name && <div className="w-full text-center font-semibold">
+          Barangay {user?.barangay?.name}
+        </div>}
       </SidebarHeader>
 
       <SidebarContent>

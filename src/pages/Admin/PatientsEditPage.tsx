@@ -13,6 +13,8 @@ import { Save } from 'lucide-react';
 import api from '@/api/axios';
 import { toast } from '@/hooks/use-toast';
 import Questionnaire, { QuestionnaireData } from "../../components/custom/Questionnaire";
+import { useQuery } from '@tanstack/react-query';
+import { fetchBarangays } from '@/api/barangay';
 
 const PatientsEditPage = () => {
     const { user } = useAuth();
@@ -31,6 +33,13 @@ const PatientsEditPage = () => {
     });
 
     const [errors, setErrors] = useState(null);
+
+    const { data: barangays, isLoading } = useQuery({
+        queryKey: ['barangays'],
+        queryFn: fetchBarangays,
+        enabled: true,
+        staleTime: Infinity,
+    })
 
     // Fetch patient data when page loads
     useEffect(() => {
@@ -159,7 +168,7 @@ const PatientsEditPage = () => {
                                 onChange={handleChange}
                                 disabled={loading}
                             />
-                            <div className="flex flex-col gap-3">
+                            {/* <div className="flex flex-col gap-3">
                                 <Label htmlFor="address">Address</Label>
                                 <Select value={data.address} onValueChange={(value) => setData((prev) => {
                                     return {
@@ -177,6 +186,27 @@ const PatientsEditPage = () => {
                                 </SelectContent>
                                 </Select>
                                 {errors?.address && <span className='text-red-500 text-sm'>{errors?.address}</span>}
+                            </div> */}
+                            <div className="space-y-2">
+                                <Label htmlFor="barangay_id">Barangay</Label>
+                                <Select disabled={Boolean(user?.barangay_id)} value={String(data.barangay_id)} onValueChange={(value) => setData((prev) => {
+                                    return {
+                                        ...prev,
+                                        barangay_id: value
+                                    }
+                                })}>
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Select" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {barangays?.map((item) => {
+                                        return (
+                                            <SelectItem key={item.id} value={String(item.id)}>{item.name}</SelectItem>
+                                        )
+                                    })}
+                                </SelectContent>
+                                </Select>
+                                {errors?.barangay_id && <span className='text-red-500 text-sm'>{errors?.barangay_id}</span>}
                             </div>
                             <div className="flex flex-col gap-3">
                                 <Label htmlFor="sex">Sex</Label>

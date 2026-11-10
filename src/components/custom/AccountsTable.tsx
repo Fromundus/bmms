@@ -238,7 +238,8 @@ export default function AccountsTable() {
                 <TableHead>Name</TableHead>
                 <TableHead>Email</TableHead>
                 <TableHead>Contact Number</TableHead>
-                <TableHead>Area of Assignment</TableHead>
+                <TableHead>Barangay</TableHead>
+                <TableHead>Area</TableHead>
                 <TableHead>Notes</TableHead>
                 <TableHead>Role</TableHead>
                 <TableHead>Status</TableHead>
@@ -264,6 +265,7 @@ export default function AccountsTable() {
                     <TableCell>{u.name}</TableCell>
                     <TableCell>{u.email}</TableCell>
                     <TableCell>{u.contact_number}</TableCell>
+                    <TableCell>{u.barangay.name}</TableCell>
                     <TableCell>{u.area}</TableCell>
                     <TableCell>{u.notes}</TableCell>
                     <TableCell>{u.role}</TableCell>

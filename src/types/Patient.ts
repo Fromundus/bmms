@@ -13,6 +13,9 @@
 //   weight_for_age?: string;
 //   height_for_age?: string;
 //   weight_for_ltht_status?: string;
+
+import { Barangay } from "./Barangay";
+
   
 //   immunizations: string;
 //   last_deworming_date: string;
@@ -32,6 +35,8 @@ type Patient = {
   address: string;
   birthday: string;
   belongs_to_ip: number;
+  barangay: Barangay;
+  barangay_id: any;
   is_pregnant: number;
   contact_number: string;
   created_at: string;

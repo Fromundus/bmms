@@ -12,11 +12,14 @@ import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import background from "../assets/background.jpg";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useQuery } from '@tanstack/react-query';
+import { fetchBarangays } from '@/api/barangay';
 
 type FormData = {
     name: string;
     email: string;
     contact_number: string;
+    barangay_id: string | null;
     area: string;
     role: string;
     password: string;
@@ -30,6 +33,7 @@ const Register = () => {
         name: "",
         email: "",
         contact_number: "",
+        barangay_id: "",
         area: "",
         role: "",
         password: "",
@@ -40,6 +44,7 @@ const Register = () => {
         name: "",
         email: "",
         contact_number: "",
+        barangay_id: "",
         area: "",
         role: "",
         password: "",
@@ -47,6 +52,13 @@ const Register = () => {
     });
 
     const navigate = useNavigate();
+
+    const { data, isLoading } = useQuery({
+        queryKey: ['barangays'],
+        queryFn: fetchBarangays,
+        enabled: true,
+        staleTime: Infinity,
+    })
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -130,6 +142,29 @@ const Register = () => {
                                     error={errors?.contact_number}
                                     disabled={loading}
                                 />
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="barangay_id">Barangay</Label>
+                                    <Select value={formData.barangay_id} onValueChange={(value) => setFormData((prev) => {
+                                        return {
+                                            ...prev,
+                                            barangay_id: value
+                                        }
+                                    })}>
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Select" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {data?.map((item) => {
+                                            return (
+                                                <SelectItem key={item.id} value={String(item.id)}>{item.name}</SelectItem>
+                                            )
+                                        })}
+                                    </SelectContent>
+                                    </Select>
+                                    {errors?.barangay_id && <span className='text-red-500 text-sm'>{errors?.barangay_id}</span>}
+                                </div>
+                                
                                 <InputWithLabel
                                     id="area"
                                     name='area'

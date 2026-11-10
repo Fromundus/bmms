@@ -346,7 +346,7 @@ export default function PatientsPage() {
                 </TableHead>
                 <TableHead>Name</TableHead>
                 <TableHead>Sex</TableHead>
-                <TableHead>Address</TableHead>
+                <TableHead>Barangay</TableHead>
                 {/* <TableHead>Belongs to IP</TableHead> */}
                 <TableHead>Is Pregnant</TableHead>
                 <TableHead>Birthday</TableHead>
@@ -381,7 +381,7 @@ export default function PatientsPage() {
                     </TableCell>
                     <TableCell className="text-nowrap">{u?.name}</TableCell>
                     <TableCell>{u?.sex}</TableCell>
-                    <TableCell className="text-nowrap">{u?.address}</TableCell>
+                    <TableCell className="text-nowrap">{u?.barangay?.name}</TableCell>
                     {/* <TableCell>{u?.belongs_to_ip ? "Yes" : "No"}</TableCell> */}
                     <TableCell>{u?.sex === "Female" ? u?.is_pregnant ? "Yes" : "No" : "N/A"}</TableCell>
                     <TableCell>{format(new Date(u?.birthday), "P")}</TableCell>
