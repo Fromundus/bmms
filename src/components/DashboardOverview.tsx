@@ -176,7 +176,7 @@ export function DashboardOverview() {
 
       <ReportsPage />
 
-      <BarangayStats />
+      {!user?.barangay_id && <BarangayStats />}
 
       {/* Quick Actions */}
       <Card className="bmms-card">
