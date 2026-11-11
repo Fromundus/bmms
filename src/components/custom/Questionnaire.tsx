@@ -28,7 +28,8 @@ export default function Questionnaire({ data, setData }: QuestionnaireProps) {
             checked={data.lowIncome}
             onChange={() => handleChange("lowIncome")}
           />
-          <span>Family income below ₱10,000/month</span>
+          {/* <span>Family income below ₱10,000/month</span> */}
+          <span>Unstable Income</span>
         </label>
 
         <label className="flex items-center space-x-2">
