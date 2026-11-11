@@ -168,7 +168,7 @@ const PatientsEditPage = () => {
                                 onChange={handleChange}
                                 disabled={loading}
                             />
-                            {/* <div className="flex flex-col gap-3">
+                            <div className="flex flex-col gap-3">
                                 <Label htmlFor="address">Address</Label>
                                 <Select value={data.address} onValueChange={(value) => setData((prev) => {
                                     return {
@@ -180,13 +180,26 @@ const PatientsEditPage = () => {
                                     <SelectValue placeholder="Select" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="Purok 1 (JMA Alberto Street)">Purok 1 (JMA Alberto Street)</SelectItem>
-                                    <SelectItem value="Purok 2 (San Lorenzo)">Purok 2 (San Lorenzo)</SelectItem>
-                                    <SelectItem value="Purok 3 Salvacion Street">Purok 3 Salvacion Street</SelectItem>
+                                    {String(data.barangay_id) === "11" ? (
+                                        <>
+                                            <SelectItem value="Purok 1 (JMA Alberto Street)">Purok 1 (JMA Alberto Street)</SelectItem>
+                                            <SelectItem value="Purok 2 (San Lorenzo)">Purok 2 (San Lorenzo)</SelectItem>
+                                            <SelectItem value="Purok 3 Salvacion Street">Purok 3 Salvacion Street</SelectItem>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <SelectItem value="Purok 1">Purok 1</SelectItem>
+                                            <SelectItem value="Purok 2">Purok 2</SelectItem>
+                                            <SelectItem value="Purok 3">Purok 3</SelectItem>
+                                            <SelectItem value="Purok 4">Purok 4</SelectItem>
+                                            <SelectItem value="Purok 5">Purok 5</SelectItem>
+                                            <SelectItem value="Purok 6">Purok 6</SelectItem>
+                                        </>
+                                    )}
                                 </SelectContent>
                                 </Select>
                                 {errors?.address && <span className='text-red-500 text-sm'>{errors?.address}</span>}
-                            </div> */}
+                            </div>
                             <div className="space-y-2">
                                 <Label htmlFor="barangay_id">Barangay</Label>
                                 <Select disabled={Boolean(user?.barangay_id)} value={String(data.barangay_id)} onValueChange={(value) => setData((prev) => {

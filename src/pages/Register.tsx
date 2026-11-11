@@ -165,7 +165,7 @@ const Register = () => {
                                     {errors?.barangay_id && <span className='text-red-500 text-sm'>{errors?.barangay_id}</span>}
                                 </div>
                                 
-                                <InputWithLabel
+                                {/* <InputWithLabel
                                     id="area"
                                     name='area'
                                     type="area"
@@ -175,7 +175,7 @@ const Register = () => {
                                     onChange={handleChange}
                                     error={errors?.area}
                                     disabled={loading}
-                                />
+                                /> */}
 
                                 <div className="space-y-2">
                                     <Label htmlFor="role">Role</Label>

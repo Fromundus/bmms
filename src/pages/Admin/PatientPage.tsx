@@ -74,7 +74,11 @@ const PatientPage = () => {
               <div>{patient?.name}</div>
             </div>
             <div>
-              <Label>Address</Label>
+              <Label>Barangay</Label>
+              <div>{patient?.barangay?.name}</div>
+            </div>
+            <div>
+              <Label>Purok</Label>
               <div>{patient?.address}</div>
             </div>
             <div>

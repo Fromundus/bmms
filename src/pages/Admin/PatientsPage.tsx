@@ -347,6 +347,7 @@ export default function PatientsPage() {
                 <TableHead>Name</TableHead>
                 <TableHead>Sex</TableHead>
                 <TableHead>Barangay</TableHead>
+                <TableHead>Purok</TableHead>
                 {/* <TableHead>Belongs to IP</TableHead> */}
                 <TableHead>Is Pregnant</TableHead>
                 <TableHead>Birthday</TableHead>
@@ -366,7 +367,7 @@ export default function PatientsPage() {
             <TableBody>
               {loading ? (
                 <TableRow>
-                  <TableCell colSpan={15} className="text-center">
+                  <TableCell colSpan={18} className="text-center">
                     Loading...
                   </TableCell>
                 </TableRow>
@@ -382,6 +383,7 @@ export default function PatientsPage() {
                     <TableCell className="text-nowrap">{u?.name}</TableCell>
                     <TableCell>{u?.sex}</TableCell>
                     <TableCell className="text-nowrap">{u?.barangay?.name}</TableCell>
+                    <TableCell className="text-nowrap">{u?.address}</TableCell>
                     {/* <TableCell>{u?.belongs_to_ip ? "Yes" : "No"}</TableCell> */}
                     <TableCell>{u?.sex === "Female" ? u?.is_pregnant ? "Yes" : "No" : "N/A"}</TableCell>
                     <TableCell>{format(new Date(u?.birthday), "P")}</TableCell>
@@ -414,7 +416,7 @@ export default function PatientsPage() {
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={15} className="text-center">
+                  <TableCell colSpan={18} className="text-center">
                     No Residents found.
                   </TableCell>
                 </TableRow>
